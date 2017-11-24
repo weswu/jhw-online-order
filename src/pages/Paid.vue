@@ -1,0 +1,84 @@
+<template>
+  <div id="paid">
+    <page-header activeName="shop"></page-header>
+    <div class="container">
+      <div class="login">
+        <form class="login-bd">
+          <h1>支付成功</h1>
+          <div v-for="item in paymentDetail" :key="item.title" class="payment-detail">
+            <p><span>{{item.title}}</span><span>{{item.desc}}</span></p>
+          </div>
+          <div class="login-ft">
+            <mu-raised-button @click="toUc" label="前往管理中心" primary />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import PageHeader from '@/components/Header'
+import { mapGetters } from 'vuex'
+export default {
+  components: {
+    PageHeader
+  },
+  data () {
+    return {
+      paymentDetail: [
+        {
+          title: '订单号',
+          desc: 'wx201711071615032345'
+        },
+        {
+          title: '支付金额',
+          desc: 'RMB 12800'
+        },
+        {
+          title: '支付方式',
+          desc: '微信支付'
+        }
+      ]
+    }
+  },
+  computed: {
+    ...mapGetters('shop', ['year', 'totalPrice', 'shopFunction', 'orderDetail'])
+  },
+  methods: {
+    handleTabChange (val) {
+      this.activeTab = val
+    },
+    toUc () {
+      this.$router.push({ name: 'uc' })
+    }
+  }
+}
+</script>
+
+<style>
+#paid .order-title {
+  font-weight: bold;
+}
+#paid .order-group-title {
+  color: #9b9b9b;
+}
+#paid .login-bd li,
+#paid .login-bd p {
+  line-height: 2;
+}
+#paid .login-bd li:first-child {
+  padding-left: 0;
+}
+#paid .login-bd p {
+  display: flex;
+  justify-content: space-between;
+}
+#paid .payment-detail {
+  border-bottom: 1px solid #e0e0e0;
+  padding: 10px 0;
+}
+#paid .login-ft {
+  margin-top: 30px;
+}
+</style>
