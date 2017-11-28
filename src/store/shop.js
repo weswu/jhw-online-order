@@ -6,7 +6,7 @@ const state = {
   yearList: [1, 2, 3, 5, 10],
   shopFunction: [
     {
-      title: '常规功能',
+      title: '常规功能 (免费)',
       icon: 'standard.png',
       groups: [
         {
@@ -55,8 +55,8 @@ const state = {
           price: 0,
           value: '1',
           items: [
-            {name: '自有域名', price: 0, value: '1'},
-            {name: '申请域名', price: 100, value: '2'}
+            {name: '自有域名', price: 0, value: '1', id: '297e26696001918601600213ce290047'},
+            {name: '申请域名', price: 100, value: '2', id: '297e26696001918601600215039f004f'}
           ]
         },
         {
@@ -66,16 +66,16 @@ const state = {
           price: 0,
           value: [],
           items: [
-            {name: '自助ICP备案', price: 100, value: '1'},
-            {name: '委托ICP备案', price: 200, value: '2'},
-            {name: '自助网安备案', price: 100, value: '3'},
-            {name: '委托网安备案', price: 200, value: '4'},
-            {name: '去技术支持', price: 300, value: '5'},
-            {name: '全网营销培训', price: 100, value: '6'},
-            {name: '公众号申请', price: 200, value: '7'},
-            {name: '公众号配置', price: 200, value: '8'},
-            {name: '即时通讯绑定', price: 100, value: '9'},
-            {name: '地图定位', price: 300, value: '10'}
+            {name: '自助ICP备案', price: 100, value: '1', id: '297e266960019186016002193c9a0060'},
+            {name: '委托ICP备案', price: 200, value: '2', id: '297e266960019186016002195ebf0063'},
+            {name: '自助网安备案', price: 100, value: '3', id: '297e266960019186016002198ec20065'},
+            {name: '委托网安备案', price: 200, value: '4', id: '297e26696001918601600219bb2a0068'},
+            {name: '去技术支持', price: 300, value: '5', id: '297e26696001918601600219f94d006b'},
+            {name: '全网营销培训', price: 100, value: '6', id: '297e2669600191860160021a2264006d'},
+            {name: '公众号申请', price: 200, value: '7', id: '297e2669600191860160021a516d0070'},
+            {name: '公众号配置', price: 200, value: '8', id: '297e2669600191860160021a7ed50072'},
+            {name: '即时通讯绑定', price: 100, value: '9', id: '297e2669600191860160021aa7540075'},
+            {name: '地图定位', price: 300, value: '10', id: '297e2669600191860160021b5019007c'}
           ]
         }
       ]
@@ -93,8 +93,8 @@ const state = {
           value: '1',
           custom: true,
           items: [
-            {name: '自选模板', price: 0, value: '1'},
-            {name: '定制设计', price: 0, value: '2'}
+            {name: '自选模板', price: 0, value: '1', id: '297e2669600191860160021b8fcc007f'},
+            {name: '定制设计', price: 0, value: '2', id: '297e2669600191860160021c49970083'}
           ]
         },
         {
@@ -105,18 +105,18 @@ const state = {
           value: [],
           magenif: true,
           items: [
-            {name: '网站群建设', price: 1200, value: '1', disabled: false},
-            {name: '定位策划', price: 2000, value: '2', disabled: false},
-            {name: '页面成交逻辑', price: 2000, value: '3', disabled: false},
-            {name: '栏目规划', price: 800, value: '4', disabled: false},
-            {name: '首页定制', price: 800, value: '5', disabled: false},
-            {name: '产品布局', price: 800, value: '6', disabled: false},
-            {name: '公信力建设', price: 900, value: '7', disabled: false},
-            {name: 'LOGO设计', price: 500, value: '8', disabled: false},
-            {name: '焦点图设计', price: 200, value: '9', disabled: false},
-            {name: '按钮图标制作', price: 300, value: '10', disabled: false},
-            {name: '商品图片修图', price: 100, value: '11', disabled: false},
-            {name: '实地拍照', price: 300, value: '12', disabled: false}
+            {name: '网站群建设', price: 1200, value: '1', disabled: false, id: '297e2669600191860160021c7c1c0086'},
+            {name: '定位策划', price: 2000, value: '2', disabled: false, id: '297e2669600191860160021ca3080088'},
+            {name: '页面成交逻辑', price: 2000, value: '3', disabled: false, id: '297e2669600191860160021ccaad008b'},
+            {name: '栏目规划', price: 800, value: '4', disabled: false, id: '297e2669600191860160021cf065008d'},
+            {name: '首页定制', price: 800, value: '5', disabled: false, id: '297e2669600191860160021d84ac0091'},
+            {name: '产品布局', price: 800, value: '6', disabled: false, id: '297e2669600191860160021dffbe0094'},
+            {name: '公信力建设', price: 900, value: '7', disabled: false, id: '297e2669600191860160021e2ba60097'},
+            {name: 'LOGO设计', price: 500, value: '8', disabled: false, id: '297e2669600191860160021e6c5c009a'},
+            {name: '焦点图设计', price: 200, value: '9', disabled: false, id: '297e2669600191860160021ea3df009c'},
+            {name: '按钮图标制作', price: 300, value: '10', disabled: false, id: '297e2669600191860160021ed7fd009f'},
+            {name: '商品图片修图', price: 100, value: '11', disabled: false, id: '297e2669600191860160021efcaf00a1'},
+            {name: '实地拍照', price: 300, value: '12', disabled: false, id: '297e2669600191860160021f2fae00a4'}
           ]
         }
       ]
@@ -132,13 +132,13 @@ const state = {
           price: 0,
           value: [],
           items: [
-            {name: '小程序', price: 1600, value: '1'},
-            {name: '手机网站', price: 600, value: '2'},
-            {name: '微网站', price: 600, value: '3'},
-            {name: '微传单', price: 0, value: '4'},
-            {name: '微样册', price: 600, value: '5'},
-            {name: '多语言版本', price: 1000, value: '6'},
-            {name: '问卷调查', price: 1000, value: '7'}
+            {name: '小程序', price: 1600, value: '1', id: '297e2669600191860160021f845900a7'},
+            {name: '手机网站', price: 600, value: '2', id: '297e2669600191860160021fada500aa'},
+            {name: '微网站', price: 600, value: '3', id: '297e2669600191860160021fe16100ac'},
+            {name: '微传单', price: 0, value: '4', id: '297e26696001918601600220127d00af'},
+            {name: '微样册', price: 600, value: '5', id: '297e26696001918601600220437400b1'},
+            {name: '多语言版本', price: 1000, value: '6', id: '297e26696001918601600220721b00b4'},
+            {name: '问卷调查', price: 1000, value: '7', id: '297e2669600191860160022099eb00b6'}
           ]
         },
         {
@@ -148,14 +148,14 @@ const state = {
           price: 0,
           value: [],
           items: [
-            {name: '在线交易模块', price: 600, value: '1'},
-            {name: '关键词监测', price: 600, value: '2'},
-            {name: '首页热力图', price: 300, value: '3'},
-            {name: '访问统计配置', price: 300, value: '4'},
-            {name: 'FAQ栏目', price: 500, value: '5'},
-            {name: '视频库', price: 200, value: '6'},
-            {name: '众筹', price: 200, value: '7'},
-            {name: '抽奖', price: 200, value: '8'}
+            {name: '在线交易模块', price: 600, value: '1', id: '297e26696001918601600220d52900b9'},
+            {name: '关键词监测', price: 600, value: '2', id: '297e26696001918601600220f6e300bc'},
+            {name: '首页热力图', price: 300, value: '3', id: '297e26696001918601600221269300be'},
+            {name: '访问统计配置', price: 300, value: '4', id: '297e26696001918601600221caa800c2'},
+            {name: 'FAQ栏目', price: 500, value: '5', id: '297e26696001918601600221f53300c5'},
+            {name: '视频库', price: 200, value: '6', id: '297e26696001918601600222828400c8'},
+            {name: '众筹', price: 200, value: '7', id: '297e26696001918601600222a5d700cb'},
+            {name: '抽奖', price: 200, value: '8', id: '297e26696001918601600222c87100cd'}
           ]
         }
       ]
@@ -171,11 +171,11 @@ const state = {
           price: 0,
           value: [],
           items: [
-            {name: '关键词监测', price: 600, value: '1'},
-            {name: '关键词向导', price: 500, value: '2'},
-            {name: '深度SEO', price: 9800, value: '3'},
-            {name: '全网SEO', price: 19800, value: '4'},
-            {name: '外链资源', price: 2000, value: '5'}
+            {name: '关键词监测', price: 600, value: '1', id: '297e26696001918601600223006c00d0'},
+            {name: '关键词向导', price: 500, value: '2', id: '297e266960019186016002232fe100d2'},
+            {name: '深度SEO', price: 9800, value: '3', id: '297e266960019186016002239e1a00d6'},
+            {name: '全网SEO', price: 19800, value: '4', id: '297e26696001918601600223c55500d8'},
+            {name: '外链资源', price: 2000, value: '5', id: '297e26696001918601600223f17600db'}
           ]
         },
         {
@@ -185,18 +185,18 @@ const state = {
           price: 0,
           value: [],
           items: [
-            {name: '网站内容更新', price: 2400, value: '1'},
-            {name: '网站托管', price: 9800, value: '2'},
-            {name: '竞价托管', price: 6800, value: '3'},
-            {name: '媒体软文', price: 200, value: '4'},
-            {name: '微博营销', price: 0, value: '5'},
-            {name: '微信营销', price: 0, value: '6'},
-            {name: '网红', price: 0, value: '7'},
-            {name: '直播', price: 0, value: '8'},
-            {name: '朋友圈广告', price: 0, value: '9'},
-            {name: '今日头条广告', price: 0, value: '10'},
-            {name: '微托管', price: 2400, value: '11'},
-            {name: '微博矩阵', price: 600, value: '12'}
+            {name: '网站内容更新', price: 2400, value: '1', id: '297e26696001918601600224212700dd'},
+            {name: '网站托管', price: 9800, value: '2', id: '297e266960019186016002244a8100e0'},
+            {name: '竞价托管', price: 6800, value: '3', id: '297e26696001918601600224737f00e2'},
+            {name: '媒体软文', price: 200, value: '4', id: '297e2669600191860160022499b300e5'},
+            {name: '微博营销', price: 0, value: '5', id: '297e26696001918601600224bff500e7'},
+            {name: '微信营销', price: 0, value: '6', id: '297e26696001918601600224dd7800ea'},
+            {name: '网红', price: 0, value: '7', id: '297e26696001918601600224fe6900ec'},
+            {name: '直播', price: 0, value: '8', id: '297e266960019186016002251e5300ef'},
+            {name: '朋友圈广告', price: 0, value: '9', id: '297e266960019186016002253b7300f1'},
+            {name: '今日头条广告', price: 0, value: '10', id: '297e266960019186016002255d9000f3'},
+            {name: '微托管', price: 2400, value: '11', id: '297e2669600191860160022587b500f6'},
+            {name: '微博矩阵', price: 600, value: '12', id: '297e26696001918601600225b5d400f8'}
           ]
         },
         {
@@ -206,9 +206,9 @@ const state = {
           price: 0,
           value: [],
           items: [
-            {name: '产品二维码', price: 1200, value: '1'},
-            {name: '展会策划', price: 1200, value: '2'},
-            {name: '经销商大会', price: 1200, value: '3'}
+            {name: '产品二维码', price: 1200, value: '1', id: '297e26696001918601600225f10c00fb'},
+            {name: '展会策划', price: 1200, value: '2', id: '297e2669600191860160022612f300fd'},
+            {name: '经销商大会', price: 1200, value: '3', id: '297e266960019186016002262fa90100'}
           ]
         }
       ]
@@ -224,11 +224,11 @@ const state = {
           price: 0,
           value: [],
           items: [
-            {name: '上门服务', price: 600, value: '1'},
-            {name: '定期服务', price: 300, value: '2'},
-            {name: '营销型网站标准', price: 300, value: '3'},
-            {name: '后台操作视频', price: 300, value: '4'},
-            {name: '阿里巴巴装修', price: 300, value: '5'}
+            {name: '上门服务', price: 600, value: '1', id: '297e2669600191860160022665960102'},
+            {name: '定期服务', price: 300, value: '2', id: '297e26696001918601600226889e0105'},
+            {name: '营销型网站标准', price: 300, value: '3', id: '297e26696001918601600226a9e20107'},
+            {name: '后台操作视频', price: 300, value: '4', id: '297e26696001918601600226cc6a010a'},
+            {name: '阿里巴巴装修', price: 300, value: '5', id: '297e26696001918601600226eb67010c'}
           ]
         }
       ]

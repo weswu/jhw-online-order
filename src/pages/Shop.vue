@@ -5,10 +5,23 @@
       <div class="side-bar">
         <div class="side-bar-bd" :class="{'fixed': fixed}">
           <div class="side-bar-bd_cont">
-            <ul v-for="(item, index) in shopFunction" :key="item.title" v-if="index > 0">
-              <li class="side-bar-item_title">{{item.title}}</li>
-              <li class="side-bar-item" v-if="row.needCheck" v-for="row in item.groups" :key="row.title">{{row.title}}<span>{{row.price}}</span></li>
-            </ul>
+            <table class="mu-table w-table">
+              <tr class="mu-thead" v-for="(item, index) in shopFunction" :key="item.title" v-if="index > 0">
+                <th class="mu-th"><div class="mu-th-wrapper">{{item.title}}</div></th>
+                <td class="mu-th" colspan="2">
+                  <div class="" v-if="row.needCheck" v-for="row in item.groups" :key="row.title">
+                    <mu-flexbox class="mt8">
+                      <mu-flexbox-item class="flex-demo">
+                        {{row.title}}
+                      </mu-flexbox-item>
+                      <mu-flexbox-item class="flex-demo">
+                        {{row.price}}
+                      </mu-flexbox-item>
+                    </mu-flexbox>
+                  </div>
+                </td>
+              </tr>
+            </table>
           </div>
           <mu-select-field :value="0" :labelFocusClass="['label-foucs']" label="选择使用年限" @change="chooseYear" fullWidth>
             <mu-menu-item v-for="(year, index) in yearList" :key="index" :value="index" :title="year + '年'" />
@@ -18,37 +31,9 @@
           <mu-raised-button @click="toMain" label="现在购买" primary fullWidth />
         </div>
       </div>
-      <div class="shop" :class="{'pd-top': fixed}">
-        <div class="shop-nav" :class="{'fixed': fixed}">
-          <mu-tabs :value="activeTab" @change="handleTabChange">
-            <mu-tab value="tab1" title="按企业销售类型" />
-            <mu-tab value="tab2" title="按官网展现形式" />
-          </mu-tabs>
-          <div class="shop-nav-bd" v-if="activeTab === 'tab1'">
-            <ul>
-              <li><mu-radio label="产品类" name="group" nativeValue="1" /></li>
-              <li><mu-radio label="工程类" name="group" nativeValue="2" /></li>
-              <li><mu-radio label="招商类" name="group" nativeValue="3" /></li>
-              <li><mu-radio label="服务类" name="group" nativeValue="4" /></li>
-              <li><mu-radio label="政府类" name="group" nativeValue="5" /></li>
-              <li><mu-radio label="电商类" name="group" nativeValue="6" /></li>
-              <li><mu-radio label="微信营销" name="group" nativeValue="7" /></li>
-            </ul>
-          </div>
-          <div class="shop-nav-bd" v-if="activeTab === 'tab2'">
-            <ul>
-              <li><mu-radio label="展示型" name="group" nativeValue="1" /></li>
-              <li><mu-radio label="营销型" name="group" nativeValue="2" /></li>
-              <li><mu-radio label="外贸型多语言" name="group" nativeValue="3" /></li>
-              <li><mu-radio label="在线交易型" name="group" nativeValue="4" /></li>
-              <li><mu-radio label="品牌展示型" name="group" nativeValue="5" /></li>
-              <li><mu-radio label="品牌营销型" name="group" nativeValue="6" /></li>
-              <li><mu-radio label="集团上市公司" name="group" nativeValue="7" /></li>
-              <li><mu-radio label="H5响应式" name="group" nativeValue="7" /></li>
-            </ul>
-          </div>
-        </div>
+      <div class="shop">
         <shop-group></shop-group>
+        <Faq></Faq>
       </div>
     </div>
     <mu-dialog :open="dialog" @close="close" title="订单支付" scrollable>
@@ -96,17 +81,22 @@
       </div>
       <mu-flat-button label="返回" @click="close" slot="actions"/>
     </mu-dialog>
+    <Online></Online>
   </div>
 </template>
 
 <script>
 import PageHeader from '@/components/Header'
 import ShopGroup from '@/components/ShopGroup'
+import Faq from '@/components/FAQ'
+import Online from '@/components/Online'
 import { mapGetters, mapActions } from 'vuex'
 export default {
   components: {
     PageHeader,
-    ShopGroup
+    ShopGroup,
+    Faq,
+    Online
   },
   data () {
     return {
@@ -121,6 +111,9 @@ export default {
   },
   computed: {
     ...mapGetters('shop', ['year', 'yearList', 'totalPrice', 'shopFunction'])
+  },
+  created () {
+    this.get()
   },
   mounted () {
     let that = this
@@ -140,6 +133,11 @@ export default {
     ...mapActions('shop', ['chooseYear']),
     handleTabChange (val) {
       this.activeTab = val
+    },
+    get () {
+      this.$http.get('/api/priceItem/list', function (res) {
+        debugger
+      })
     },
     toMain () {
       // this.$router.push({ name: 'order' })
@@ -166,6 +164,16 @@ export default {
 </script>
 
 <style>
+.w-table{
+border: 1px solid rgba(0,0,0,.12);
+border-bottom: none
+}
+.w-table .mu-th{
+  height: auto;
+  line-height: 20px;
+  padding: 8px 10px;
+border-right:  1px solid rgba(0,0,0,.12);
+}
 .wrap {
   width: 1200px;
   margin: 50px auto 0;
@@ -351,9 +359,8 @@ export default {
 .payment-code-wrap {
   padding: 30px;
   background: #f8f8f8;
-  
+
   text-align: center;
   color: #666;
 }
 </style>
-

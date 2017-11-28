@@ -4,12 +4,12 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
+import Axios from './api'
 import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
 Vue.use(MuseUI)
-
+Vue.prototype.$http = Axios
 Vue.config.productionTip = false
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

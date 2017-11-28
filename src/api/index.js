@@ -1,43 +1,16 @@
-// 众筹数据接口
+// ajax配置文件
 import axios from 'axios'
 
-const http = axios.create({
-  baseURL: 'http://localhost:8080/',
-  timeout: 30000 // 超时时间 30 秒
+// 超时时间 30 秒
+axios.default.timeout = 30000
+// 添加响应拦截器
+axios.interceptors.response.use((res) => {
+  if (res.status === 654) {
+    window.alert('请求超时！')
+  }
+  return res
+}, (error) => {
+  return Promise.reject(error)
 })
 
-function get (path, params) {
-  return new Promise((resolve, reject) => {
-    http.get(path, {params}).then(res => {
-      resolve(res)
-    }).catch(err => {
-      reject(err)
-    })
-  })
-}
-
-// function post (path, data) {
-//   return new Promise((resolve, reject) => {
-//     http.post(path, data).then(res => {
-//       resolve(res)
-//     }).catch(err => {
-//       reject(err)
-//     })
-//   })
-// }
-
-// function put (path, data) {
-//   return new Promise((resolve, reject) => {
-//     http.put(path, data).then(res => {
-//       resolve(res)
-//     }).catch(err => {
-//       reject(err)
-//     })
-//   })
-// }
-
-export default {
-  getShops () {
-    return get('data/shop.json')
-  }
-}
+export default axios

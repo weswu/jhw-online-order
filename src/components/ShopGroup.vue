@@ -3,7 +3,7 @@
     <div class="shop-group" v-for="(row, sIndex) in shopFunction" :key="row.title">
       <div class="shop-icon" :style="{backgroundColor: colors[sIndex]}">
         <div class="shop-icon-wrap">
-          <img :src="'static/icon/' + row.icon" alt="">
+          <img :src="'/static/icon/' + row.icon" alt="">
           <p>{{row.title}}</p>
         </div>
       </div>
@@ -84,4 +84,3 @@ export default {
   color: #fff;
 }
 </style>
-
