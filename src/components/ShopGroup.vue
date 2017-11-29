@@ -20,7 +20,7 @@
           <div class="designer" v-if="group.custom && showDesigner">
             <mu-card v-for="k in designers" :key="k.id">
               <mu-card-media :title="k.name" :subTitle="k.sub">
-                <img :src="'static/' + k.avatar" />
+                <img :src="'/static/' + k.avatar" />
               </mu-card-media>
               <mu-card-actions>
                 <mu-radio @change="chooseDesigner({sIndex: sIndex, gIndex: gIndex, key: k})" label="选择TA" name="designer" :nativeValue="k.value" />

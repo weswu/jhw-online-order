@@ -40,7 +40,7 @@
       <div class="dialog_bd">
         <div class="point">
           <p><mu-checkbox @change="showPoint = !showPoint" label="使用积分抵扣" class="demo-checkbox" /></p>
-          <mu-text-field v-if="showPoint" type="number" hintText="提示文字" @input="checkPoint" :errorText="errorText" label="可用积分" v-model.number="points" />
+          <mu-text-field v-if="showPoint" type="number" hintText="提示文字" @input="checkPoint" :errorText="errorText" label="可用积分" v-model.number="points" min="0" :max="maxPoint"/>
         </div>
         <div class="order-price">
           <div class="order-price-item">
@@ -49,13 +49,13 @@
           </div>
           <div class="order-price-item">
             <div class="order-price-item_hd">积分抵扣</div>
-            <div class="order-price-item_ft">- RMB {{points}}</div>
+            <div class="order-price-item_ft">- RMB {{points/10}}</div>
           </div>
         </div>
         <div class="order-price order-price-total">
           <div class="order-price-item">
             <div class="order-price-item_hd">共需支付</div>
-            <div class="order-price-item_ft">RMB {{(totalPrice * 0.5 * year) - points}}</div>
+            <div class="order-price-item_ft">RMB {{(totalPrice * 0.5 * year) - points/10}}</div>
           </div>
         </div>
         <div class="payment">
@@ -104,6 +104,7 @@ export default {
       activeTab: 'tab1',
       dialog: false,
       points: 0,
+      maxPoint: 100,
       showPoint: false,
       payment: 0,
       errorText: ''
@@ -131,29 +132,31 @@ export default {
   },
   methods: {
     ...mapActions('shop', ['chooseYear']),
+    get () {
+      this.$store.dispatch('getUser', this.$http)
+      this.$http.get('/api/integralRecord/total').then((res) => {
+        this.maxPoint = res.data.data
+      })
+    },
     handleTabChange (val) {
       this.activeTab = val
     },
-    get () {
-      this.$http.get('/api/priceItem/list', function (res) {
-        debugger
-      })
-    },
     toMain () {
-      // this.$router.push({ name: 'order' })
       this.dialog = true
     },
     close () {
       this.dialog = false
+      this.showPoint = false
     },
-    checkPoint () {
-      if (this.points > 100) {
-        console.log('big')
-        this.errorText = '您的可用积分为100'
-        this.points = 100
+    checkPoint (e) {
+      if (parseInt(e) > this.maxPoint) {
+        this.errorText = '您的可用积分为' + this.maxPoint
+        this.points = this.maxPoint
       } else {
         this.errorText = ''
-        console.log('small')
+      }
+      if (parseInt(e) < 0) {
+        this.points = 0
       }
     },
     toPaid () {

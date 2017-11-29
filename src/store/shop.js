@@ -342,6 +342,23 @@ const mutations = {
     if (state.shopFunction[params.sIndex].groups[params.gIndex].custom) {
       // 判断是否选择了定制设计按钮，如果是，切换设计师界面显示状态
       state.showDesigner = !state.showDesigner
+      // 去除定制加成
+      if (!state.showDesigner) {
+        state.magenif = 1
+        let groups = state.shopFunction[params.sIndex].groups[1]
+        let price = 0
+        if (groups.value.length) {
+          groups.value.map(item => {
+            groups.items.map(key => {
+              if (item === key.value) {
+                price += key.price
+              }
+            })
+          })
+          state.shopFunction[params.sIndex].groups[1].price = price
+        }
+        groups.items[4].disabled = false
+      }
     }
     state.shopFunction[params.sIndex].groups[params.gIndex].value = params.item.value // 选中状态
     state.shopFunction[params.sIndex].groups[params.gIndex].price = params.item.price // 选中金额
@@ -403,6 +420,9 @@ const mutations = {
         groups.items.map(key => {
           if (item === key.value) {
             price += key.price * params.key.price
+          }
+          if (key.value === '5') {
+            key.disabled = true
           }
         })
         if (item === '5') {

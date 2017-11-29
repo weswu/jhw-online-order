@@ -15,8 +15,12 @@
           <li><a href="http://about.jihui88.com/">关于</a></li>
         </ul>
         <div class="nav-login">
-          <a href="#/login">登录</a>
-          <a href="#/reg" class="nav-reg">免费注册</a>
+          <a href="javascript:;" @click="login" v-if="!$store.state.user.nickname">登录</a>
+          <a href="#/reg" class="nav-reg" v-if="!$store.state.user.nickname">免费注册</a>
+          <a href="javascript:;" class="nav-reg nickname" @click="toggle" v-if="$store.state.user.nickname">{{$store.state.user.nickname}}</a>
+          <mu-icon-menu icon="more_vert" :open="open" @close="handleClose" :anchorOrigin="anchorOrigin" :targetOrigin="targetOrigin">
+            <mu-menu-item title="退出"  @click="toLogin"/>
+          </mu-icon-menu>
         </div>
       </div>
       <div class="nav" v-else>
@@ -37,7 +41,8 @@ export default {
   data () {
     return {
       anchorOrigin: {horizontal: 'right', vertical: 'bottom'},
-      targetOrigin: {horizontal: 'right', vertical: 'top'}
+      targetOrigin: {horizontal: 'right', vertical: 'top'},
+      open: false
     }
   },
   methods: {
@@ -45,7 +50,19 @@ export default {
       this.$router.push({ name: 'account' })
     },
     toLogin () {
-      this.$router.push({ name: 'login' })
+      let ctx = this
+      this.$http.get('/api/user/logout').then((res) => {
+        ctx.$store.commit('setUser', {})
+      })
+    },
+    login () {
+      this.$store.dispatch('getUser', this.$http)
+    },
+    toggle () {
+      this.open = !this.open
+    },
+    handleClose (e) {
+      this.open = false
     }
   }
 }
@@ -149,5 +166,10 @@ export default {
   margin-top: 2px;
   margin-left: -3px;
 }
+.nickname{
+  position: absolute;
+z-index: 999;
+top: 15px;
+right: 15px;
+}
 </style>
-
