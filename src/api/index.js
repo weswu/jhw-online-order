@@ -9,7 +9,7 @@ axios.interceptors.response.use((res) => {
   } else if (res.data.code !== 0) {
     window.alert(res.data.msg)
   }
-  return res
+  return res.data
 }, (error) => {
   return Promise.reject(error)
 })

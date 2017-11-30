@@ -2,14 +2,18 @@
   <div id="app">
     <router-view/>
     <page-footer></page-footer>
+    <!--加载中...-->
+    <Loading></Loading>
   </div>
 </template>
 
 <script>
 import PageFooter from '@/components/Footer'
+import Loading from '@/components/loading'
 export default {
   components: {
-    PageFooter
+    PageFooter,
+    Loading
   },
   name: 'app'
 }
@@ -55,4 +59,3 @@ h1 {
   flex: 1;
 }
 </style>
-

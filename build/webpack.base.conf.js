@@ -7,11 +7,16 @@ const vueLoaderConfig = require('./vue-loader.conf')
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
+var entry = {
+  app: './src/main.js'
+}
+var entry2 = {
+  'home/app': './src/main.js'
+}
+process.env.NODE_ENV === 'production' ? entry : entry = entry2
 
 module.exports = {
-  entry: {
-    'home/app': './src/main.js'
-  },
+  entry: entry,
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',

@@ -16,12 +16,14 @@ const state = {
       pic: 'static/26a0185a-47e6-43b6-b112-a7940f88fbde_7.jpg'
     }
   ],
-  user: {}
+  user: {},
+  loading: false
 }
 
 const getters = {
   webs: state => state.webs,
-  user: state => state.user
+  user: state => state.user,
+  loading: state => state.loading
 }
 
 const actions = {
@@ -31,7 +33,7 @@ const actions = {
   getUser ({commit}, axios) {
     var ctx = this
     axios.get('/api/user/info').then((res) => {
-      ctx.commit('setUser', res.data.data)
+      ctx.commit('setUser', res.data)
     })
   }
 }
@@ -39,6 +41,12 @@ const actions = {
 const mutations = {
   setUser (state, user) {
     state.user = user
+  },
+  setLoading (state, loading) {
+    state.loading = loading
+    setTimeout(() => {
+      state.loading = false
+    }, 15000)
   }
 }
 
