@@ -39,7 +39,7 @@
     <mu-dialog :open="dialog" @close="close" title="订单支付" scrollable>
       <div class="dialog_bd">
         <div class="point">
-          <p><mu-checkbox @change="showPoint = !showPoint" label="使用积分抵扣" class="demo-checkbox" /></p>
+          <p><mu-checkbox @change="getPoints" label="使用积分抵扣" class="demo-checkbox" /></p>
           <mu-text-field v-if="showPoint" type="number" hintText="提示文字" @input="checkPoint" :errorText="errorText" label="可用积分" v-model.number="points" min="0" :max="maxPoint"/>
         </div>
         <div class="order-price">
@@ -55,7 +55,7 @@
         <div class="order-price order-price-total">
           <div class="order-price-item">
             <div class="order-price-item_hd">共需支付</div>
-            <div class="order-price-item_ft">RMB {{(totalPrice * 0.5 * year) - points/10}}</div>
+            <div class="order-price-item_ft">RMB {{(totalPrice * year) - points/10}}</div>
           </div>
         </div>
         <div class="payment">
@@ -115,9 +115,6 @@ export default {
   computed: {
     ...mapGetters('shop', ['year', 'yearList', 'totalPrice', 'shopFunction'])
   },
-  created () {
-    this.get()
-  },
   mounted () {
     let that = this
     window.onscroll = function () {
@@ -134,17 +131,17 @@ export default {
   },
   methods: {
     ...mapActions('shop', ['chooseYear']),
-    get () {
-      this.$store.dispatch('getUser', this.$http)
-      this.$http.get('/api/integralRecord/total').then((res) => {
-        this.maxPoint = res.data || 0
-      })
-    },
     handleTabChange (val) {
       this.activeTab = val
     },
     toMain () {
-      this.dialog = true
+      var ctx = this
+      this.$http.get('/api/user/info').then((res) => {
+        if (res.data.nickname) {
+          ctx.dialog = true
+          ctx.$store.commit('setUser', res.data)
+        }
+      })
     },
     close () {
       this.dialog = false
@@ -164,7 +161,14 @@ export default {
     toPaid () {
       this.$router.push({ name: 'paid' })
     },
-    // weixin alipay
+    // 获取积分
+    getPoints () {
+      this.showPoint = !this.showPoint
+      this.$http.get('/api/integralRecord/total').then((res) => {
+        this.maxPoint = res.data || 0
+      })
+    },
+    // 微信支付
     pay (e) {
       var ctx = this
       this.payment = e
