@@ -113,7 +113,7 @@ export default {
     margin-bottom: 20px;
 }
 .ask img {
-  width: 25px;
+  width: 20px;
   vertical-align: middle;}
 .ask span {
     display: inline-block;

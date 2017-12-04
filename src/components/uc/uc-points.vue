@@ -2,7 +2,7 @@
   <div class="box">
     <div class="box-title data-points">积分<mu-badge :content="count" /></div>
     <div class="box-cont">
-      <mu-list-item :title="item.income+'积分'" v-for="item in list">
+      <mu-list-item :title="item.income+'积分'" v-for="item in list" :key="item.id">
         <span slot="describe">
           <span>{{item.desc}}</span><br/>
           {{item.addTime}}

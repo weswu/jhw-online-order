@@ -45,6 +45,14 @@ export default {
   computed: {
     ...mapGetters('shop', ['year', 'totalPrice', 'shopFunction', 'orderDetail'])
   },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      if (vm.$route.params.orderId) {
+        vm.paymentDetail[0].desc = vm.$route.params.orderId
+        vm.paymentDetail[1].desc = 'RMB ' + vm.$route.params.totalPrice
+      }
+    })
+  },
   methods: {
     handleTabChange (val) {
       this.activeTab = val

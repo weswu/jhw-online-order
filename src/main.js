@@ -7,6 +7,7 @@ import store from './store'
 import Axios from './api'
 import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
+import './assets/app.less'
 Vue.use(MuseUI)
 Vue.prototype.$http = Axios
 Vue.config.productionTip = false
