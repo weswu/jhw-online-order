@@ -11,19 +11,19 @@
         <ul v-for="(group, gIndex) in row.groups" :key="group.title">
           <p v-if="group.title" class="shop-group-title">{{group.title}}<span v-if="group.sub">{{group.sub}}</span></p>
           <li v-for="(item, index) in group.items" :key="item.name">
-            <div v-if="group.needCheck">
-              <mu-radio v-if="group.type === 'radio'" @change="chooseRadio({sIndex: sIndex, gIndex: gIndex, index: index, item: item})" :label="item.name" :name="group.name" :nativeValue="item.value" :value="group.value" />
-              <mu-checkbox v-else @change="chooseCheck({sIndex: sIndex, gIndex: gIndex, index: index, item: item})" :label="item.name" :nativeValue="item.value" :value="group.value" :disabled="item.disabled" />
+            <div v-if="group.needCheck" @mouseenter="enter(item, $event)" @mouseleave="leave">
+              <mu-radio v-if="group.type === 'radio'" @change="chooseRadio({sIndex: sIndex, gIndex: gIndex, index: index, item: item})" :label="item.name" :name="group.name" :nativeValue="item.value" :value="group.value"/>
+              <mu-checkbox v-else @change="chooseCheck({sIndex: sIndex, gIndex: gIndex, index: index, item: item})" :label="item.name" :nativeValue="item.value" :value="group.value" :disabled="item.disabled"/>
             </div>
-            <span v-else>{{item.name}}</span>
+            <span v-else @mouseenter="enter(item, $event)" @mouseleave="leave">{{item.name}}</span>
           </li>
           <div class="designer" v-if="group.custom && showDesigner">
             <mu-card v-for="k in designers" :key="k.id">
               <mu-card-media :title="k.name" :subTitle="k.sub">
-                <img :src="'/static/' + k.avatar" />
+                <img v-lazy="'/static/' + k.avatar"/>
               </mu-card-media>
               <mu-card-actions>
-                <mu-radio @change="chooseDesigner({sIndex: sIndex, gIndex: gIndex, key: k})" label="选择TA" name="designer" :nativeValue="k.value" />
+                <mu-radio @change="chooseDesigner({sIndex: sIndex, gIndex: gIndex, key: k})" label="选择TA" name="designer" :nativeValue="k.value"  @mouseenter="enter(k, $event)" @mouseleave="leave"/>
               </mu-card-actions>
             </mu-card>
           </div>
@@ -53,7 +53,13 @@ export default {
     ...mapGetters('shop', ['showDesigner', 'shopFunction', 'designers'])
   },
   methods: {
-    ...mapActions('shop', ['chooseRadio', 'chooseCheck', 'chooseDesigner'])
+    ...mapActions('shop', ['chooseRadio', 'chooseCheck', 'chooseDesigner']),
+    enter (item, e) {
+      this.$parent.$parent.$refs.tooltip.show(item, e)
+    },
+    leave () {
+      this.$parent.$parent.$refs.tooltip.hide()
+    }
   }
 }
 </script>

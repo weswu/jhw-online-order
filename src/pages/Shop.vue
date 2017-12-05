@@ -1,6 +1,6 @@
 <template>
   <div id="shop">
-    <page-header activeName="shop"></page-header>
+    <PageHeader activeName="shop"></PageHeader>
     <div class="wrap shop-wrap">
       <div class="side-bar">
         <div class="side-bar-bd" :class="{'fixed': fixed}">
@@ -27,25 +27,25 @@
             <mu-menu-item v-for="(year, index) in yearList" :key="index" :value="index" :title="year + '年'" />
           </mu-select-field>
           <div class="side-bar-origin-price">原价：RMB {{totalPrice}}</div>
-          <div class="side-bar-price">RMB {{totalPrice * year}}</div>
+          <div class="side-bar-price">RMB {{totalPrice}}</div>
           <mu-raised-button @click="toMain" label="现在购买" primary fullWidth />
         </div>
       </div>
       <div class="shop">
         <shop-group></shop-group>
-        <Faq></Faq>
+        <FAQ></FAQ>
       </div>
     </div>
     <mu-dialog :open="dialog" @close="close" title="订单支付" scrollable>
       <div class="dialog_bd">
         <div class="point">
           <p><mu-checkbox @change="getPoints" label="使用积分抵扣" class="demo-checkbox" /></p>
-          <mu-text-field v-if="showPoint" type="number" hintText="提示文字" @input="checkPoint" :errorText="errorText" label="可用积分" v-model.number="points" min="0" :max="maxPoint"/>
+          <mu-text-field v-if="showPoint" type="number" hintText="提示文字" @input="checkPoint" :errorText="errorText" :label="'可用积分: ' + maxPoint" v-model.number="points" min="0" :max="maxPoint"/>
         </div>
         <div class="order-price">
           <div class="order-price-item">
             <div class="order-price-item_hd">订单金额</div>
-            <div class="order-price-item_ft">RMB {{totalPrice * year}}</div>
+            <div class="order-price-item_ft">RMB {{totalPrice}}</div>
           </div>
           <div class="order-price-item">
             <div class="order-price-item_hd">积分抵扣</div>
@@ -55,7 +55,7 @@
         <div class="order-price order-price-total">
           <div class="order-price-item">
             <div class="order-price-item_hd">共需支付</div>
-            <div class="order-price-item_ft">RMB {{(totalPrice * year) - points/10}}</div>
+            <div class="order-price-item_ft">RMB {{(totalPrice) - points/10}}</div>
           </div>
         </div>
         <div class="payment">
@@ -68,7 +68,7 @@
         </div>
         <div class="payment-code" v-if="payment === 'WX' && order.qrcode !== ''">
           <div class="payment-code-wrap">
-            <img :src="'http://qr.liantu.com/api.php?w=272&text='+order.qrcode" alt="">
+            <img v-lazy="'http://qr.liantu.com/api.php?w=272&text='+order.qrcode" alt="">
             <div class="payment-code-tip">手机微信扫码支付</div>
           </div>
         </div>
@@ -88,7 +88,7 @@
 <script>
 import PageHeader from '@/components/Header'
 import ShopGroup from '@/components/ShopGroup'
-import Faq from '@/components/FAQ'
+import FAQ from '@/components/FAQ'
 import Online from '@/components/Online'
 import { mapGetters, mapActions } from 'vuex'
 import qs from 'qs'
@@ -96,7 +96,7 @@ export default {
   components: {
     PageHeader,
     ShopGroup,
-    Faq,
+    FAQ,
     Online
   },
   data () {
@@ -148,6 +148,9 @@ export default {
     close () {
       this.dialog = false
       this.showPoint = false
+      this.order = {
+        qrcode: ''
+      }
       clearInterval(this.timer)
     },
     checkPoint (e) {
@@ -182,6 +185,9 @@ export default {
       }
       if (order.priceItemIds === '') {
         return this.$parent.$refs.toast.show('请选择商品')
+      }
+      if (this.points > this.maxPoint) {
+        return this.$parent.$refs.toast.show('积分已超过最大量')
       }
       this.$store.commit('setLoading', true)
       this.$http.post('/api/order/detail?' + qs.stringify(order)).then((res) => {

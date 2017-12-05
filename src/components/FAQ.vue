@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div class="shop-group-wrap">
     <div class="shop-group" style="background:none">
       <div class="shop-icon" style="background:none"></div>

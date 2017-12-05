@@ -1,6 +1,6 @@
 <template>
   <div id="account">
-    <page-header :uc="true"></page-header>
+    <PageHeader :uc="true"></PageHeader>
     <div class="main">
       <mu-paper :zDepth="1">
         <div class="content">

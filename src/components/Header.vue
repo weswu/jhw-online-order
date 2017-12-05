@@ -20,6 +20,7 @@
         <a href="javascript:;" class="btn-login" @click="toLogin" v-if="!$store.state.user.nickname">登录</a>
         <a href="http://www.jihui88.com/member/register.html" class="btn-register" v-if="!$store.state.user.nickname">免费注册</a>
         <mu-icon-menu icon="person" :anchorOrigin="anchorOrigin" :targetOrigin="targetOrigin" v-if="$store.state.user.nickname">
+            <mu-menu-item title="用户中心" @click="toUc" />
             <mu-menu-item title="退出" @click="toLogin" />
           </mu-icon-menu>
       </div>
@@ -29,7 +30,15 @@
 
 <script>
 export default {
-  props: ['activeName', 'uc'],
+  props: {
+    activeName: {
+      type: String
+    },
+    uc: {
+      type: Boolean,
+      default: false
+    }
+  },
   data () {
     return {
       anchorOrigin: {horizontal: 'right', vertical: 'bottom'},
@@ -40,6 +49,9 @@ export default {
   methods: {
     toAccount () {
       this.$router.push({ name: 'account' })
+    },
+    toUc () {
+      this.$router.push({path: 'uc'})
     },
     toLogin () {
       let ctx = this

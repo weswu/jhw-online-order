@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div class="online">
     <a href="http://wpa.qq.com/msgrd?v=3&uin=2594969476&site=qq&menu=yes" target="_blank">
       <img src="http://pub.idqqimg.com/wpa/images/counseling_style_53.png" alt="">

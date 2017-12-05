@@ -1,6 +1,6 @@
 <template>
   <div id="main">
-    <page-header :uc="true"></page-header>
+    <PageHeader :uc="true"></PageHeader>
     <div class="main">
       <div class="menu-btn">
         <mu-raised-button @click="newWeb" label="添加网站" icon="web" />

@@ -1,45 +1,45 @@
 <template>
   <div id="uc">
-    <page-header :uc="true"></page-header>
+    <PageHeader :uc="true"></PageHeader>
     <div class="main">
       <mu-row gutter>
-        <mu-col desktop="50">
+        <mu-col width="100" tablet="100" desktop="50">
           <UcWebsite></UcWebsite>
         </mu-col>
-        <mu-col desktop="25">
+        <mu-col width="100" tablet="50" desktop="25" class="col-img">
           <img class="col-banner" src="/static/points.png" alt="">
         </mu-col>
-        <mu-col desktop="25">
+        <mu-col width="100" tablet="50" desktop="25" class="col-img">
           <img class="col-banner" src="/static/events.png" alt="">
         </mu-col>
       </mu-row>
+
       <mu-row gutter>
-        <mu-col desktop="33">
+        <mu-col width="100" tablet="33" desktop="33">
           <UcPoints></UcPoints>
         </mu-col>
-        <mu-col desktop="33">
+        <mu-col width="100" tablet="33" desktop="33">
           <UcMessage></UcMessage>
         </mu-col>
-        <mu-col desktop="33">
+        <mu-col width="100" tablet="33" desktop="33">
           <UcFeedback></UcFeedback>
         </mu-col>
       </mu-row>
+
       <mu-row gutter>
-        <mu-col desktop="75" class="no-shadow">
+        <mu-col width="100" tablet="100" desktop="75" class="no-shadow">
           <UcService></UcService>
         </mu-col>
-        <mu-col desktop="25" class="order-list">
+        <mu-col width="100" tablet="50" desktop="25" class="order-list">
           <UcOrder></UcOrder>
         </mu-col>
-      </mu-row>
-      <mu-row gutter>
-        <mu-col desktop="50" class="order-list">
+        <mu-col width="100" tablet="50" desktop="50" class="order-list">
           <UcLog></UcLog>
         </mu-col>
-        <mu-col desktop="25">
+        <mu-col width="100" tablet="50" desktop="25" class="col-img">
           <img src="/static/help.jpg" alt="">
         </mu-col>
-        <mu-col desktop="25">
+        <mu-col width="100" tablet="50" desktop="25" class="col-img">
           <img :src="'static/' + clients" @mouseover="onClients" @mouseout="unClients" alt="">
         </mu-col>
       </mu-row>
@@ -56,7 +56,6 @@ import UcFeedback from '@/components/uc/uc-feedback'
 import UcService from '@/components/uc/uc-service'
 import UcOrder from '@/components/uc/uc-order'
 import UcLog from '@/components/uc/uc-log'
-import { mapGetters } from 'vuex'
 export default {
   components: {
     PageHeader,
@@ -73,9 +72,6 @@ export default {
       clients: 'clients.jpg'
     }
   },
-  computed: {
-    ...mapGetters('orders', ['orderList', 'orderDetail'])
-  },
   mounted () {
     window.scrollTo(0, 0)
   },
@@ -90,19 +86,31 @@ export default {
 }
 </script>
 
-<style>
-#uc .col {
-  box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
-  overflow: hidden;
-}
-#uc .col img {
-  display: block;
-}
-#uc .col.no-shadow {
-  box-shadow: none;
+<style lang="less">
+#uc{
+  .col {
+    box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+    overflow: hidden;
+    margin-top: 15px;
+    img {
+      display: block;
+    }
+  }
+  .col.no-shadow {
+    box-shadow: none;
+    margin-top: 0;
+    padding-bottom: 3px;
+  }
+  .col-img{
+    box-shadow: none;
+    padding: 0 3px 3px 0;
+    img {
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+    }
+  }
 }
 .main {
-  width: 1200px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 30px 0;
   overflow: hidden;
@@ -160,9 +168,6 @@ export default {
 .limit-time {
   color: #999;
 }
-#uc .row {
-  padding-top: 15px;
-}
 .col-banner {
   display: block;
   cursor: pointer;
@@ -217,22 +222,22 @@ export default {
   display: flex;
   cursor: pointer;
 }
-.service-banner:nth-child(1) .col:nth-child(1) .service-logo {
+.service-banner .col:nth-child(1) .service-logo {
   background: #009688;
 }
-.service-banner:nth-child(1) .col:nth-child(2) .service-logo {
+.service-banner .col:nth-child(2) .service-logo {
   background: #039be5;
 }
-.service-banner:nth-child(1) .col:nth-child(3) .service-logo {
+.service-banner .col:nth-child(3) .service-logo {
   background: #43a047;
 }
-.service-banner:nth-child(2) .col:nth-child(1) .service-logo {
+.service-banner .col:nth-child(4) .service-logo {
   background: #ef6c00;
 }
-.service-banner:nth-child(2) .col:nth-child(2) .service-logo {
+.service-banner .col:nth-child(5) .service-logo {
   background: #607d8b;
 }
-.service-banner:nth-child(2) .col:nth-child(3) .service-logo {
+.service-banner .col:nth-child(6) .service-logo {
   background: #7c4dff;
 }
 .service-logo {
@@ -330,4 +335,5 @@ export default {
   padding: 20px;
   height: 177px;
 }
+
 </style>

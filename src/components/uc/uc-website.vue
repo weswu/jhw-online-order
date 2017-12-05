@@ -12,8 +12,8 @@
         <div class="website-cont-item limit-time">有效期至 2018年11月8日</div>
         <div class="website-cont-item btn-group">
           <div class="btn-group-item">
-            <mu-raised-button label="编辑网站" primary />
-            <mu-raised-button label="管理网站" primary />
+            <mu-raised-button label="界面编辑" primary />
+            <mu-raised-button label="数据管理" primary />
           </div>
           <div class="btn-group-item">
             <span class="upgrade-tip">限时优惠</span>

@@ -1,6 +1,6 @@
 <template>
   <div id="login">
-    <page-header></page-header>
+    <PageHeader></PageHeader>
     <div class="container">
       <div class="login">
         <form class="login-bd">

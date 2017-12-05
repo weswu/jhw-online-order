@@ -13,7 +13,7 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style>
 .loading-wrapper{position:fixed;z-index:999999999999;left:50%;margin-left:-25px;top:30%}
 .loading-txt{color:#999;width:100%;text-align:center;padding-top:10px}
 </style>

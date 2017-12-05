@@ -6,11 +6,22 @@ import router from './router'
 import store from './store'
 import Axios from './api'
 import MuseUI from 'muse-ui'
+import VueLazyload from 'vue-lazyload'
 import 'muse-ui/dist/muse-ui.css'
 import './assets/app.less'
 Vue.use(MuseUI)
 Vue.prototype.$http = Axios
 Vue.config.productionTip = false
+
+Vue.use(VueLazyload)
+// or with options
+Vue.use(VueLazyload, {
+  preLoad: 1.3,
+  error: '/static/null.png',
+  loading: '/static/loading.gif',
+  attempt: 1
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

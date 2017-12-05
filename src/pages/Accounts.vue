@@ -1,6 +1,6 @@
 <template>
   <div id="account">
-    <page-header :uc="true"></page-header>
+    <PageHeader :uc="true"></PageHeader>
     <div class="main">
       <div class="menu-btn">
         <mu-raised-button @click="newWeb" label="添加管理员" icon="assignment_ind" />

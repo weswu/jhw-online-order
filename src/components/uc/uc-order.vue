@@ -32,11 +32,15 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
       dialog: false
     }
+  },
+  computed: {
+    ...mapGetters('orders', ['orderList', 'orderDetail'])
   },
   methods: {
     open () {

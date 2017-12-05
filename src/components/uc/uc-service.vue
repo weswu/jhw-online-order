@@ -1,44 +1,42 @@
 <template lang="html">
   <div class="">
     <mu-row gutter class="service-banner">
-      <mu-col desktop="33">
+      <mu-col width="100" tablet="50" desktop="33">
         <div class="service-logo" @click="openPaid"><img src="/static/wxa.png"></div>
         <div class="service-cont" @click="openPaid">
           <h3>小程序</h3>
           <p>小程序可以在微信内被便捷地获取和传播，同时具有出色的使用体验。</p>
         </div>
       </mu-col>
-      <mu-col desktop="33">
+      <mu-col width="100" tablet="50" desktop="33">
         <div class="service-logo" @click="openPaid"><img src="/static/website.png"></div>
         <div class="service-cont" @click="openPaid">
           <h3>手机网站</h3>
           <p>专门为手机进行优化的网站，更为方便用户浏览。</p>
         </div>
       </mu-col>
-      <mu-col desktop="33">
+      <mu-col width="100" tablet="50" desktop="33">
         <div class="service-logo" @click="openPaid"><img src="/static/wx.png"></div>
         <div class="service-cont" @click="openPaid">
           <h3>微网站</h3>
           <p>通过微信网页的方式进行表现，使信息的展现更加赏心悦目，进一步提高用户体验。</p>
         </div>
       </mu-col>
-    </mu-row>
-    <mu-row gutter class="service-banner">
-      <mu-col desktop="33">
+      <mu-col width="100" tablet="50" desktop="33">
         <div class="service-logo" @click="openPaid"><img src="/static/wcd.png"></div>
         <div class="service-cont" @click="openPaid">
           <h3>微传单</h3>
           <p>无需会写代码，极速创建H5微传单，轻松在线制作微海报、H5场景、电子邀请函。</p>
         </div>
       </mu-col>
-      <mu-col desktop="33">
+      <mu-col width="100" tablet="50" desktop="33">
         <div class="service-logo" @click="openPaid"><img src="/static/book.png"></div>
         <div class="service-cont" @click="openPaid">
           <h3>微样册</h3>
           <p>支持电脑,手机,平板展示翻页HTML5电子杂志</p>
         </div>
       </mu-col>
-      <mu-col desktop="33">
+      <mu-col width="100" tablet="50" desktop="33">
         <div class="service-logo" @click="openPaid"><img src="/static/lang.png"></div>
         <div class="service-cont" @click="openPaid">
           <h3>多语言</h3>
@@ -132,4 +130,9 @@ export default {
 </script>
 
 <style lang="css">
+.service-banner {
+  .col {
+    margin-top: 0
+  }
+}
 </style>
