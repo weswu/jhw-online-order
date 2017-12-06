@@ -4,11 +4,11 @@
       <div class="logo">
         <img src="http://img.jihui88.com/upload/w/w5/www2/picture/2017/07/05/8a688605-44c1-4729-88b3-c818641b12cc.png" alt="">
       </div>
-      <div class="nav" v-if="!uc">
+      <div class="nav" v-if="$route.name === 'shop' || $route.name === 'paid'">
         <ul>
           <li><a href="http://www.jihui88.com/">首页</a></li>
           <li><a href="http://www.jihui88.com/product_1.html">全网营销云平台</a></li>
-          <li :class="{ 'active': activeName === 'shop' || activeName === 'order' }"><router-link to="/">购买</router-link></li>
+          <li :class="{ 'active': $route.name === 'shop' || $route.name === 'paid' }"><router-link to="/">购买</router-link></li>
           <li><a href="http://anli.jihui88.com/case.html">案例</a></li>
           <li><a href="http://www.jihui88.com/join.html">加盟</a></li>
           <li><a href="http://xueyuan.jihui88.com/news.html">学院</a></li>
@@ -21,7 +21,7 @@
         <a href="http://www.jihui88.com/member/register.html" class="btn-register" v-if="!$store.state.user.nickname">免费注册</a>
         <mu-icon-menu icon="person" :anchorOrigin="anchorOrigin" :targetOrigin="targetOrigin" v-if="$store.state.user.nickname">
             <mu-menu-item title="用户中心" @click="toUc" />
-            <mu-menu-item title="退出" @click="toLogin" />
+            <mu-menu-item title="退出" @click="toLogout" />
           </mu-icon-menu>
       </div>
     </div>
@@ -30,15 +30,6 @@
 
 <script>
 export default {
-  props: {
-    activeName: {
-      type: String
-    },
-    uc: {
-      type: Boolean,
-      default: false
-    }
-  },
   data () {
     return {
       anchorOrigin: {horizontal: 'right', vertical: 'bottom'},
@@ -54,6 +45,9 @@ export default {
       this.$router.push({path: 'uc'})
     },
     toLogin () {
+      this.$store.dispatch('getUser', this.$http)
+    },
+    toLogout () {
       let ctx = this
       this.$http.get('/api/user/logout').then((res) => {
         ctx.$store.commit('setUser', {})

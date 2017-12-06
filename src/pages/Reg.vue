@@ -1,6 +1,5 @@
 <template>
   <div id="reg">
-    <PageHeader></PageHeader>
     <div class="container">
       <div class="login">
         <form class="login-bd">
@@ -24,11 +23,7 @@
 </template>
 
 <script>
-import PageHeader from '@/components/Header'
 export default {
-  components: {
-    PageHeader
-  },
   data () {
     return {
       mobileNumb: '',

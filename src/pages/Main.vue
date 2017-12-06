@@ -1,10 +1,9 @@
 <template>
   <div id="main">
-    <PageHeader :uc="true"></PageHeader>
     <div class="main">
       <div class="menu-btn">
         <mu-raised-button @click="newWeb" label="添加网站" icon="web" />
-      </div>      
+      </div>
       <div class="main-row">
         <div class="main-col" v-for="item in webs" :key="item.id">
           <div class="col-wrap">
@@ -29,12 +28,8 @@
 </template>
 
 <script>
-import PageHeader from '@/components/Header'
 import { mapGetters } from 'vuex'
 export default {
-  components: {
-    PageHeader
-  },
   computed: {
     ...mapGetters([
       'webs'
@@ -58,7 +53,7 @@ export default {
 }
 .main-col {
   float: left;
-  width: 33%;  
+  width: 33%;
 }
 .menu-btn,
 .col-wrap {
@@ -71,4 +66,3 @@ export default {
   margin: 0 5px;
 }
 </style>
-

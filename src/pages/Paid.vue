@@ -1,6 +1,5 @@
 <template>
   <div id="paid">
-    <PageHeader activeName="shop"></PageHeader>
     <div class="container">
       <div class="login">
         <form class="login-bd">
@@ -18,12 +17,8 @@
 </template>
 
 <script>
-import PageHeader from '@/components/Header'
 import { mapGetters } from 'vuex'
 export default {
-  components: {
-    PageHeader
-  },
   data () {
     return {
       paymentDetail: [

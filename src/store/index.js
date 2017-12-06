@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import shop from './shop'
-import orders from './orders'
 
 Vue.use(Vuex)
 
@@ -17,12 +16,31 @@ const state = {
     }
   ],
   user: {},
+  homeInfo: {
+    interalRecordList: {
+      content: [],
+      totalElements: 0
+    },
+    activeMqList: {
+      content: [],
+      totalElements: 0
+    },
+    messageList: {
+      content: [],
+      totalElements: 0
+    },
+    orderList: [],
+    logList: {
+      content: []
+    }
+  },
   loading: false
 }
 
 const getters = {
   webs: state => state.webs,
   user: state => state.user,
+  homeInfo: state => state.homeInfo,
   loading: state => state.loading
 }
 
@@ -42,12 +60,16 @@ const mutations = {
   setUser (state, user) {
     state.user = user
   },
+  setHomeInfo (state, homeInfo) {
+    state.homeInfo = homeInfo
+  },
   setLoading (state, loading) {
     state.loading = loading
     setTimeout(() => {
       state.loading = false
     }, 15000)
   }
+
 }
 
 export default new Vuex.Store({
@@ -56,8 +78,7 @@ export default new Vuex.Store({
   actions,
   mutations,
   modules: {
-    shop,
-    orders
+    shop
   },
   strict: debug
 })

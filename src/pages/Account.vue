@@ -1,16 +1,15 @@
 <template>
   <div id="account">
-    <PageHeader :uc="true"></PageHeader>
     <div class="main">
       <mu-paper :zDepth="1">
         <div class="content">
           <mu-text-field hintText="提示文字" v-model="account.accountName" />
         </div>
       </mu-paper>
-      
+
       <div class="menu-btn">
         <mu-raised-button @click="newWeb" label="添加管理员" icon="assignment_ind" />
-      </div>      
+      </div>
       <div class="main-row">
         <div class="main-col" v-for="item in accounts" :key="item.id">
           <div class="col-wrap">
@@ -25,17 +24,13 @@
             </mu-card>
           </div>
         </div>
-      </div>    
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import PageHeader from '@/components/Header'
 export default {
-  components: {
-    PageHeader
-  },
   data () {
     return {
       account: {
@@ -64,14 +59,14 @@ export default {
   zoom: 1;
 }
 .main > .mu-paper {
-  margin: 0 10px;  
+  margin: 0 10px;
 }
 .content {
   padding: 30px;
 }
 .main-col {
   float: left;
-  width: 25%;  
+  width: 25%;
 }
 .menu-btn,
 .col-wrap {

@@ -9,6 +9,7 @@ import MuseUI from 'muse-ui'
 import VueLazyload from 'vue-lazyload'
 import 'muse-ui/dist/muse-ui.css'
 import './assets/app.less'
+import './assets/filters.js'
 Vue.use(MuseUI)
 Vue.prototype.$http = Axios
 Vue.config.productionTip = false

@@ -1,6 +1,5 @@
 <template>
   <div id="login">
-    <PageHeader></PageHeader>
     <div class="container">
       <div class="login">
         <form class="login-bd">
@@ -13,7 +12,7 @@
               <mu-flat-button @click="toForget" label="忘记密码？" />
             </p>
             <mu-flat-button @click="toReg" label="没有账号？立即注册" />
-          </div>          
+          </div>
         </form>
         <div class="icon-group">
           <div class="icon-group-hd">使用第三方登录</div>
@@ -28,11 +27,7 @@
 </template>
 
 <script>
-import PageHeader from '@/components/Header'
 export default {
-  components: {
-    PageHeader
-  },
   data () {
     return {
       mobileNumb: '',

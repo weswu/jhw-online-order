@@ -1,6 +1,5 @@
 <template>
   <div id="shop">
-    <PageHeader activeName="shop"></PageHeader>
     <div class="wrap shop-wrap">
       <div class="side-bar">
         <div class="side-bar-bd" :class="{'fixed': fixed}">
@@ -86,15 +85,13 @@
 </template>
 
 <script>
-import PageHeader from '@/components/Header'
-import ShopGroup from '@/components/ShopGroup'
-import FAQ from '@/components/FAQ'
-import Online from '@/components/Online'
+import ShopGroup from '@/components/shop/ShopGroup'
+import FAQ from '@/components/shop/FAQ'
+import Online from '@/components/shop/Online'
 import { mapGetters, mapActions } from 'vuex'
 import qs from 'qs'
 export default {
   components: {
-    PageHeader,
     ShopGroup,
     FAQ,
     Online

@@ -1,36 +1,17 @@
-<template lang="html">
+<template>
   <div class="box">
-    <div class="box-title data-message">消息<mu-badge content="20" /></div>
+    <div class="box-title data-feedback">留言<mu-badge :content="$store.state.homeInfo.messageList.totalElements + ''"/></div>
     <div class="box-cont">
-      <mu-list-item title="100积分">
+      <mu-list-item :title="item.title" v-for="item in $store.state.homeInfo.messageList.content" :key="item.id">
         <span slot="describe">
-          <span>用户A通过你的邀请码注册</span><br/>
-          2017/11/09
+          <span>{{item.content}}</span><br/>
+          {{item.addTime | time('yyyy/MM/dd')}}
         </span>
       </mu-list-item>
-      <mu-list-item title="100积分">
-        <span slot="describe">
-          <span>用户A通过你的邀请码注册</span><br/>
-          2017/11/09
-        </span>
-      </mu-list-item>
-      <mu-list-item title="100积分">
-        <span slot="describe">
-          <span>用户A通过你的邀请码注册</span><br/>
-          2017/11/09
-        </span>
-      </mu-list-item>
+      <div v-if="$store.state.homeInfo.messageList.content.length === 0" class="data-empty">暂无数据</div>
     </div>
     <div class="box-foot">
-      <mu-flat-button label="查看更多消息" />
+      <a href="http://www.jihui88.com/member/index.html#/message"><mu-flat-button label="查看更多留言" /></a>
     </div>
   </div>
 </template>
-
-<script>
-export default {
-}
-</script>
-
-<style lang="css">
-</style>

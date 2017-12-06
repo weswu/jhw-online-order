@@ -1,6 +1,5 @@
 <template>
   <div id="uc">
-    <PageHeader :uc="true"></PageHeader>
     <div class="main">
       <mu-row gutter>
         <mu-col width="100" tablet="100" desktop="50">
@@ -19,10 +18,10 @@
           <UcPoints></UcPoints>
         </mu-col>
         <mu-col width="100" tablet="33" desktop="33">
-          <UcMessage></UcMessage>
+          <UcActiveMessage></UcActiveMessage>
         </mu-col>
         <mu-col width="100" tablet="33" desktop="33">
-          <UcFeedback></UcFeedback>
+          <UcMessage></UcMessage>
         </mu-col>
       </mu-row>
 
@@ -40,7 +39,7 @@
           <img src="/static/help.jpg" alt="">
         </mu-col>
         <mu-col width="100" tablet="50" desktop="25" class="col-img">
-          <img :src="'static/' + clients" @mouseover="onClients" @mouseout="unClients" alt="">
+          <img :src="'/static/clients' + clients + '.jpg'" @mouseover="clients = '_hover'" @mouseout="clients = ''">
         </mu-col>
       </mu-row>
     </div>
@@ -51,8 +50,8 @@
 import PageHeader from '@/components/Header'
 import UcWebsite from '@/components/uc/uc-website'
 import UcPoints from '@/components/uc/uc-points'
+import UcActiveMessage from '@/components/uc/uc-message-active'
 import UcMessage from '@/components/uc/uc-message'
-import UcFeedback from '@/components/uc/uc-feedback'
 import UcService from '@/components/uc/uc-service'
 import UcOrder from '@/components/uc/uc-order'
 import UcLog from '@/components/uc/uc-log'
@@ -61,26 +60,30 @@ export default {
     PageHeader,
     UcWebsite,
     UcPoints,
+    UcActiveMessage,
     UcMessage,
-    UcFeedback,
     UcService,
     UcOrder,
     UcLog
   },
   data () {
     return {
-      clients: 'clients.jpg'
+      clients: '',
+      points: []
     }
   },
   mounted () {
     window.scrollTo(0, 0)
   },
+  created () {
+    this.get()
+  },
   methods: {
-    onClients () {
-      this.clients = 'clients_hover.jpg'
-    },
-    unClients () {
-      this.clients = 'clients.jpg'
+    get () {
+      this.$store.dispatch('getUser', this.$http)
+      this.$http.get('/api/user/homeInfo').then((res) => {
+        this.$store.commit('setHomeInfo', res.data)
+      })
     }
   }
 }
@@ -106,8 +109,14 @@ export default {
     padding: 0 3px 3px 0;
     img {
       box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+      margin: 0 auto;
     }
   }
+}
+.data-empty {
+  text-align: center;
+    padding: 20px 0;
+    color: #999;
 }
 .main {
   max-width: 1200px;
@@ -116,33 +125,40 @@ export default {
   overflow: hidden;
   zoom: 1;
 }
+// 基本信息
 .website {
   background: #fff;
   padding: 20px;
+  .website-wrap {
+    display: flex;
+    .website-logo {
+      width: 120px;
+      height: 120px;
+      margin-right: 10px;
+      overflow: hidden;
+      img {
+        display: block;
+      }
+    }
+    .website-cont {
+      flex: 1;
+      .website-cont-item {
+        padding: 5px 0;
+      }
+      .limit-time {
+        color: #999;
+      }
+      .btn-group {
+        display: flex;
+        justify-content: space-between;
+        .btn-group-item {
+          position: relative;
+        }
+      }
+    }
+  }
 }
-.website-wrap {
-  display: flex;
-}
-.website-logo {
-  width: 120px;
-  margin-right: 10px;
-}
-.website-logo img {
-  display: block;
-}
-.website-cont {
-  flex: 1;
-}
-.website-cont-item {
-  padding: 5px 0;
-}
-.btn-group {
-  display: flex;
-  justify-content: space-between;
-}
-.btn-group-item {
-  position: relative;
-}
+
 .upgrade-tip {
   position: absolute;
   top: -30px;
@@ -153,21 +169,20 @@ export default {
   padding: 2px 8px;
   font-size: 12px;
   border-radius: 3px;
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    margin-left: -5px;
+    width: 0px;
+    height: 0px;
+    border: 5px solid transparent;
+    border-top-color: rgba(0, 0, 0, .75);
+  }
 }
-.upgrade-tip:after {
-  content: "";
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  margin-left: -5px;
-  width: 0px;
-  height: 0px;
-  border: 5px solid transparent;
-  border-top-color: rgba(0, 0, 0, .75);
-}
-.limit-time {
-  color: #999;
-}
+
+
 .col-banner {
   display: block;
   cursor: pointer;
@@ -213,33 +228,7 @@ export default {
 .order-list .box-cont {
   height: 140px;
 }
-#uc .service-banner:first-child {
-  padding-top: 0;
-}
-.service-banner .col {
-  height: 107px;
-  background: #fff;
-  display: flex;
-  cursor: pointer;
-}
-.service-banner .col:nth-child(1) .service-logo {
-  background: #009688;
-}
-.service-banner .col:nth-child(2) .service-logo {
-  background: #039be5;
-}
-.service-banner .col:nth-child(3) .service-logo {
-  background: #43a047;
-}
-.service-banner .col:nth-child(4) .service-logo {
-  background: #ef6c00;
-}
-.service-banner .col:nth-child(5) .service-logo {
-  background: #607d8b;
-}
-.service-banner .col:nth-child(6) .service-logo {
-  background: #7c4dff;
-}
+
 .service-logo {
   display: flex;
   width: 87px;
@@ -260,7 +249,7 @@ export default {
 }
 .service-cont h3 {
   font-size: 14px;
-  padding-bottom: 5px;
+  padding-bottom: 3px;
 }
 .service-cont p {
   font-size: 12px;
@@ -334,6 +323,37 @@ export default {
 .box-cont.feedback {
   padding: 20px;
   height: 177px;
+}
+
+
+// 中间5块小图标
+.service-banner:first-child {
+  padding-top: 0;
+  .col {
+    height: 107px;
+    background: #fff;
+    display: flex;
+    cursor: pointer;
+    margin-top: 0
+  }
+  .col:nth-child(1) .service-logo {
+    background: #009688;
+  }
+  .col:nth-child(2) .service-logo {
+    background: #039be5;
+  }
+  .col:nth-child(3) .service-logo {
+    background: #43a047;
+  }
+  .col:nth-child(4) .service-logo {
+    background: #ef6c00;
+  }
+  .col:nth-child(5) .service-logo {
+    background: #7c4dff;
+  }
+  .col:nth-child(6) .service-logo {
+    background: #607d8b;
+  }
 }
 
 </style>
