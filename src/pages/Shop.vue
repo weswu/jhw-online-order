@@ -39,7 +39,7 @@
       <div class="dialog_bd">
         <div class="point">
           <p><mu-checkbox @change="getPoints" label="使用积分抵扣" class="demo-checkbox" /></p>
-          <mu-text-field v-if="showPoint" type="number" hintText="提示文字" @input="checkPoint" :errorText="errorText" :label="'可用积分: ' + maxPoint" v-model.number="points" min="0" :max="maxPoint"/>
+          <mu-text-field v-if="showPoint" type="number" hintText="提示文字" @input="checkPoint" :errorText="errorText" :label="'可用积分: ' + $store.state.points" v-model.number="points" min="0" :max="$store.state.points"/>
         </div>
         <div class="order-price">
           <div class="order-price-item">
@@ -102,7 +102,6 @@ export default {
       activeTab: 'tab1',
       dialog: false,
       points: 0,
-      maxPoint: 100,
       showPoint: false,
       payment: 0,
       errorText: '',
@@ -128,17 +127,36 @@ export default {
       }
     }
   },
+  created () {
+    this.get()
+  },
   methods: {
     ...mapActions('shop', ['chooseYear']),
+    get () {
+      var ctx = this
+      if (!this.$store.state.homeInfo.name) {
+        this.$http.get('/api/user/homeInfo').then((res) => {
+          if (res.data) {
+            ctx.$store.commit('setHomeInfo', res.data)
+            ctx.$store.commit('shop/UPGRADE', res.data.priceItemIds)
+          }
+        })
+      } else {
+        this.$store.commit('shop/UPGRADE', this.$store.state.homeInfo.priceItemIds)
+      }
+    },
     handleTabChange (val) {
       this.activeTab = val
     },
     toMain () {
       var ctx = this
       this.$http.get('/api/user/info').then((res) => {
-        if (res.data.nickname) {
+        if (res.data) {
           ctx.dialog = true
-          ctx.$store.commit('setUser', res.data)
+          ctx.$store.commit('setUser', res.data.data)
+        } else {
+          ctx.$store.commit('setLoginUrl', res.headers.requires_auth_url)
+          ctx.$parent.$refs.iframe.open()
         }
       })
     },
@@ -151,9 +169,9 @@ export default {
       clearInterval(this.timer)
     },
     checkPoint (e) {
-      if (parseInt(e) > this.maxPoint) {
-        this.errorText = '您的可用积分为' + this.maxPoint
-        this.points = this.maxPoint
+      if (parseInt(e) > this.$store.state.points) {
+        this.errorText = '您的可用积分为' + this.$store.state.points
+        this.points = this.$store.state.points
       } else {
         this.errorText = ''
       }
@@ -163,9 +181,10 @@ export default {
     },
     // 获取积分
     getPoints () {
+      var ctx = this
       this.showPoint = !this.showPoint
       this.$http.get('/api/integralRecord/total').then((res) => {
-        this.maxPoint = res.data || 0
+        ctx.$store.commit('setPoints', res.data || 0)
       })
     },
     // 微信支付
@@ -177,13 +196,13 @@ export default {
         payType: this.payment,
         year: this.$store.state.shop.year,
         integral: this.points,
-        orderType: 'CUSTOM',
+        orderType: this.$store.state.homeInfo.priceItemIds ? 'UPDATE' : 'CUSTOM',
         designerId: this.$store.state.shop.designerId
       }
       if (order.priceItemIds === '') {
         return this.$parent.$refs.toast.show('请选择商品')
       }
-      if (this.points > this.maxPoint) {
+      if (this.points > this.$store.state.points) {
         return this.$parent.$refs.toast.show('积分已超过最大量')
       }
       this.$store.commit('setLoading', true)
@@ -205,7 +224,7 @@ export default {
         } else if (res === 'paysuccess') {
           // 跳转到支付已成功页面
           ctx.$parent.$refs.toast.show('支付已完成')
-          ctx.$router.push({ name: 'paid', params: {orderId: this.order.orderId, totalPrice: this.order.totalPrice} })
+          ctx.$router.push({ name: 'paid', params: {orderId: this.order.outTradeNo, totalPrice: this.order.totalPrice} })
         } else if (res === 'payfailed') {
           // 跳转到支付失败页面
           ctx.$parent.$refs.toast.show('支付未完成')

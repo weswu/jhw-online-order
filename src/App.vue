@@ -5,10 +5,12 @@
     <PageFooter></PageFooter>
     <!--加载中...-->
     <Loading></Loading>
-    <!--加载中...-->
+    <!--消息...-->
     <Toast ref="toast"></Toast>
-    <!--提示中...-->
+    <!--文字提示...-->
     <Tooltip ref="tooltip"></Tooltip>
+    <!--登录...-->
+    <IframeLogin ref="iframe"></IframeLogin>
   </div>
 </template>
 
@@ -18,13 +20,15 @@ import PageFooter from '@/components/Footer'
 import Loading from '@/components/Loading'
 import Toast from '@/components/Toast'
 import Tooltip from '@/components/shop/Tooltip'
+import IframeLogin from '@/components/Iframe'
 export default {
   components: {
     PageHeader,
     PageFooter,
     Loading,
     Toast,
-    Tooltip
+    Tooltip,
+    IframeLogin
   },
   name: 'app'
 }

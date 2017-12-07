@@ -8,11 +8,12 @@
         </mu-tr>
       </mu-thead>
       <mu-tbody>
-        <mu-tr v-for="(item,index) in data.content" :key="index" @click="detail(item)">
+        <mu-tr v-for="(item,index) in data.content" :key="index">
           <mu-td v-if="type === 'log'">{{item.nickName}}</mu-td>
           <mu-td v-if="type === 'log' || type === 'message'">{{item.name}}</mu-td>
           <mu-td v-if="type === 'message'">{{item.content}}</mu-td>
-          <mu-td v-if="type === 'order'">{{item.orderId}}</mu-td>
+          <mu-td v-if="type === 'order'" @click="detail(item)">{{item.outTradeNo}}</mu-td>
+          <mu-td v-if="type === 'order'" @click="detail(item)">{{item.name}}</mu-td>
           <mu-td v-if="type === 'order'">{{item.totalPrice}}</mu-td>
           <mu-td>{{item.addTime | time('yyyy-MM-dd hh:mm')}}</mu-td>
         </mu-tr>
@@ -27,7 +28,7 @@ export default {
   props: ['title', 'columns', 'data', 'type'],
   methods: {
     handleClick (index) {
-      this.$emit('pageChange', index)
+      this.$emit('page-change', index)
     },
     detail (item) {
       this.$emit('detail', item)

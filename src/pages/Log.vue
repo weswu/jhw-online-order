@@ -1,6 +1,6 @@
 <template>
   <div class="main-content">
-    <Table title="更新日志" :columns="columns" :data="data" type="log"></Table>
+    <Table title="更新日志" :columns="columns" :data="data" type="log" v-on:page-change="pageChange"></Table>
   </div>
 </template>
 
@@ -43,7 +43,6 @@ export default {
       })
     },
     pageChange (index) {
-      debugger
       this.search.page = index - 1
       this.get()
     }

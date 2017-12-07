@@ -4,10 +4,16 @@ import axios from 'axios'
 axios.defaults.timeout = 30000
 // 添加响应拦截器
 axios.interceptors.response.use((res) => {
-  if (res.data.code === 5) {
-    window.open(res.headers.requires_auth_url)
+  // 登录
+  if (res.data.code === 5 && res.config.url === '/api/user/info') {
+    // window.open(res.headers.requires_auth_url)
+    return res
   } else if (res.data.code !== 0) {
     // window.alert(res.data.msg)
+  }
+  // 退出
+  if (res.config.url === '/api/user/logout') {
+    window.location.href = res.data.data
   }
   return res.data
 }, (error) => {

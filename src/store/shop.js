@@ -352,121 +352,103 @@ const mutations = {
     if (state.shopFunction[params.sIndex].groups[params.gIndex].custom) {
       // 判断是否选择了定制设计按钮，如果是，切换设计师界面显示状态
       state.showDesigner = !state.showDesigner
-      // 去除定制加成
+      // 去除设计师加成
       if (!state.showDesigner) {
         state.magenif = 1
         state.designerId = ''
-        let groups = state.shopFunction[params.sIndex].groups[1]
-        let price = 0
-        if (groups.value.length) {
-          groups.value.map(item => {
-            groups.items.map(key => {
-              if (item === key.value) {
-                price += key.price
-              }
-            })
-          })
-          state.shopFunction[params.sIndex].groups[1].price = price
-        }
-        groups.items[4].disabled = false
       }
     }
     state.shopFunction[params.sIndex].groups[params.gIndex].value = params.item.value // 选中状态
-    state.shopFunction[params.sIndex].groups[params.gIndex].price = params.item.unit === '元/年' ? params.item.price * state.year : params.item.price // 选中金额 * 年份
   },
   CHOOSE_CHECK (state, params) {
     let value = state.shopFunction[params.sIndex].groups[params.gIndex].value
-    let price = state.shopFunction[params.sIndex].groups[params.gIndex].price
     let isSame = false
     if (!value.length) {
       // 第一次
       value = value.concat(params.item.value)
-      price += params.item.unit === '元/年' ? params.item.price * state.year : params.item.price
     } else {
       value.map((item, index) => {
         if (item === params.item.value) {
           isSame = true
           value.splice(index, 1)
-          if (state.shopFunction[params.sIndex].groups[params.gIndex].magenif) {
-            price = price - (params.item.price * state.magenif)
-          } else {
-            price = price - (params.item.unit === '元/年' ? params.item.price * state.year : params.item.price)
-          }
         }
       })
       if (!isSame) {
         value = value.concat(params.item.value)
-        if (state.shopFunction[params.sIndex].groups[params.gIndex].magenif) {
-          price += params.item.price * state.magenif
-        } else {
-          price += params.item.unit === '元/年' ? params.item.price * state.year : params.item.price
-        }
       }
     }
     state.shopFunction[params.sIndex].groups[params.gIndex].value = value
-    state.shopFunction[params.sIndex].groups[params.gIndex].price = price
   },
   CHOOSE_DESIGNER (state, params) {
     state.magenif = params.key.price
     state.designerId = params.key.value
-    let groups = state.shopFunction[params.sIndex].groups[1]
-    let price = 0
-    let keyDefault = false
-    if (groups.value.length) {
-      groups.value.map(item => {
-        groups.items.map(key => {
-          if (item === key.value) {
-            price += key.price * params.key.price
-          }
-          if (key.value === '5') {
-            key.disabled = true
-          }
-        })
-        if (item === '5') {
-          keyDefault = true
-        }
-      })
-      if (!keyDefault) {
-        groups.value = groups.value.concat('5')
-        groups.items[4].disabled = true
-        price += groups.items[4].price * params.key.price
-      }
-      state.shopFunction[params.sIndex].groups[1].price = price
-    } else {
-      groups.value = ['5']
-      groups.items[4].disabled = true
-      state.shopFunction[params.sIndex].groups[1].price = groups.items[4].price * params.key.price
+    // 首页定制
+    let value = state.shopFunction[2].groups[1].value
+    if (!value.join().match(new RegExp('297e2669600191860160021d84ac0091'))) {
+      state.shopFunction[2].groups[1].value = value.concat('297e2669600191860160021d84ac0091')
     }
   },
   CHOOSE_YEAR (state, params) {
     state.year = state.yearList[params]
+  },
+  TOTAL (state) {
+    // 计算各项单个金额
     state.shopFunction.map(row => {
       row.groups.map(item => {
         item.price = 0
         item.needCheck && item.items.map(key => {
           if (item.type === 'radio' && item.value.match(new RegExp(key.value))) {
             item.price = key.unit === '元/年' ? key.price * state.year : key.price
-          } else if (item.type === 'check' && item.value.join().match(new RegExp(key.value))) {
-            item.price += key.unit === '元/年' ? key.price * state.year : key.price
+          } else if (item.type === 'check' && item.value.join().match(new RegExp(key.value)) && !key.disabled) {
+            if (item.magenif) {
+              // 设计师加成
+              item.price += key.price * state.magenif
+            } else {
+              item.price += key.unit === '元/年' ? key.price * state.year : key.price
+            }
           }
         })
       })
     })
-  },
-  TOTAL (state) {
     // 计算总金额
     let totalPrice = 0
     let priceItemIds = ''
     state.shopFunction.map(row => {
       row.groups.map((item, index) => {
         totalPrice += item.price
+        let value = ''
         // 计算选中项
-        let value = typeof item.value === 'object' ? item.value.join() : item.value
+        if (item.type === 'radio') {
+          value = item.value
+        } else {
+          item.needCheck && item.items.map(key => {
+            if (!key.disabled && item.value.join().match(new RegExp(key.value))) {
+              value ? value += (',' + key.value) : value = key.value
+            }
+          })
+        }
         priceItemIds ? priceItemIds += (value ? ',' + value : '') : priceItemIds = value
       })
     })
     state.totalPrice = totalPrice
     state.priceItemIds = priceItemIds
+  },
+  UPGRADE (state, params) {
+    // 升级 已购产品不可用
+    if (params) {
+      params.split(',').map((ids, index) => {
+        state.shopFunction.map(row => {
+          row.groups.map(item => {
+            item.needCheck && item.type === 'check' && item.items.map(key => {
+              if (ids === key.value) {
+                key.disabled = true
+                item.value = item.value.concat(key.value)
+              }
+            })
+          })
+        })
+      })
+    }
   }
 }
 

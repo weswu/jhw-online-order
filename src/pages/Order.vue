@@ -1,15 +1,18 @@
 <template>
   <div class="main-content">
-    <Table title="消费记录" :columns="columns" :data="data" type="order"></Table>
+    <Table title="消费记录" :columns="columns" :data="data" type="order" v-on:page-change="pageChange" v-on:detail="detail"></Table>
+    <OrderDetail ref="OrderDetail"></OrderDetail>
   </div>
 </template>
 
 <script>
 import qs from 'qs'
 import Table from '@/components/Table'
+import OrderDetail from '@/components/OrderDetail'
 export default {
   components: {
-    Table
+    Table,
+    OrderDetail
   },
   data () {
     return {
@@ -19,7 +22,11 @@ export default {
           title: '订单编号'
         },
         {
-          title: '交易额'
+          title: '内容'
+        },
+        {
+          title: '交易额',
+          width: 160
         },
         {
           title: '时间',
@@ -37,7 +44,7 @@ export default {
   },
   methods: {
     get () {
-      this.$http.get('/api/orderHistory/list?' + qs.stringify(this.search)).then((res) => {
+      this.$http.get('/api/order/list?' + qs.stringify(this.search)).then((res) => {
         this.data = res.data
       })
     },
@@ -45,8 +52,8 @@ export default {
       this.search.page = index - 1
       this.get()
     },
-    detail () {
-      console.log('d')
+    detail (item) {
+      this.$refs.OrderDetail.open(item.orderId)
     }
   }
 }

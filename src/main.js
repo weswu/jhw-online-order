@@ -14,7 +14,6 @@ Vue.use(MuseUI)
 Vue.prototype.$http = Axios
 Vue.config.productionTip = false
 
-Vue.use(VueLazyload)
 // or with options
 Vue.use(VueLazyload, {
   preLoad: 1.3,

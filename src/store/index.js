@@ -32,15 +32,19 @@ const state = {
     orderList: [],
     logList: {
       content: []
-    }
+    },
+    logo: ''
   },
-  loading: false
+  points: 0,
+  loading: false,
+  loginUrl: 'http://www.jihui88.com/login.html'
 }
 
 const getters = {
   webs: state => state.webs,
   user: state => state.user,
   homeInfo: state => state.homeInfo,
+  points: state => state.points,
   loading: state => state.loading
 }
 
@@ -63,13 +67,18 @@ const mutations = {
   setHomeInfo (state, homeInfo) {
     state.homeInfo = homeInfo
   },
+  setPoints (state, points) {
+    state.points = points
+  },
   setLoading (state, loading) {
     state.loading = loading
     setTimeout(() => {
       state.loading = false
     }, 15000)
+  },
+  setLoginUrl (state, loginUrl) {
+    state.loginUrl = loginUrl
   }
-
 }
 
 export default new Vuex.Store({

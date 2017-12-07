@@ -1,6 +1,6 @@
 <template>
   <div class="main-content">
-    <Table title="消息" :columns="columns" :data="data" type="message"></Table>
+    <Table title="消息" :columns="columns" :data="data" type="message" v-on:page-change="pageChange"></Table>
   </div>
 </template>
 
@@ -38,12 +38,11 @@ export default {
   },
   methods: {
     get () {
-      this.$http.get('/api/message/list?' + qs.stringify(this.search)).then((res) => {
+      this.$http.get('/api/activeMg/list?' + qs.stringify(this.search)).then((res) => {
         this.data = res.data
       })
     },
     pageChange (index) {
-      debugger
       this.search.page = index - 1
       this.get()
     }

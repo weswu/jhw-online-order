@@ -82,7 +82,9 @@ export default {
     get () {
       this.$store.dispatch('getUser', this.$http)
       this.$http.get('/api/user/homeInfo').then((res) => {
-        this.$store.commit('setHomeInfo', res.data)
+        if (res.data) {
+          this.$store.commit('setHomeInfo', res.data)
+        }
       })
     }
   }
@@ -209,6 +211,12 @@ export default {
   background: #ff5722;
   color: #fff;
 }
+.income{
+  color: green
+}
+.out{
+  color: red
+}
 .data-message .mu-badge {
   background: #009688;
   color: #fff;
@@ -246,30 +254,24 @@ export default {
 .service-cont {
   flex: 1;
   padding: 10px 10px 10px 0;
+  h3 {
+    font-size: 14px;
+    padding-bottom: 3px;
+    span {
+      font-size: 12px;
+      font-weight: normal;
+      color: #999;
+      float: right;
+    }
+  }
+  p {
+    font-size: 12px;
+    color: #666;
+  }
 }
-.service-cont h3 {
-  font-size: 14px;
-  padding-bottom: 3px;
-}
-.service-cont p {
-  font-size: 12px;
-  color: #666;
-}
-.order-detail-hd,
-.order-detail-bd {
-  padding: 15px;
-  border-bottom: 1px solid rgba(0, 0, 0, .2);
-}
-.order-detail-hd h2,
-.order-detail-bd h2 {
-  color: #000;
-  padding-bottom: 5px;
-}
-.detail-hd-item,
-.detail-bd-item {
-  display: flex;
-  justify-content: space-between;
-}
+
+
+
 .dialog_bd {
   padding-top: 24px;
 }

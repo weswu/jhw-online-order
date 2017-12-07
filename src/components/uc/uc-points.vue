@@ -2,9 +2,13 @@
   <div class="box">
     <div class="box-title data-points">积分<mu-badge :content="$store.state.homeInfo.interalRecordList.totalElements + ''" /></div>
     <div class="box-cont">
-      <mu-list-item :title="item.income+'积分'" v-for="item in $store.state.homeInfo.interalRecordList.content" :key="item.id">
+      <mu-list-item  v-for="item in $store.state.homeInfo.interalRecordList.content" :key="item.id">
+        <div slot="title">
+          <span class="income" v-if="item.income != 0">+{{item.income}}</span>
+          <span class="out" v-else="item.income === 0">-{{item.out}}</span> 积分
+        </div>
         <span slot="describe">
-          <span>{{item.desc}}</span><br/>
+          {{item.desc}}<br/>
           {{item.addTime | time('yyyy/MM/dd')}}
         </span>
       </mu-list-item>

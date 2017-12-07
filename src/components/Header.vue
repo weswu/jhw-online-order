@@ -45,7 +45,15 @@ export default {
       this.$router.push({path: 'uc'})
     },
     toLogin () {
-      this.$store.dispatch('getUser', this.$http)
+      let ctx = this
+      this.$http.get('/api/user/info').then((res) => {
+        if (res.data) {
+          ctx.$store.commit('setUser', res.data.data)
+        } else {
+          ctx.$store.commit('setLoginUrl', res.headers.requires_auth_url)
+          ctx.$parent.$refs.iframe.open()
+        }
+      })
     },
     toLogout () {
       let ctx = this
