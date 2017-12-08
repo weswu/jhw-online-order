@@ -42,8 +42,8 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
-      if (vm.$route.params.orderId) {
-        vm.paymentDetail[0].desc = vm.$route.params.orderId
+      if (vm.$route.params.outTradeNo) {
+        vm.paymentDetail[0].desc = vm.$route.params.outTradeNo
         vm.paymentDetail[1].desc = 'RMB ' + vm.$route.params.totalPrice
       }
     })

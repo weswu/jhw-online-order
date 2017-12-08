@@ -22,11 +22,7 @@ export default {
           title: '订单编号'
         },
         {
-          title: '内容'
-        },
-        {
-          title: '交易额',
-          width: 160
+          title: '交易额'
         },
         {
           title: '时间',
@@ -44,7 +40,7 @@ export default {
   },
   methods: {
     get () {
-      this.$http.get('/api/order/list?' + qs.stringify(this.search)).then((res) => {
+      this.$http.get('/api/order/orderHistory?' + qs.stringify(this.search)).then((res) => {
         this.data = res.data
       })
     },

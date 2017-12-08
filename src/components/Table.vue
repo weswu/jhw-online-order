@@ -13,13 +13,12 @@
           <mu-td v-if="type === 'log' || type === 'message'">{{item.name}}</mu-td>
           <mu-td v-if="type === 'message'">{{item.content}}</mu-td>
           <mu-td v-if="type === 'order'" @click="detail(item)">{{item.outTradeNo}}</mu-td>
-          <mu-td v-if="type === 'order'" @click="detail(item)">{{item.name}}</mu-td>
-          <mu-td v-if="type === 'order'">{{item.totalPrice}}</mu-td>
+          <mu-td v-if="type === 'order'" @click="detail(item)">{{item.totalPrice}}</mu-td>
           <mu-td>{{item.addTime | time('yyyy-MM-dd hh:mm')}}</mu-td>
         </mu-tr>
       </mu-tbody>
     </mu-table>
-    <mu-pagination class="pagin" :total="data.totalElements" :current="data.number" @pageChange="handleClick"></mu-pagination>
+    <mu-pagination class="pagin" :total="data.totalElements" :current="data.number + 1" @pageChange="handleClick"></mu-pagination>
   </div>
 </template>
 

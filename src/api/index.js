@@ -11,10 +11,6 @@ axios.interceptors.response.use((res) => {
   } else if (res.data.code !== 0) {
     // window.alert(res.data.msg)
   }
-  // 退出
-  if (res.config.url === '/api/user/logout') {
-    window.location.href = res.data.data
-  }
   return res.data
 }, (error) => {
   return Promise.reject(error)

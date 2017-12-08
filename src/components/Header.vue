@@ -14,12 +14,22 @@
           <li><a href="http://xueyuan.jihui88.com/news.html">学院</a></li>
           <li><a href="http://about.jihui88.com/">关于</a></li>
         </ul>
+
+        <mu-icon-menu icon="menu" :anchorOrigin="anchorOrigin" :targetOrigin="targetOrigin2" slot="left" class="nav-menu">
+          <a href="http://www.jihui88.com/"><mu-menu-item title="首页"/></a>
+          <a href="http://www.jihui88.com/product_1.html"><mu-menu-item title="全网营销云平台"/></a>
+          <a :class="{ 'active': $route.name === 'shop' || $route.name === 'paid' }" href="#"><mu-menu-item title="购买"/></a>
+          <a href="http://anli.jihui88.com/case.html"><mu-menu-item title="案例"/></a>
+          <a href="http://www.jihui88.com/join.html"><mu-menu-item title="加盟"/></a>
+          <a href="http://xueyuan.jihui88.com/news.html"><mu-menu-item title="学院"/></a>
+          <a href="http://about.jihui88.com/"><mu-menu-item title="关于"/></a>
+        </mu-icon-menu>
       </div>
 
       <div class="account">
-        <a href="javascript:;" class="btn-login" @click="toLogin" v-if="!$store.state.user.nickname">登录</a>
-        <a href="http://www.jihui88.com/member/register.html" class="btn-register" v-if="!$store.state.user.nickname">免费注册</a>
-        <mu-icon-menu icon="person" :anchorOrigin="anchorOrigin" :targetOrigin="targetOrigin" v-if="$store.state.user.nickname">
+        <a href="javascript:;" class="btn-login" @click="toLogin" v-if="!user.nickname">登录</a>
+        <a href="http://www.jihui88.com/member/register.html" class="btn-register" v-if="!user.nickname">免费注册</a>
+        <mu-icon-menu icon="person" :anchorOrigin="anchorOrigin" :targetOrigin="targetOrigin" v-if="user.nickname">
             <mu-menu-item title="用户中心" @click="toUc" />
             <mu-menu-item title="退出" @click="toLogout" />
           </mu-icon-menu>
@@ -34,7 +44,13 @@ export default {
     return {
       anchorOrigin: {horizontal: 'right', vertical: 'bottom'},
       targetOrigin: {horizontal: 'right', vertical: 'top'},
+      targetOrigin2: {horizontal: 'left', vertical: 'top'},
       open: false
+    }
+  },
+  computed: {
+    user () {
+      return this.$store.state.user
     }
   },
   methods: {
@@ -46,12 +62,14 @@ export default {
     },
     toLogin () {
       let ctx = this
+      this.$store.commit('setLoading', true)
       this.$http.get('/api/user/info').then((res) => {
-        if (res.data) {
-          ctx.$store.commit('setUser', res.data.data)
-        } else {
+        this.$store.commit('setLoading', false)
+        if (res.data.code === 5) {
           ctx.$store.commit('setLoginUrl', res.headers.requires_auth_url)
           ctx.$parent.$refs.iframe.open()
+        } else {
+          ctx.$store.commit('setUser', res.data)
         }
       })
     },
@@ -59,6 +77,31 @@ export default {
       let ctx = this
       this.$http.get('/api/user/logout').then((res) => {
         ctx.$store.commit('setUser', {})
+        ctx.$store.commit('setLoginUrl', res.data)
+        setTimeout(() => {
+          ctx.$store.commit('setLoginUrl', 'http://www.jihui88.com/member/login.html')
+        }, 2000)
+        ctx.$parent.$refs.iframe.logout()
+        let homeInfo = {
+          interalRecordList: {
+            content: [],
+            totalElements: 0
+          },
+          activeMqList: {
+            content: [],
+            totalElements: 0
+          },
+          messageList: {
+            content: [],
+            totalElements: 0
+          },
+          orderList: [],
+          logList: {
+            content: []
+          },
+          logo: ''
+        }
+        ctx.$store.commit('setHomeInfo', homeInfo)
       })
     },
     toggle () {
@@ -116,6 +159,14 @@ export default {
         color: #ff6700
       }
     }
+    .nav-menu {
+      color: #fff;
+      display: none;
+      line-height: 59px;
+      .mu-icon {
+        padding-top: 7px;
+      }
+    }
   }
   .account {
     float: right;
@@ -164,8 +215,22 @@ export default {
     }
   }
 }
-
+.active .mu-menu-item-title{
+  color: #ff6700
+}
 /* 自适应 */
+@media only screen and (max-width: 835px) {
+  .header{
+    .nav {
+      ul {
+        display: none
+      }
+      .nav-menu {
+        display: block
+      }
+    }
+  }
+}
 @media screen and (min-width: 1440px) {
   .header{
     height: 78px;

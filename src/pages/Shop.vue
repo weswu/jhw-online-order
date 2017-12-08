@@ -133,7 +133,12 @@ export default {
   methods: {
     ...mapActions('shop', ['chooseYear']),
     get () {
-      var ctx = this
+      let ctx = this
+      this.$http.get('/api/user/info').then((res) => {
+        if (res.data.code !== 5) {
+          ctx.$store.commit('setUser', res.data)
+        }
+      })
       if (!this.$store.state.homeInfo.name) {
         this.$http.get('/api/user/homeInfo').then((res) => {
           if (res.data) {
@@ -151,12 +156,12 @@ export default {
     toMain () {
       var ctx = this
       this.$http.get('/api/user/info').then((res) => {
-        if (res.data) {
-          ctx.dialog = true
-          ctx.$store.commit('setUser', res.data.data)
-        } else {
+        if (res.data.code === 5) {
           ctx.$store.commit('setLoginUrl', res.headers.requires_auth_url)
           ctx.$parent.$refs.iframe.open()
+        } else {
+          ctx.dialog = true
+          ctx.$store.commit('setUser', res.data)
         }
       })
     },
@@ -224,7 +229,7 @@ export default {
         } else if (res === 'paysuccess') {
           // 跳转到支付已成功页面
           ctx.$parent.$refs.toast.show('支付已完成')
-          ctx.$router.push({ name: 'paid', params: {orderId: this.order.outTradeNo, totalPrice: this.order.totalPrice} })
+          ctx.$router.push({ name: 'paid', params: {outTradeNo: this.order.outTradeNo, totalPrice: this.order.totalPrice} })
         } else if (res === 'payfailed') {
           // 跳转到支付失败页面
           ctx.$parent.$refs.toast.show('支付未完成')
@@ -242,40 +247,54 @@ export default {
 }
 </script>
 
-<style>
-.w-table{
-  border: 1px solid rgba(0,0,0,.12);
-  border-bottom: none
-}
-.w-table .mu-th{
-  height: auto;
-  line-height: 20px;
-  font-size: 13px;
-  padding: 7px 7px;
-  color: rgba(0,0,0,.8);
-  border-right:  1px solid rgba(0,0,0,.12);
-}
+<style lang="less">
 .wrap {
   width: 1200px;
   margin: 50px auto 0;
   position: relative;
 }
-.fixed {
-  position: fixed;
-  top: 0;
-  z-index: 2;
-}
+
+// 右侧计算表单
 .side-bar {
   float: right;
   width: 270px;
-}
-.side-bar-bd {
-  width: 270px;
-  padding: 30px;
-  background: #fff;
-}
-.side-bar-bd_cont {
-  padding-bottom: 20px;
+  .side-bar-bd {
+    width: 270px;
+    padding: 30px;
+    background: #fff;
+    .side-bar-bd_cont {
+      padding-bottom: 20px;
+      .w-table{
+        border: 1px solid rgba(0,0,0,.12);
+        border-bottom: none;
+        .mu-th{
+          height: auto;
+          line-height: 20px;
+          font-size: 13px;
+          padding: 7px 7px;
+          color: rgba(0,0,0,.8);
+          border-right:  1px solid rgba(0,0,0,.12);
+        }
+      }
+    }
+    // 总价格
+    .side-bar-origin-price {
+      color: #ff4081;
+      text-align: right;
+      font-size: 14px;
+      text-decoration: line-through;
+    }
+    .side-bar-price {
+      text-align: right;
+      font-size: 24px;
+      padding: 10px 0;
+    }
+  }
+  .fixed {
+    position: fixed;
+    top: 0;
+    z-index: 2;
+  }
 }
 .side-bar-item_title {
   font-size: 13px;
@@ -290,19 +309,58 @@ export default {
 .side-bar-item span {
   float: right;
 }
-.side-bar-origin-price {
-  color: #ff4081;
-  text-align: right;
-  font-size: 14px;
-  text-decoration: line-through;
-}
-.side-bar-price {
-  text-align: right;
-  font-size: 24px;
-  padding: 10px 0;
-}
+
+// 左侧购买项
 .shop {
   width: 900px;
+  .shop-group {
+    margin-top: 30px;
+    min-height: 100px;
+    background: #fff;
+    overflow: hidden;
+    zoom: 1;
+    position: relative;
+    .shop-icon {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 200px;
+      bottom: 0;
+      background: #000;
+      color: #fff;
+      text-align: center;
+      .shop-icon-wrap {
+        position: absolute;
+        top: 50%;
+        margin-top: -33px;
+        width: 100%;
+        text-align: center;
+        img {
+          height: 36px;
+          display: inline-block;
+        }
+        p {
+          height: 30px;
+          line-height: 30px;
+        }
+      }
+    }
+    .shop-cont {
+      width: 700px;
+      margin-left: 200px;
+      padding: 20px 30px;
+    }
+    .shop-nav-bd,.shop-cont {
+      padding: 20px;
+      overflow: hidden;
+      zoom: 1;
+    }
+    .shop-nav-bd li,.shop-cont li {
+      float: left;
+      width: 25%;
+      position: relative;
+    }
+  }
 }
 .shop.pd-top {
   padding-top: 148px;
@@ -310,56 +368,6 @@ export default {
 .shop-nav {
   background: #fff;
   width: 900px;
-}
-.shop-nav-bd,
-.shop-cont {
-  padding: 20px;
-  overflow: hidden;
-  zoom: 1;
-}
-.shop-nav-bd li,
-.shop-cont li {
-  float: left;
-  width: 25%;
-  position: relative;
-}
-.shop-group {
-  margin-top: 30px;
-  min-height: 100px;
-  background: #fff;
-  overflow: hidden;
-  zoom: 1;
-  position: relative;
-}
-.shop-cont {
-  width: 700px;
-  margin-left: 200px;
-  padding: 20px 30px;
-}
-.shop-icon {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 200px;
-  bottom: 0;
-  background: #000;
-  color: #fff;
-  text-align: center;
-}
-.shop-icon-wrap {
-  position: absolute;
-  top: 50%;
-  margin-top: -33px;
-  width: 100%;
-  text-align: center;
-}
-.shop-icon-wrap img {
-  height: 36px;
-  display: inline-block;
-}
-.shop-icon-wrap p {
-  height: 30px;
-  line-height: 30px;
 }
 .shop-group ul {
   overflow: hidden;
@@ -443,5 +451,20 @@ export default {
 
   text-align: center;
   color: #666;
+}
+/* 自适应 */
+@media only screen and (max-width: 1100px) {
+  .wrap {
+    width: 1000px;
+    .shop {
+      width: 700px;
+      .shop-cont {
+        width: 500px;
+      }
+      .shop-nav-bd li, .shop-cont li {
+        width: 33.3%;
+      }
+    }
+  }
 }
 </style>

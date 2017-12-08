@@ -404,7 +404,12 @@ const mutations = {
               // 设计师加成
               item.price += key.price * state.magenif
             } else {
-              item.price += key.unit === '元/年' ? key.price * state.year : key.price
+              // 多语言
+              if (key.value === '297e26696001918601600220721b00b4') {
+                item.price += state.shopFunction[2].groups[1].price * 0.3
+              } else {
+                item.price += key.unit === '元/年' ? key.price * state.year : key.price
+              }
             }
           }
         })

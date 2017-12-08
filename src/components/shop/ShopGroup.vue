@@ -20,10 +20,10 @@
           <div class="designer" v-if="group.custom && showDesigner">
             <mu-card v-for="k in designers" :key="k.id">
               <mu-card-media :title="k.name" :subTitle="k.sub">
-                <img v-lazy="'/static/' + k.avatar"/>
+                <img v-lazy="'/static/' + k.avatar" @mouseenter="enter(k, $event)" @mouseleave="leave"/>
               </mu-card-media>
               <mu-card-actions>
-                <mu-radio @change="chooseDesigner({sIndex: sIndex, gIndex: gIndex, key: k})" label="选择TA" name="designer" :nativeValue="k.value"  @mouseenter="enter(k, $event)" @mouseleave="leave"/>
+                <mu-radio @change="chooseDesigner({sIndex: sIndex, gIndex: gIndex, key: k})" label="选择TA" name="designer" :nativeValue="k.value"/>
               </mu-card-actions>
             </mu-card>
           </div>

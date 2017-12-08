@@ -81,11 +81,7 @@ export default {
   methods: {
     get () {
       this.$store.dispatch('getUser', this.$http)
-      this.$http.get('/api/user/homeInfo').then((res) => {
-        if (res.data) {
-          this.$store.commit('setHomeInfo', res.data)
-        }
-      })
+      this.$store.dispatch('getHomeInfo', this.$http)
     }
   }
 }

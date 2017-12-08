@@ -82,14 +82,14 @@ export default {
   methods: {
     openPaid (item) {
       var ctx = this
-      if (this.$store.state.user.name) {
+      if (!this.$store.state.user.name) {
         this.$http.get('/api/user/info').then((res) => {
-          if (res.data) {
-            ctx.paidDialog = true
-            ctx.$store.commit('setUser', res.data.data)
-          } else {
+          if (res.data.code === 5) {
             ctx.$store.commit('setLoginUrl', res.headers.requires_auth_url)
-            ctx.$parent.$refs.iframe.open()
+            ctx.$parent.$parent.$parent.$parent.$refs.iframe.open()
+          } else {
+            ctx.paidDialog = true
+            ctx.$store.commit('setUser', res.data)
           }
         })
       } else {
@@ -154,7 +154,7 @@ export default {
         } else if (res === 'paysuccess') {
           // 跳转到支付已成功页面
           ctx.$parent.$refs.toast.show('支付已完成')
-          ctx.$router.push({ name: 'paid', params: {orderId: this.order.outTradeNo, totalPrice: this.order.totalPrice} })
+          ctx.$router.push({ name: 'paid', params: {outTradeNo: this.order.outTradeNo, totalPrice: this.order.totalPrice} })
         } else if (res === 'payfailed') {
           // 跳转到支付失败页面
           ctx.$parent.$refs.toast.show('支付未完成')

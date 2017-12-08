@@ -57,6 +57,14 @@ const actions = {
     axios.get('/api/user/info').then((res) => {
       ctx.commit('setUser', res.data)
     })
+  },
+  getHomeInfo ({commit}, axios) {
+    var ctx = this
+    axios.get('/api/user/homeInfo').then((res) => {
+      if (res.data) {
+        ctx.commit('setHomeInfo', res.data)
+      }
+    })
   }
 }
 
