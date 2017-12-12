@@ -2,7 +2,7 @@
   <div class="shop-group-wrap">
     <div class="shop-group" style="background:none">
       <div class="shop-icon" style="background:none"></div>
-      <div class="shop-cont" style="background:#fff">
+      <div class="shop-cont" style="background:#fff;margin-bottom: 20px;">
         <div>
           <p class="shop-group-title">常见问题<span></span></p>
           <div v-for="(item, index) in faq" :key="item.name">

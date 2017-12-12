@@ -397,9 +397,9 @@ const mutations = {
       row.groups.map(item => {
         item.price = 0
         item.needCheck && item.items.map(key => {
-          if (item.type === 'radio' && item.value.match(new RegExp(key.value))) {
+          if (item.type === 'radio' && !!item.value.match(new RegExp(key.value))) {
             item.price = key.unit === '元/年' ? key.price * state.year : key.price
-          } else if (item.type === 'check' && item.value.join().match(new RegExp(key.value)) && !key.disabled) {
+          } else if (item.type === 'check' && !!item.value.join().match(new RegExp(key.value)) && !key.disabled) {
             if (item.magenif) {
               // 设计师加成
               item.price += key.price * state.magenif
@@ -427,7 +427,7 @@ const mutations = {
           value = item.value
         } else {
           item.needCheck && item.items.map(key => {
-            if (!key.disabled && item.value.join().match(new RegExp(key.value))) {
+            if (!key.disabled && !!item.value.join().match(new RegExp(key.value))) {
               value ? value += (',' + key.value) : value = key.value
             }
           })

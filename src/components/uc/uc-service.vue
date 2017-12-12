@@ -102,7 +102,17 @@ export default {
         }
       }
       this.priceItemIds = item.id
-      this.totalPrice = item.price
+      if (item.id === '297e26696001918601600220721b00b4') {
+        let items = this.$store.state.shop.shopFunction[2].groups[1].items
+        let ids = this.$store.state.homeInfo.priceItemIds
+        items.map((item2, index) => {
+          if (!ids.match(new RegExp(item2.value))) {} else {
+            ctx.totalPrice += item2.price * 0.3
+          }
+        })
+      } else {
+        this.totalPrice = item.price
+      }
     },
     closePaid () {
       this.paidDialog = false

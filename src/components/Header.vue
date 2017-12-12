@@ -29,10 +29,15 @@
       <div class="account">
         <a href="javascript:;" class="btn-login" @click="toLogin" v-if="!user.nickname">登录</a>
         <a href="http://www.jihui88.com/member/register.html" class="btn-register" v-if="!user.nickname">免费注册</a>
-        <mu-icon-menu icon="person" :anchorOrigin="anchorOrigin" :targetOrigin="targetOrigin" v-if="user.nickname">
-            <mu-menu-item title="用户中心" @click="toUc" />
-            <mu-menu-item title="退出" @click="toLogout" />
-          </mu-icon-menu>
+        <div class="mu-avatar" @click="toggle" v-if="user.nickname && opacity === 0">
+          <div class="mu-avatar-inner">
+            <img slot="left" :src="'http://img.jihui88.com/'+$store.state.homeInfo.logo" @error="setErrorImg"/>
+          </div>
+        </div>
+        <mu-icon-menu icon="person" :anchorOrigin="anchorOrigin" :targetOrigin="targetOrigin" :open="open" :style="'opacity: ' + opacity" v-if="user.nickname">
+          <mu-menu-item title="用户中心" @click="toUc" />
+          <mu-menu-item title="退出" @click="toLogout" />
+        </mu-icon-menu>
       </div>
     </div>
   </div>
@@ -45,7 +50,8 @@ export default {
       anchorOrigin: {horizontal: 'right', vertical: 'bottom'},
       targetOrigin: {horizontal: 'right', vertical: 'top'},
       targetOrigin2: {horizontal: 'left', vertical: 'top'},
-      open: false
+      open: false,
+      opacity: 0
     }
   },
   computed: {
@@ -109,6 +115,9 @@ export default {
     },
     handleClose (e) {
       this.open = false
+    },
+    setErrorImg () {
+      this.opacity = 1
     }
   }
 }
@@ -174,6 +183,12 @@ export default {
     color: #fff;
     height: 66px;
     line-height: 66px;
+    .mu-avatar {
+      width: 36px; height: 36px;
+      cursor: pointer;
+      position: absolute;
+      margin-top: 13px;
+    }
     a {
       display: inline-block;
       color: #fff;
@@ -250,6 +265,9 @@ export default {
       font-size: 16px;
       height: 78px;
       line-height: 78px;
+      .mu-avatar {
+        margin-top: 16px;
+      }
       .mu-icon-menu {
         line-height: 43px
       }
@@ -278,6 +296,9 @@ export default {
       font-size: 15px;
       height: 72px;
       line-height: 72px;
+      .mu-avatar {
+        margin-top: 21px;
+      }
       .mu-icon-menu {
         line-height: 37px
       }

@@ -38,7 +38,6 @@ export default {
         ctx.$http.get('/api/user/info').then((res) => {
           ctx.$store.commit('setLoading', false)
           if (res.data.data !== 5) {
-            ctx.$store.commit('setLoginUrl', 'http://www.jihui88.com/member/login.html')
             ctx.$store.commit('setUser', res.data)
           }
           ctx.$store.commit('setLoading', false)
