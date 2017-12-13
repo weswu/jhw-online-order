@@ -29,6 +29,7 @@
       <div class="account">
         <a href="javascript:;" class="btn-login" @click="toLogin" v-if="!user.nickname">登录</a>
         <a href="http://www.jihui88.com/member/register.html" class="btn-register" v-if="!user.nickname">免费注册</a>
+
         <div class="mu-avatar" @click="toggle" v-if="user.nickname && opacity === 0">
           <div class="mu-avatar-inner">
             <img slot="left" :src="'http://img.jihui88.com/'+$store.state.homeInfo.logo" @error="setErrorImg"/>

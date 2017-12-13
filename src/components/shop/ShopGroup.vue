@@ -8,7 +8,7 @@
         </div>
       </div>
       <div class="shop-cont">
-        <ul v-for="(group, gIndex) in row.groups" :key="group.title">
+        <ul v-for="(group, gIndex) in row.groups" :key="group.title" v-if="!(sIndex === 2 && gIndex === 1 && !showDesigner)">
           <p v-if="group.title" class="shop-group-title">{{group.title}}<span v-if="group.sub">{{group.sub}}</span></p>
           <li v-for="(item, index) in group.items" :key="item.name">
             <div v-if="group.needCheck" @mouseenter="enter(item, $event)" @mouseleave="leave">
@@ -23,7 +23,7 @@
                 <img v-lazy="'/static/' + k.avatar" @mouseenter="enter(k, $event)" @mouseleave="leave"/>
               </mu-card-media>
               <mu-card-actions>
-                <mu-radio @change="chooseDesigner({sIndex: sIndex, gIndex: gIndex, key: k})" label="选择TA" name="designer" :nativeValue="k.value"/>
+                <mu-radio @change="chooseDesigner({sIndex: sIndex, gIndex: gIndex, key: k})" label="选择TA" name="designer" :nativeValue="k.value" :value="designerId"/>
               </mu-card-actions>
             </mu-card>
           </div>
@@ -50,7 +50,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('shop', ['showDesigner', 'shopFunction', 'designers'])
+    ...mapGetters('shop', ['showDesigner', 'shopFunction', 'designers', 'designerId'])
   },
   methods: {
     ...mapActions('shop', ['chooseRadio', 'chooseCheck', 'chooseDesigner']),

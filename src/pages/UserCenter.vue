@@ -6,7 +6,7 @@
           <UcWebsite></UcWebsite>
         </mu-col>
         <mu-col width="100" tablet="50" desktop="25" class="col-img">
-          <img class="col-banner" src="/static/points.png" alt="">
+          <router-link to="/spread"><img class="col-banner" src="/static/points.png" alt=""></router-link>
         </mu-col>
         <mu-col width="100" tablet="50" desktop="25" class="col-img">
           <img class="col-banner" src="/static/events.png" alt="">

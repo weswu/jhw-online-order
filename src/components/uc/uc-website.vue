@@ -12,8 +12,8 @@
         <div class="website-cont-item limit-time">有效期至 <span v-if="homeInfo.endTime">{{homeInfo.endTime | time('yyyy年MM月dd日')}}</span></div>
         <div class="website-cont-item btn-group">
           <div class="btn-group-item">
-            <a :href="homeInfo.siteUrl"><mu-raised-button label="界面编辑" primary /></a>
-            <a href="http://www.jihui88.com/member/index.html"><mu-raised-button label="数据管理" primary /></a>
+            <a :href="homeInfo.siteUrl" target="_blank"><mu-raised-button label="界面编辑" primary /></a>
+            <a href="http://www.jihui88.com/member/index.html" target="_blank"><mu-raised-button label="数据管理" primary /></a>
           </div>
           <div class="btn-group-item">
             <span class="upgrade-tip">限时优惠</span>

@@ -2,7 +2,7 @@ const state = {
   showDesigner: false,
   totalPrice: 0,
   priceItemIds: '',
-  designerId: '',
+  designerId: '297e2669600b5fea01600b6361dc000d',
   magenif: 1,
   year: 1,
   yearList: [1, 2, 3, 5, 10],
@@ -91,11 +91,11 @@ const state = {
           name: 'layout',
           needCheck: true,
           type: 'radio',
-          price: 0,
+          price: 600,
           value: '297e2669600191860160021b8fcc007f',
           custom: true,
           items: [
-            {name: '自选模板', price: 0, value: '297e2669600191860160021b8fcc007f', html: '详细说明： <br/>可以使用所有网站模板，包括：电脑版、手机版、微信版、商城、小程序。'},
+            {name: '自选模板', price: 600, value: '297e2669600191860160021b8fcc007f', unit: '元', html: '详细说明： <br/>可以使用所有网站模板，包括：电脑版、手机版、微信版、商城、小程序。'},
             {name: '定制设计', price: 0, value: '297e2669600191860160021c49970083', html: '详细说明： <br/>由经验丰富的专业设计师来定制网站相关内容。价格=基础价格X设计师经验值'}
           ]
         },
@@ -276,6 +276,7 @@ const getters = {
   priceItemIds: state => state.priceItemIds,
   showDesigner: state => state.showDesigner,
   designers: state => state.designers,
+  designerId: state => state.designerId,
   year: state => state.year,
   yearList: state => state.yearList,
   orderDetail: state => {
@@ -353,9 +354,25 @@ const mutations = {
       // 判断是否选择了定制设计按钮，如果是，切换设计师界面显示状态
       state.showDesigner = !state.showDesigner
       // 去除设计师加成
+      let value = state.shopFunction[2].groups[1].value
       if (!state.showDesigner) {
         state.magenif = 1
         state.designerId = ''
+        let items = state.shopFunction[2].groups[1].items
+        items.map((key, index) => {
+          value.map((val, vIndex) => {
+            if (!key.disabled && key.value === val) {
+              value.splice(vIndex, 1)
+            }
+          })
+        })
+        state.shopFunction[2].groups[1].value = value
+      } else {
+        state.designerId = '297e2669600b5fea01600b6361dc000d'
+        // 首页定制
+        if (!value.join().match(new RegExp('297e2669600191860160021d84ac0091'))) {
+          state.shopFunction[2].groups[1].value = value.concat('297e2669600191860160021d84ac0091')
+        }
       }
     }
     state.shopFunction[params.sIndex].groups[params.gIndex].value = params.item.value // 选中状态
@@ -377,16 +394,15 @@ const mutations = {
         value = value.concat(params.item.value)
       }
     }
+    // 不能去首页定制
+    if (state.designerId !== '' && params.item.value === '297e2669600191860160021d84ac0091') {
+      value = value.concat(params.item.value)
+    }
     state.shopFunction[params.sIndex].groups[params.gIndex].value = value
   },
   CHOOSE_DESIGNER (state, params) {
     state.magenif = params.key.price
     state.designerId = params.key.value
-    // 首页定制
-    let value = state.shopFunction[2].groups[1].value
-    if (!value.join().match(new RegExp('297e2669600191860160021d84ac0091'))) {
-      state.shopFunction[2].groups[1].value = value.concat('297e2669600191860160021d84ac0091')
-    }
   },
   CHOOSE_YEAR (state, params) {
     state.year = state.yearList[params]

@@ -32,18 +32,16 @@ export default {
     },
     close () {
       var ctx = this
-      this.display = 'none'
+      // this.display = 'none'
       this.$store.commit('setLoading', true)
-      setTimeout(() => {
-        ctx.$http.get('/api/user/info').then((res) => {
-          ctx.$store.commit('setLoading', false)
-          if (res.data.data !== 5) {
-            ctx.$store.commit('setUser', res.data)
-          }
-          ctx.$store.commit('setLoading', false)
-          ctx.$store.dispatch('getHomeInfo', this.$http)
-        })
-      }, 1000)
+      this.$http.get('/api/user/info').then((res) => {
+        ctx.$store.commit('setLoading', false)
+        if (res.data.data !== 5) {
+          ctx.$store.commit('setUser', res.data)
+        }
+        ctx.$store.commit('setLoading', false)
+        ctx.$store.dispatch('getHomeInfo', this.$http)
+      })
     }
   }
 }
