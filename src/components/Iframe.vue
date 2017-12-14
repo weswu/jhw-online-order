@@ -32,7 +32,7 @@ export default {
     },
     close () {
       var ctx = this
-      // this.display = 'none'
+      this.display = 'none'
       this.$store.commit('setLoading', true)
       this.$http.get('/api/user/info').then((res) => {
         ctx.$store.commit('setLoading', false)

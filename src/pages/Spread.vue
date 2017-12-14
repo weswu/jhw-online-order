@@ -1,17 +1,10 @@
 <template>
-<div>
-  <div class='fixed-bar'>
-    <mu-appbar title='参与推广'>
-      <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
-    </mu-appbar>
-  </div>
-  <div v-if="false" @click="wxShare">
-    wxShare
-  </div>
+<div class="main-content">
   <div class='extend_tip'>
     <span class='tip'>你可以把以下专属于你的推广海报保存到相册，并转发到朋友圈和微信群，即可获取积分和现金优惠卷。</span><br>
     <a href='#/spreadRank' class='extend_tip_a'>点击查看由我推广的会员</a>
   </div>
+  <mu-sub-header>推广</mu-sub-header>
   <mu-tabs :value='activeTab' @change='handleTabChange' class='view-tabs'>
     <mu-tab v-for="item in tabs" :value="item.value" :title="item.title"/>
   </mu-tabs>
@@ -63,7 +56,7 @@ export default {
   },
   methods: {
     get () {
-      this.$http.get('/rest/api/poster/list?pageSize=72').then((res) => {
+      this.$http.get('http://app.jihui88.com/rest/api/poster/list?pageSize=72').then((res) => {
         for (var item of res.data.attributes.data) {
           item.pic = 'http://img.jihui88.com/' + item.pic
           this.list.push(item)
@@ -113,7 +106,7 @@ export default {
 }
 </script>
 <style scoped>
-.extend_tip{background:#f5f5f5;padding:10px;text-indent:25px;color:#666;line-height:1.5;font-size:.5rem;font-family:'Microsoft YaHei',Helvetica,Arial,'WenQuanYi Micro Hei'}
+.extend_tip{background:#fff;padding:10px;text-indent:25px;color:#666;line-height:1.5;font-size:.5rem;font-family:'Microsoft YaHei',Helvetica,Arial,'WenQuanYi Micro Hei'}
 .extend_tip_a{color:#ff7300;padding:10px 0 5px 0;display:block;font-family:'Microsoft YaHei',Helvetica,Arial,'WenQuanYi Micro Hei';font-size:.6rem}
 .extend_img{width:100%}
 .extend_desc{color:#666;padding:15px 5px}

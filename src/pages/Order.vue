@@ -54,16 +54,3 @@ export default {
   }
 }
 </script>
-
-<style lang="less">
-.main-content {
-  width: 1000px;
-  margin: 0 auto;
-  padding: 30px 0;
-  overflow: hidden;
-  zoom: 1;
-  .mu-td {
-    overflow: hidden;
-  }
-}
-</style>

@@ -8,7 +8,7 @@
               <tr class="mu-thead" v-for="(item, index) in shopFunction" :key="item.title" v-if="index > 0">
                 <th class="mu-th"><div class="mu-th-wrapper">{{item.title}}</div></th>
                 <td class="mu-th" colspan="2">
-                  <div class="" v-if="row.needCheck" v-for="row in item.groups" :key="row.title">
+                  <div class="" v-if="row.needCheck" v-for="(row, rIndex) in item.groups" :key="row.title">
                     <mu-flexbox class="mt8">
                       <mu-flexbox-item class="flex-demo">
                         {{row.title}}

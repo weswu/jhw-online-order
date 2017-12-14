@@ -8,7 +8,7 @@
         </div>
       </div>
       <div class="shop-cont">
-        <ul v-for="(group, gIndex) in row.groups" :key="group.title" v-if="!(sIndex === 2 && gIndex === 1 && !showDesigner)">
+        <ul v-for="(group, gIndex) in row.groups" :key="group.title" v-if="sIndex !== 2 || (gIndex === 0 || (gIndex === 1 && group.value !== '') || (gIndex === 2 && showDesigner))">
           <p v-if="group.title" class="shop-group-title">{{group.title}}<span v-if="group.sub">{{group.sub}}</span></p>
           <li v-for="(item, index) in group.items" :key="item.name">
             <div v-if="group.needCheck" @mouseenter="enter(item, $event)" @mouseleave="leave">
@@ -73,7 +73,7 @@ export default {
 }
 .designer .mu-card {
   float: left;
-  width: 160px;
+  width: 155px;
   margin: 5px;
 }
 .designer .mu-card-media-title {
