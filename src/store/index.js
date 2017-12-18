@@ -37,7 +37,7 @@ const state = {
   },
   points: 0,
   loading: false,
-  loginUrl: 'http://www.jihui88.com/login.html'
+  loginUrl: ''
 }
 
 const getters = {
@@ -45,7 +45,8 @@ const getters = {
   user: state => state.user,
   homeInfo: state => state.homeInfo,
   points: state => state.points,
-  loading: state => state.loading
+  loading: state => state.loading,
+  loginUrl: state => state.loginUrl
 }
 
 const actions = {

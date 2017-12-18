@@ -6,7 +6,7 @@
           <UcWebsite></UcWebsite>
         </mu-col>
         <mu-col width="100" tablet="50" desktop="25" class="col-img">
-          <router-link to="/spread"><img class="col-banner" src="/static/points.png" alt=""></router-link>
+          <router-link to="spread"><img class="col-banner" src="/static/points.png" alt=""></router-link>
         </mu-col>
         <mu-col width="100" tablet="50" desktop="25" class="col-img">
           <img class="col-banner" src="/static/events.png" alt="">
@@ -191,6 +191,11 @@ export default {
 .box-cont {
   height: 264px;
 }
+.box-cont.feedback {
+  padding: 20px;
+  height: 177px;
+}
+
 .box-title {
   display: flex;
   align-items: center;
@@ -265,64 +270,6 @@ export default {
     color: #666;
   }
 }
-
-
-
-.dialog_bd {
-  padding-top: 24px;
-}
-.order-price {
-  padding: 10px 0;
-  font-size: 18px;
-}
-.order-price span {
-  padding: 0 10px;
-  color: #ff4081;
-  font-size: 14px;
-  text-decoration: line-through;
-}
-.order-price-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 14px;
-}
-.order-price-item_ft {
-  color: #333;
-}
-.order-price-total .order-price-item_hd {
-  font-size: 16px;
-}
-.order-price-total .order-price-item_ft {
-  font-size: 32px;
-}
-.payment {
-  float: right;
-}
-.wexinpay {
-  background: #0eb20c;
-  color: #fff;
-}
-.alipay {
-  background: #00a3ee;
-  color: #fff;
-}
-.payment-code {
-  clear: both;
-  padding-top: 20px;
-}
-.payment-code-wrap {
-  padding: 30px;
-  background: #f8f8f8;
-
-  text-align: center;
-  color: #666;
-}
-.box-cont.feedback {
-  padding: 20px;
-  height: 177px;
-}
-
 
 // 中间5块小图标
 .service-banner:first-child {

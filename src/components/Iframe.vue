@@ -1,7 +1,9 @@
 <template>
   <div class="iframe_login" ref="login" :style="'display:' + display">
-    <iframe id="iframeLogin" name="header" :src="$store.state.loginUrl" frameBorder="0" scrolling="no"></iframe>
-    <mu-flat-button slot="actions" @click="close" label="取消" class="close"/>
+    <div class="wrapper">
+      <iframe id="iframeLogin" name="header" :src="$store.state.loginUrl" frameBorder="0" scrolling="no"></iframe>
+      <mu-flat-button slot="actions" @click="close" label="关闭" class="close"/>
+    </div>
   </div>
 </template>
 
@@ -49,22 +51,28 @@ export default {
 
 <style lang="less">
 .iframe_login{
-  width: 600px;
-  height: 750px;
+  width: 1000px;
+  height: 725px;
   z-index: 999;
   position: fixed;
   left: 50%;
   top: 50%;
-  margin: -370px 0 0 -325px;
+  margin: -408px 0 0 -500px;
   display: none;
   iframe {
     width: 100%;
-    height: 710px
+    height: 725px
+  }
+  .wrapper{
+    position: relative;
   }
   .close{
-    float: right;
-    margin-top: -45px;
-    color: #fff;
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #000;
+    background: rgba(255,255,255,0.8);
+    border-radius: 0;
   }
 }
 </style>

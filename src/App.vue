@@ -5,8 +5,6 @@
     <PageFooter></PageFooter>
     <!--加载中...-->
     <Loading></Loading>
-    <!--消息...-->
-    <Toast ref="toast"></Toast>
     <!--文字提示...-->
     <Tooltip ref="tooltip"></Tooltip>
     <!--登录...-->

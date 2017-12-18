@@ -10,6 +10,9 @@
       </div>
       <div class="order-detail-bd">
         <h2>订单详细</h2>
+        <div class="detail-free-product">
+          <span v-for="(item,index) in list" :key="index">{{item.name}}</span>
+        </div><br/>
         <div class="detail-bd-item" v-for="(item,index) in priceItemList" :key="index">
           <span>{{item.name}}</span>
           <span>{{item.price}}</span>
@@ -29,6 +32,11 @@ export default {
       dialog: false
     }
   },
+  computed: {
+    list () {
+      return this.$store.state.shop.shopFunction[0].groups[0].items
+    }
+  },
   methods: {
     open (id) {
       var ctx = this
@@ -46,6 +54,9 @@ export default {
 </script>
 
 <style>
+.detail-free-product span{
+  padding-right: 10px;display: inline-block;
+}
 .order-detail-hd,
 .order-detail-bd {
   padding: 15px;

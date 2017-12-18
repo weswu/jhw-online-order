@@ -8,7 +8,7 @@
         </div>
       </div>
       <div class="shop-cont">
-        <ul v-for="(group, gIndex) in row.groups" :key="group.title" v-if="sIndex !== 2 || (gIndex === 0 || (gIndex === 1 && group.value !== '') || (gIndex === 2 && showDesigner))">
+        <ul v-for="(group, gIndex) in row.groups" :key="group.title">
           <p v-if="group.title" class="shop-group-title">{{group.title}}<span v-if="group.sub">{{group.sub}}</span></p>
           <li v-for="(item, index) in group.items" :key="item.name">
             <div v-if="group.needCheck" @mouseenter="enter(item, $event)" @mouseleave="leave">
@@ -17,13 +17,24 @@
             </div>
             <span v-else @mouseenter="enter(item, $event)" @mouseleave="leave">{{item.name}}</span>
           </li>
-          <div class="designer" v-if="group.custom && showDesigner">
+          <div class="designer" v-if="group.custom && group.value === '297e2669600191860160021c49970083'">
             <mu-card v-for="k in designers" :key="k.id">
               <mu-card-media :title="k.name" :subTitle="k.sub">
                 <img v-lazy="'/static/' + k.avatar" @mouseenter="enter(k, $event)" @mouseleave="leave"/>
               </mu-card-media>
               <mu-card-actions>
                 <mu-radio @change="chooseDesigner({sIndex: sIndex, gIndex: gIndex, key: k})" label="选择TA" name="designer" :nativeValue="k.value" :value="designerId"/>
+              </mu-card-actions>
+            </mu-card>
+          </div>
+          <div class="card" v-if="group.custom && group.value === '297e26696052b23201605425f360016a'">
+            <mu-card v-for="k in group.card" :key="k.value">
+              <mu-card-title :title="k.name" :subTitle="k.sub"/>
+              <mu-card-text>
+                您需要指定一个模板，并提供给我们全部的资料和图片，由我们负责录入和设定
+              </mu-card-text>
+              <mu-card-actions>
+                <mu-radio @change="chooseDesigner({sIndex: sIndex, gIndex: gIndex, key: k})" :label="k.price+k.unit" name="card" :nativeValue="k.value" :value="group.cardId"/>
               </mu-card-actions>
             </mu-card>
           </div>
@@ -50,7 +61,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('shop', ['showDesigner', 'shopFunction', 'designers', 'designerId'])
+    ...mapGetters('shop', ['shopFunction', 'designers', 'designerId', 'card'])
   },
   methods: {
     ...mapActions('shop', ['chooseRadio', 'chooseCheck', 'chooseDesigner']),
@@ -64,7 +75,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
 .designer {
   width: 100%;
   overflow: hidden;
@@ -89,4 +100,24 @@ export default {
   font-size: 12px;
   color: #fff;
 }
+.card {
+  width: 100%;
+  overflow: hidden;
+  zoom: 1;
+  padding: 30px 0;
+  .mu-card {
+    float: left;
+    width: 170px;
+    margin: 5px;
+  }
+ .mu-card-title{
+   font-size: 14px;
+   font-weight: bold;
+ }
+ .mu-card-sub-title {
+   font-size: 12px;
+   color: #000
+ }
+}
+
 </style>

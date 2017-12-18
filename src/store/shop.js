@@ -1,8 +1,6 @@
 const state = {
-  showDesigner: false,
-  totalPrice: 0,
-  priceItemIds: '',
-  designerId: '297e2669600b5fea01600b6361dc000d',
+  totalPrice: 600,
+  priceItemIds: '297e2669600191860160021b8fcc007f',
   magenif: 1,
   year: 1,
   yearList: [1, 2, 3, 5, 10],
@@ -96,20 +94,14 @@ const state = {
           custom: true,
           items: [
             {name: '自选模板', price: 600, value: '297e2669600191860160021b8fcc007f', unit: '元', html: '详细说明： <br/>可以使用所有网站模板，包括：电脑版、手机版、微信版、商城、小程序。'},
-            {name: '网站代建', price: 600, value: '297e26696052b23201605425f360016a', unit: '元', html: '详细说明： <br/>您需要指定一个模板，并提供给我们全部的资料和图片，由我们负责录入和设定'},
+            {name: '网站代建', price: 0, value: '297e26696052b23201605425f360016a', html: '详细说明： <br/>您需要指定一个模板，并提供给我们全部的资料和图片，由我们负责录入和设定'},
             {name: '定制设计', price: 0, value: '297e2669600191860160021c49970083', html: '详细说明： <br/>由经验丰富的专业设计师来定制网站相关内容。价格=基础价格X设计师经验值'}
-          ]
-        },
-        {
-          title: '套餐',
-          needCheck: true,
-          type: 'radio',
-          price: 0,
-          value: '',
-          items: [
-            {name: '卡片1', price: 200, value: '297e26696052b232016054283ea20173', disabled: false, unit: '元', html: '服务说明：<br/><span style="color:red">≤5</span> 个页面'},
-            {name: '卡片2', price: 400, value: '297e26696052b23201605428a1e10177', disabled: false, unit: '元', html: '服务说明：<br/><span style="color:red">≤10</span> 个页面'},
-            {name: '卡片3', price: 800, value: '297e26696052b23201605428de870179', disabled: false, unit: '元', html: '服务说明：<br/><span style="color:red">≤30</span> 个页面'}
+          ],
+          cardId: '',
+          card: [
+            {name: '代建套餐A', sub: '≤5个页面', price: 200, value: '297e26696052b232016054283ea20173', unit: '元', html: '服务说明：<br/><span style="color:red">≤5</span> 个页面'},
+            {name: '代建套餐B', sub: '≤10个页面', price: 400, value: '297e26696052b23201605428a1e10177', unit: '元', html: '服务说明：<br/><span style="color:red">≤10</span> 个页面'},
+            {name: '代建套餐C', sub: '≤20个页面', price: 800, value: '297e26696052b23201605428de870179', unit: '元', html: '服务说明：<br/><span style="color:red">≤30</span> 个页面'}
           ]
         },
         {
@@ -280,16 +272,17 @@ const state = {
       avatar: 'd4.png',
       html: '服务说明：<br/>三年经验，擅长欧美风；初级设计师，案例数50以上（经验值1）'
     }
-  ]
+  ],
+  designerId: ''
 }
 
 const getters = {
   shopFunction: state => state.shopFunction,
   totalPrice: state => state.totalPrice,
   priceItemIds: state => state.priceItemIds,
-  showDesigner: state => state.showDesigner,
   designers: state => state.designers,
   designerId: state => state.designerId,
+  card: state => state.card,
   year: state => state.year,
   yearList: state => state.yearList,
   orderDetail: state => {
@@ -364,26 +357,24 @@ const actions = {
 const mutations = {
   CHOOSE_RADIO (state, params) {
     if (state.shopFunction[params.sIndex].groups[params.gIndex].custom) {
-      // 卡片
       if (params.index === 1) {
-        state.shopFunction[params.sIndex].groups[params.index].value = '297e26696052b23201605428a1e10177'
+        state.shopFunction[params.sIndex].groups[params.gIndex].cardId = state.shopFunction[params.sIndex].groups[params.gIndex].card[1].value
       } else {
-        state.shopFunction[params.sIndex].groups[1].value = ''
+        state.shopFunction[params.sIndex].groups[params.gIndex].cardId = ''
       }
       // 判断是否选择了定制设计按钮，如果是，切换设计师界面显示状态
-      state.showDesigner = params.index === 2 ? !false : false
-      let value = state.shopFunction[params.sIndex].groups[2].value
+      let value = state.shopFunction[params.sIndex].groups[1].value
       if (params.index === 2) {
         // 首页定制
         state.designerId = '297e2669600b5fea01600b6361dc000d'
         if (!value.join().match(new RegExp('297e2669600191860160021d84ac0091'))) {
-          state.shopFunction[params.sIndex].groups[params.index].value = value.concat('297e2669600191860160021d84ac0091')
+          state.shopFunction[params.sIndex].groups[1].value = value.concat('297e2669600191860160021d84ac0091')
         }
       } else {
         // 去除设计师加成
         state.magenif = 1
         state.designerId = ''
-        let items = state.shopFunction[params.sIndex].groups[2].items
+        let items = state.shopFunction[params.sIndex].groups[1].items
         items.map((key, index) => {
           value.map((val, vIndex) => {
             if (!key.disabled && key.value === val) {
@@ -391,7 +382,7 @@ const mutations = {
             }
           })
         })
-        state.shopFunction[params.sIndex].groups[2].value = value
+        state.shopFunction[params.sIndex].groups[1].value = value
       }
     }
     state.shopFunction[params.sIndex].groups[params.gIndex].value = params.item.value // 选中状态
@@ -448,6 +439,14 @@ const mutations = {
             }
           }
         })
+        // 套餐
+        if (item.custom && item.cardId !== '') {
+          item.card.map(cardItem => {
+            if (cardItem.value === item.cardId) {
+              item.price = cardItem.price
+            }
+          })
+        }
       })
     })
     // 计算总金额

@@ -30,12 +30,10 @@
         <a href="javascript:;" class="btn-login" @click="toLogin" v-if="!user.nickname">登录</a>
         <a href="http://www.jihui88.com/member/register.html" class="btn-register" v-if="!user.nickname">免费注册</a>
 
-        <div class="mu-avatar" @click="toggle" v-if="user.nickname && opacity === 0">
-          <div class="mu-avatar-inner">
-            <img slot="left" :src="'http://img.jihui88.com/'+$store.state.homeInfo.logo" @error="setErrorImg"/>
-          </div>
+        <div class="" @click="toggle" v-if="user.nickname && opacity === 0">
+          <a href="javascript:;" class="btn-register">{{user.nickname}}</a>
         </div>
-        <mu-icon-menu icon="person" :anchorOrigin="anchorOrigin" :targetOrigin="targetOrigin" :open="open" :style="'opacity: ' + opacity" v-if="user.nickname">
+        <mu-icon-menu icon="person" :anchorOrigin="anchorOrigin" :targetOrigin="targetOrigin" :open="open" :style="'position: absolute;height:0;right:0;opacity: ' + opacity" v-if="user.nickname">
           <mu-menu-item title="用户中心" @click="toUc" />
           <mu-menu-item title="退出" @click="toLogout" />
         </mu-icon-menu>
@@ -86,7 +84,7 @@ export default {
         ctx.$store.commit('setUser', {})
         ctx.$store.commit('setLoginUrl', res.data)
         setTimeout(() => {
-          ctx.$store.commit('setLoginUrl', 'http://www.jihui88.com/member/login.html')
+          ctx.$store.commit('setLoginUrl', '')
         }, 2000)
         ctx.$parent.$refs.iframe.logout()
         let homeInfo = {
