@@ -6,7 +6,7 @@
         <mu-row gutter>
           <mu-col width="70" tablet="70" desktop="70">
             你可以把以下专属于你的推广海报保存到相册，并转发到朋友圈和微信群，即可获取积分和现金优惠卷。<br/>
-            <a href='#/spreadRank' class='spread_a'>点击查看由我推广的会员</a>
+            <a href='#/rank' class='spread_a'>点击查看由我推广的会员</a>
           </mu-col>
           <mu-col width="30" tablet="30" desktop="30">
             <mu-raised-button label="推荐朋友" class="demo-raised-button" @click="open" style="float:right"/>
@@ -64,7 +64,7 @@ export default {
     }
   },
   created () {
-    // this.get()
+    this.get()
   },
   methods: {
     get () {

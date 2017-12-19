@@ -16,7 +16,6 @@
 import PageHeader from '@/components/Header'
 import PageFooter from '@/components/Footer'
 import Loading from '@/components/Loading'
-import Toast from '@/components/Toast'
 import Tooltip from '@/components/shop/Tooltip'
 import IframeLogin from '@/components/Iframe'
 export default {
@@ -24,7 +23,6 @@ export default {
     PageHeader,
     PageFooter,
     Loading,
-    Toast,
     Tooltip,
     IframeLogin
   },
