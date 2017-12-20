@@ -1,5 +1,5 @@
 <template>
-  <div class="" style="text-align:center">
+  <div style="text-align:center;padding: 120px 0;font-size:18px">
     登录成功
   </div>
 </template>

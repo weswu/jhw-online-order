@@ -28,7 +28,7 @@
 
       <div class="account">
         <a href="javascript:;" class="btn-login" @click="toLogin" v-if="!user.nickname">登录</a>
-        <a href="http://www.jihui88.com/member/register.html" class="btn-register" v-if="!user.nickname">免费注册</a>
+        <a href="http://www.jihui88.com/member/register.html?redirectUrl=http://buy.jihui88.com" class="btn-register" v-if="!user.nickname">免费注册</a>
 
         <div class="" @click="toggle" v-if="user.nickname && opacity === 0">
           <a href="javascript:;" class="btn-register">{{user.nickname}}</a>
@@ -58,7 +58,24 @@ export default {
       return this.$store.state.user
     }
   },
+  created () {
+    this.get()
+  },
   methods: {
+    get () {
+      let ctx = this
+      if (!this.$store.state.user.nickname) {
+        this.$http.get('/api/user/info').then((res) => {
+          if (res.data.code !== 5) {
+            ctx.$store.commit('setUser', res.data)
+            ctx.$store.dispatch('getHomeInfo', ctx.$http)
+          } else {
+            ctx.$store.commit('setLoginUrl', res.headers.requires_auth_url)
+            ctx.$parent.$refs.iframe.open('none')
+          }
+        })
+      }
+    },
     toAccount () {
       this.$router.push({ name: 'account' })
     },
@@ -82,11 +99,7 @@ export default {
       let ctx = this
       this.$http.get('/api/user/logout').then((res) => {
         ctx.$store.commit('setUser', {})
-        ctx.$store.commit('setLoginUrl', res.data)
-        setTimeout(() => {
-          ctx.$store.commit('setLoginUrl', '')
-        }, 2000)
-        ctx.$parent.$refs.iframe.logout()
+        ctx.$store.commit('setLoginUrl', '')
         let homeInfo = {
           interalRecordList: {
             content: [],
@@ -104,6 +117,7 @@ export default {
           logList: {
             content: []
           },
+          userInfo: {},
           logo: ''
         }
         ctx.$store.commit('setHomeInfo', homeInfo)

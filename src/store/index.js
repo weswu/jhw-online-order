@@ -33,6 +33,7 @@ const state = {
     logList: {
       content: []
     },
+    userInfo: {},
     logo: ''
   },
   points: 0,
@@ -53,17 +54,13 @@ const actions = {
   getWebs ({commit, state}) {
     return state.webs
   },
-  getUser ({commit}, axios) {
-    var ctx = this
-    axios.get('/api/user/info').then((res) => {
-      ctx.commit('setUser', res.data)
-    })
-  },
   getHomeInfo ({commit}, axios) {
     var ctx = this
     axios.get('/api/user/homeInfo').then((res) => {
+      console.log('4')
       if (res.data) {
         ctx.commit('setHomeInfo', res.data)
+        ctx.commit('shop/UPGRADE', res.data.priceItemIds)
       }
     })
   }

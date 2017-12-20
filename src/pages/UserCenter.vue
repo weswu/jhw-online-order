@@ -36,7 +36,7 @@
           <UcLog></UcLog>
         </mu-col>
         <mu-col width="100" tablet="50" desktop="25" class="col-img">
-          <img src="/static/help.jpg" alt="">
+          <a href="https://v.qq.com/x/page/o0177hpsoig.html" target="blank"><img src="/static/help.jpg" alt=""></a>
         </mu-col>
         <mu-col width="100" tablet="50" desktop="25" class="col-img">
           <img :src="'/static/clients' + clients + '.jpg'" @mouseover="clients = '_hover'" @mouseout="clients = ''">
@@ -80,7 +80,6 @@ export default {
   },
   methods: {
     get () {
-      this.$store.dispatch('getUser', this.$http)
       this.$store.dispatch('getHomeInfo', this.$http)
     }
   }

@@ -1,7 +1,7 @@
 <template>
   <div class="main-content spread">
     <div class="warpper">
-      <mu-sub-header>参与推广</mu-sub-header>
+      <mu-sub-header>参与推广 <span style="padding-left: 15px;font-size:12px">我的推广者：{{userInfo.posterUsername}}</span></mu-sub-header>
       <mu-content-block>
         <mu-row gutter>
           <mu-col width="70" tablet="70" desktop="70">
@@ -56,11 +56,16 @@ export default {
       ],
       m: {},
       sf: {
-        card_no: this.$store.state.user.nickname,
+        card_no: this.$store.state.homeInfo.userInfo.username,
         fdbk_subject64: '朋友介绍[订购]',
         fdbk_type: '5'
       },
       dialog: false
+    }
+  },
+  computed: {
+    userInfo: function () {
+      return this.$store.state.homeInfo.userInfo
     }
   },
   created () {

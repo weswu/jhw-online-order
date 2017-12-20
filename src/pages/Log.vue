@@ -29,7 +29,8 @@ export default {
       ],
       search: {
         size: 10,
-        page: 0
+        page: 0,
+        sort: 'addTime,desc'
       }
     }
   },

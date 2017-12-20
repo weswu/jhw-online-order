@@ -94,7 +94,7 @@ const state = {
           custom: true,
           items: [
             {name: '自选模板', price: 600, value: '297e2669600191860160021b8fcc007f', unit: '元', html: '详细说明： <br/>可以使用所有网站模板，包括：电脑版、手机版、微信版、商城、小程序。'},
-            {name: '网站代建', price: 0, value: '297e26696052b23201605425f360016a', html: '详细说明： <br/>您需要指定一个模板，并提供给我们全部的资料和图片，由我们负责录入和设定'},
+            {name: '网站代建', price: 600, value: '297e26696052b23201605425f360016a', html: '详细说明： <br/>您需要指定一个模板，并提供给我们全部的资料和图片，由我们负责录入和设定'},
             {name: '定制设计', price: 0, value: '297e2669600191860160021c49970083', html: '详细说明： <br/>由经验丰富的专业设计师来定制网站相关内容。价格=基础价格X设计师经验值'}
           ],
           cardId: '',
@@ -343,6 +343,11 @@ const actions = {
     commit('CHOOSE_CHECK', params)
     commit('TOTAL')
   },
+  chooseRadioCard ({commit, state}, params) {
+    params.type = 'radio'
+    commit('CHOOSE_RADIO_Card', params)
+    commit('TOTAL')
+  },
   chooseDesigner ({commit, state}, params) {
     commit('CHOOSE_DESIGNER', params)
     commit('TOTAL')
@@ -389,26 +394,40 @@ const mutations = {
   },
   CHOOSE_CHECK (state, params) {
     let value = state.shopFunction[params.sIndex].groups[params.gIndex].value
-    let isSame = false
-    if (!value.length) {
-      // 第一次
+    let delValue = ''
+    if (!value.join().match(new RegExp(params.item.value))) {
       value = value.concat(params.item.value)
     } else {
-      value.map((item, index) => {
-        if (item === params.item.value) {
-          isSame = true
-          value.splice(index, 1)
-        }
-      })
-      if (!isSame) {
-        value = value.concat(params.item.value)
-      }
+      delValue = params.item.value
     }
+    // 备案 二选一
+    if (params.item.value === '297e266960019186016002193c9a0060' && value.join().match('297e266960019186016002195ebf0063')) {
+      delValue = '297e266960019186016002195ebf0063'
+    }
+    if (params.item.value === '297e266960019186016002195ebf0063' && value.join().match('297e266960019186016002193c9a0060')) {
+      delValue = '297e266960019186016002193c9a0060'
+    }
+    if (params.item.value === '297e266960019186016002198ec20065' && value.join().match('297e26696001918601600219bb2a0068')) {
+      delValue = '297e26696001918601600219bb2a0068'
+    }
+    if (params.item.value === '297e26696001918601600219bb2a0068' && value.join().match('297e266960019186016002198ec20065')) {
+      delValue = '297e266960019186016002198ec20065'
+    }
+
+    value.map((item, index) => {
+      if (item === delValue) {
+        value.splice(index, 1)
+      }
+    })
+
     // 不能去首页定制
     if (state.designerId !== '' && params.item.value === '297e2669600191860160021d84ac0091') {
       value = value.concat(params.item.value)
     }
     state.shopFunction[params.sIndex].groups[params.gIndex].value = value
+  },
+  CHOOSE_RADIO_Card (state, params) {
+    state.shopFunction[params.sIndex].groups[params.gIndex].cardId = params.item.value
   },
   CHOOSE_DESIGNER (state, params) {
     state.magenif = params.key.price
@@ -423,7 +442,7 @@ const mutations = {
       row.groups.map(item => {
         item.price = 0
         item.needCheck && item.items.map(key => {
-          if (item.type === 'radio' && !!item.value.match(new RegExp(key.value))) {
+          if (item.type === 'radio' && !!item.value.match(new RegExp(key.value)) && !key.disabled) {
             item.price = key.unit === '元/年' ? key.price * state.year : key.price
           } else if (item.type === 'check' && !!item.value.join().match(new RegExp(key.value)) && !key.disabled) {
             if (item.magenif) {
@@ -443,7 +462,7 @@ const mutations = {
         if (item.custom && item.cardId !== '') {
           item.card.map(cardItem => {
             if (cardItem.value === item.cardId) {
-              item.price = cardItem.price
+              item.price = item.price + cardItem.price
             }
           })
         }
@@ -458,7 +477,11 @@ const mutations = {
         let value = ''
         // 计算选中项
         if (item.type === 'radio') {
-          value = item.value
+          item.items.map(key => {
+            if (!key.disabled && item.value === key.value) {
+              value = item.value
+            }
+          })
         } else {
           item.needCheck && item.items.map(key => {
             if (!key.disabled && !!item.value.join().match(new RegExp(key.value))) {
@@ -478,10 +501,16 @@ const mutations = {
       params.split(',').map((ids, index) => {
         state.shopFunction.map(row => {
           row.groups.map(item => {
-            item.needCheck && item.type === 'check' && item.items.map(key => {
+            item.needCheck && item.items.map(key => {
               if (ids === key.value) {
                 key.disabled = true
-                item.value = item.value.concat(key.value)
+                if (item.type === 'check') {
+                  item.value = item.value.concat(key.value)
+                } else {
+                  item.value = key.value
+                  item.price = 0
+                  state.totalPrice -= key.price
+                }
               }
             })
           })

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <PageHeader></PageHeader>
+    <PageHeader v-if="$route.name !== 'redirect'"></PageHeader>
     <router-view/>
     <PageFooter></PageFooter>
     <!--加载中...-->
@@ -8,7 +8,7 @@
     <!--文字提示...-->
     <Tooltip ref="tooltip"></Tooltip>
     <!--登录...-->
-    <IframeLogin ref="iframe"></IframeLogin>
+    <IframeLogin ref="iframe" v-if="$route.name !== 'redirect'"></IframeLogin>
   </div>
 </template>
 

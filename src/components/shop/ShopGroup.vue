@@ -28,13 +28,13 @@
             </mu-card>
           </div>
           <div class="card" v-if="group.custom && group.value === '297e26696052b23201605425f360016a'">
-            <mu-card v-for="k in group.card" :key="k.value">
-              <mu-card-title :title="k.name" :subTitle="k.sub"/>
+            <mu-card v-for="(item, index) in group.card" :key="item.value">
+              <mu-card-title :title="item.name" :subTitle="item.sub"/>
               <mu-card-text>
                 您需要指定一个模板，并提供给我们全部的资料和图片，由我们负责录入和设定
               </mu-card-text>
               <mu-card-actions>
-                <mu-radio @change="chooseDesigner({sIndex: sIndex, gIndex: gIndex, key: k})" :label="k.price+k.unit" name="card" :nativeValue="k.value" :value="group.cardId"/>
+                <mu-radio @change="chooseRadioCard({sIndex: sIndex, gIndex: gIndex, index: index, item: item})" :label="item.price + 600 + item.unit" name="card" :nativeValue="item.value" :value="group.cardId"/>
               </mu-card-actions>
             </mu-card>
           </div>
@@ -64,7 +64,7 @@ export default {
     ...mapGetters('shop', ['shopFunction', 'designers', 'designerId', 'card'])
   },
   methods: {
-    ...mapActions('shop', ['chooseRadio', 'chooseCheck', 'chooseDesigner']),
+    ...mapActions('shop', ['chooseRadio', 'chooseCheck', 'chooseRadioCard', 'chooseDesigner']),
     enter (item, e) {
       this.$parent.$parent.$refs.tooltip.show(item, e)
     },
