@@ -80,7 +80,9 @@ export default {
   },
   methods: {
     get () {
-      this.$store.dispatch('getHomeInfo', this.$http)
+      if (!this.$store.state.homeInfo.name) {
+        this.$store.dispatch('getHomeInfo')
+      }
     }
   }
 }

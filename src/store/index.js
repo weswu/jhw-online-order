@@ -54,13 +54,29 @@ const actions = {
   getWebs ({commit, state}) {
     return state.webs
   },
-  getHomeInfo ({commit}, axios) {
+  getUser ({commit, state}, iframe) {
+    let ctx = this
+    let ifr = iframe
+    if (!state.user.name) {
+      this.commit('setLoading', true)
+      this._vm.$http.get('/api/user/info').then((res) => {
+        ctx.commit('setLoading', false)
+        if (res.data.code === 5) {
+          ctx.commit('setLoginUrl', res.headers.requires_auth_url)
+          ifr.open()
+        } else {
+          ctx.commit('setUser', res.data)
+        }
+      })
+    }
+  },
+  getHomeInfo ({commit}) {
     var ctx = this
-    axios.get('/api/user/homeInfo').then((res) => {
-      console.log('4')
+    this._vm.$http.get('/api/user/homeInfo').then((res) => {
       if (res.data) {
         ctx.commit('setHomeInfo', res.data)
         ctx.commit('shop/UPGRADE', res.data.priceItemIds)
+        ctx.commit('shop/TOTAL')
       }
     })
   }

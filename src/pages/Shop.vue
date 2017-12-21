@@ -27,7 +27,7 @@
           </mu-select-field>
           <div class="side-bar-origin-price">原价：RMB {{totalPrice}}</div>
           <div class="side-bar-price">RMB {{totalPrice}}</div>
-          <mu-raised-button @click="toMain" label="马上支付" primary fullWidth />
+          <mu-raised-button @click="toMain" label="确认支付" primary fullWidth />
         </div>
       </div>
       <div class="shop">
@@ -75,16 +75,8 @@ export default {
       }
     }
   },
-  created () {
-    this.get()
-  },
   methods: {
     ...mapActions('shop', ['chooseYear']),
-    get () {
-      if (this.$store.state.homeInfo.name) {
-        this.$store.commit('shop/UPGRADE', this.$store.state.homeInfo.priceItemIds)
-      }
-    },
     toMain () {
       this.$refs.pay.openDialog()
     }

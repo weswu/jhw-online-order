@@ -68,7 +68,7 @@ export default {
         this.$http.get('/api/user/info').then((res) => {
           if (res.data.code !== 5) {
             ctx.$store.commit('setUser', res.data)
-            ctx.$store.dispatch('getHomeInfo', ctx.$http)
+            ctx.$store.dispatch('getHomeInfo')
           } else {
             ctx.$store.commit('setLoginUrl', res.headers.requires_auth_url)
             ctx.$parent.$refs.iframe.open('none')
@@ -83,17 +83,7 @@ export default {
       this.$router.push({path: 'uc'})
     },
     toLogin () {
-      let ctx = this
-      this.$store.commit('setLoading', true)
-      this.$http.get('/api/user/info').then((res) => {
-        this.$store.commit('setLoading', false)
-        if (res.data.code === 5) {
-          ctx.$store.commit('setLoginUrl', res.headers.requires_auth_url)
-          ctx.$parent.$refs.iframe.open()
-        } else {
-          ctx.$store.commit('setUser', res.data)
-        }
-      })
+      this.$store.dispatch('getUser', this.$parent.$refs.iframe)
     },
     toLogout () {
       let ctx = this

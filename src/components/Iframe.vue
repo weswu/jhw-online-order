@@ -1,7 +1,7 @@
 <template>
   <div class="iframe_login" ref="login" :style="'display:' + display">
     <div class="wrapper">
-      <iframe id="iframeLogin" name="header" :src="$store.state.loginUrl" frameBorder="0" scrolling="yes"></iframe>
+      <iframe id="iframeLogin" name="header" :src="$store.state.loginUrl" frameBorder="0" scrolling="no"></iframe>
       <mu-flat-button slot="actions" @click="close" label="关闭" class="close"/>
     </div>
   </div>
@@ -38,7 +38,7 @@ export default {
         ctx.$store.commit('setLoading', false)
         if (res.data.data !== 5) {
           ctx.$store.commit('setUser', res.data)
-          ctx.$store.dispatch('getHomeInfo', ctx.$http)
+          ctx.$store.dispatch('getHomeInfo')
           ctx.$store.commit('setLoginUrl', '')
         }
       })

@@ -1,63 +1,54 @@
 <template>
   <div>
     <mu-dialog :open="dialog" @close="close" :title="title" scrollable>
-      <div class="dialog_bd">
-        <div class="point">
-          <p><mu-checkbox @change="getPoints" label="使用积分抵扣" class="demo-checkbox" /></p>
-          <mu-text-field v-if="showPoint" type="number" hintText="提示文字" @change="poi" @input="checkPoint" :errorText="errorText" :label="'可用积分: ' + $store.state.points" v-model.number="points" min="0" :max="$store.state.points"/>
-        </div>
-        <div class="order-price">
-          <div class="order-price-item">
-            <div class="order-price-item_hd">订单金额</div>
-            <div class="order-price-item_ft">RMB {{totalPriceSingle || totalPrice}}</div>
-          </div>
-          <div class="order-price-item">
-            <div class="order-price-item_hd">积分抵扣</div>
-            <div class="order-price-item_ft">- RMB {{points/10}}</div>
-          </div>
-        </div>
-        <div class="order-price order-price-total">
-          <div class="order-price-item">
-            <div class="order-price-item_hd">共需支付</div>
-            <div class="order-price-item_ft">RMB {{(totalPriceSingle || totalPrice) - points/10}}</div>
-          </div>
-        </div>
-        <div class="payment">
-          <mu-raised-button class="wexinpay" label="微信支付" @click="pay('WX')">
-            <i class="mu-icon iconfont icon-pay-wechat" style="font-size:24px;"></i>
-          </mu-raised-button>
-        </div>
-        <div class="payment-code" v-if="payment === 'WX' && order.qrcode !== ''">
-          <div class="payment-code-wrap">
-            <img v-lazy="'http://buy.jihui88.com/api/order/qrcode?url=' + order.qrcode" alt="">
-            <div class="payment-code-tip">手机微信扫码支付</div>
-          </div>
-        </div>
+      <div id="O_Pay">
+        <mu-row gutter class="pay-total">
+          <mu-col width="50" tablet="50" desktop="50" class="fl">
+            支付金额：<span class="total">{{(totalPriceSingle || totalPrice) - points/10}} 元</span><span v-if="points>0">(- {{points/10}})</span>
+          </mu-col>
+          <mu-col width="50" tablet="50" desktop="50" class="fr">
+            积分抵扣:
+            <mu-text-field :hintText="'可用积分 '+$store.state.points" hintTextClass="hintTextClass" type="number" class="points"
+               @change="poi" @input="checkPoint" :errorText="errorText" v-model.number="points" min="0" :max="$store.state.points"/>
+          </mu-col>
+        </mu-row>
+
+        <mu-flexbox class="mt8">
+          <mu-flexbox-item>
+            <div class="pay-code">
+              <p>
+                <img v-lazy="'http://buy.jihui88.com/api/order/qrcode?url=' + order.qrcode" alt="">
+              </p>
+              <div class="pay-code-cont">
+                <i class="material-icons">fullscreen</i>
+                <div class="text">请使用微信扫一扫<br>扫描二维码支付</div>
+              </div>
+            </div>
+          </mu-flexbox-item>
+          <mu-flexbox-item>
+          </mu-flexbox-item>
+        </mu-flexbox>
+
       </div>
       <mu-flat-button label="返回" @click="close" slot="actions"/>
     </mu-dialog>
     <!--消息...-->
     <Toast ref="toast"></Toast>
-    <!--登录...-->
-    <IframeLogin ref="iframe"></IframeLogin>
   </div>
 </template>
 
 <script>
 import Toast from '@/components/Toast'
-import IframeLogin from '@/components/Iframe'
 import { mapGetters } from 'vuex'
 import qs from 'qs'
 export default {
   components: {
-    Toast,
-    IframeLogin
+    Toast
   },
   props: ['title', 'totalPriceSingle', 'year'],
   data () {
     return {
-      showPoint: false,
-      points: 0,
+      points: '',
       payment: 'WX',
       errorText: '',
       dialog: false,
@@ -67,7 +58,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('shop', ['totalPrice', 'priceItemIds'])
+    ...mapGetters('shop', ['totalPrice', 'priceItemIds']),
+    user () {
+      return this.$store.state.user
+    }
   },
   methods: {
     checkPoint (e) {
@@ -87,30 +81,16 @@ export default {
       }
     },
     openDialog () {
-      var ctx = this
-      if (!this.$store.state.user.name) {
-        this.$http.get('/api/user/info').then((res) => {
-          if (res.data.code === 5) {
-            ctx.$store.commit('setLoginUrl', res.headers.requires_auth_url)
-            ctx.$refs.iframe.open()
-          } else {
-            ctx.dialog = true
-            ctx.$store.commit('setUser', res.data)
-          }
-        })
+      if (!this.user.username) {
+        this.$store.dispatch('getUser', this.$parent.$parent.$refs.iframe)
       } else {
         this.dialog = true
-        // 获取积分
-        if (this.$store.state.points === 0) {
-          this.$http.get('/api/integralRecord/total').then((res) => {
-            ctx.$store.commit('setPoints', res.data || 0)
-          })
-        }
+        this.pay('WX')
+        this.getPoints()
       }
     },
     close () {
       this.dialog = false
-      this.showPoint = false
       this.order = {
         qrcode: ''
       }
@@ -119,8 +99,7 @@ export default {
     // 获取积分
     getPoints () {
       var ctx = this
-      this.showPoint = !this.showPoint
-      if (this.showPoint) {
+      if (this.$store.state.points !== 0) {
         this.$http.get('/api/integralRecord/total').then((res) => {
           ctx.$store.commit('setPoints', res.data || 0)
         })
@@ -181,47 +160,97 @@ export default {
 }
 </script>
 
-<style>
-.dialog_bd {
-  padding-top: 24px;
+<style lang="less">
+#O_Pay {
+  .hintTextClass{
+    font-size: 12px;
+  }
+  .points {
+    width: 132px;text-align: left;padding: 0 5px
+  }
 }
-.order-price {
-  padding: 10px 0;
-  font-size: 18px;
-}
-.order-price span {
-  padding: 0 10px;
-  color: #ff4081;
-  font-size: 14px;
-  text-decoration: line-through;
-}
-.order-price-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 14px;
-}
-.order-price-item_ft {
-  color: #333;
-}
-.order-price-total .order-price-item_hd {
+.pay-total {
   font-size: 16px;
-}
-.order-price-total .order-price-item_ft {
-  font-size: 32px;
-}
-.payment {
-  float: right;
-}
-.payment-code {
-  clear: both;
+  border-bottom: 1px dashed #dedddd;
   padding-top: 20px;
+  margin-bottom: 20px;
+  .fl {
+    line-height: 45px;
+    color: #000;
+  }
+  .fr {
+    font-size: 12px;
+    text-align: right;
+  }
+  .total {
+    padding: 0 3px;
+    color: red;
+  }
 }
-.payment-code-wrap {
-  padding: 30px;
-  background: #f8f8f8;
-
-  text-align: center;
-  color: #666;
+.pay-code {
+  position: relative;
+  width: 180px;
+  margin: 0 auto;
+  &:after {
+    content: '';
+    height: 150px;
+    position: absolute;
+    right: 0;
+    top: 15px;
+    background: #fff;
+    width: 1px;
+  }
+  &:before {
+    content: '';
+    height: 150px;
+    position: absolute;
+    left: 0;
+    top: 15px;
+    background: #fff;
+    width: 1px;
+  }
+  p {
+    padding-bottom: 5px;
+    &:after {
+      content: '';
+      height: 1px;
+      position: absolute;
+      right: 15px;
+      top: 0;
+      background: #fff;
+      width: 150px;
+    }
+    &:before {
+      content: '';
+      height: 1px;
+      position: absolute;
+      right: 15px;
+      top: 179px;
+      background: #fff;
+      width: 150px;
+    }
+  }
+  img {
+    border: 1px solid #00c901;
+    padding: 5px;
+    width: 180px;
+  }
+  .pay-code-cont{
+    background: #00c901;
+    color: #fff;
+    height: 46px;
+    i {
+      width: 46px;
+      height: 46px;
+      line-height: 46px;
+      float: left;
+      text-align: center;
+    }
+    .text{
+      float: left;
+      font-size: 12px;
+      padding-top: 5px;
+    }
+  }
 }
 </style>

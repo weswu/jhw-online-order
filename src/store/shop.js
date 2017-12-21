@@ -508,8 +508,6 @@ const mutations = {
                   item.value = item.value.concat(key.value)
                 } else {
                   item.value = key.value
-                  item.price = 0
-                  state.totalPrice -= key.price
                 }
               }
             })

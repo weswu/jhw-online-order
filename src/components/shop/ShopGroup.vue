@@ -8,7 +8,7 @@
         </div>
       </div>
       <div class="shop-cont">
-        <ul v-for="(group, gIndex) in row.groups" :key="group.title">
+        <ul v-for="(group, gIndex) in row.groups" :key="group.title" @click="user()">
           <p v-if="group.title" class="shop-group-title">{{group.title}}<span v-if="group.sub">{{group.sub}}</span></p>
           <li v-for="(item, index) in group.items" :key="item.name">
             <div v-if="group.needCheck" @mouseenter="enter(item, $event)" @mouseleave="leave">
@@ -64,12 +64,15 @@ export default {
     ...mapGetters('shop', ['shopFunction', 'designers', 'designerId', 'card'])
   },
   methods: {
-    ...mapActions('shop', ['chooseRadio', 'chooseCheck', 'chooseRadioCard', 'chooseDesigner']),
+    ...mapActions('shop', ['chooseRadio', 'chooseCheck', 'chooseRadioCard', 'chooseDesigner', 'getUser']),
     enter (item, e) {
       this.$parent.$parent.$refs.tooltip.show(item, e)
     },
     leave () {
       this.$parent.$parent.$refs.tooltip.hide()
+    },
+    user () {
+      this.$store.dispatch('getUser', this.$parent.$parent.$refs.iframe)
     }
   }
 }
