@@ -124,39 +124,6 @@ export default {
   overflow: hidden;
   zoom: 1;
 }
-// 基本信息
-.website {
-  background: #fff;
-  padding: 20px;
-  .website-wrap {
-    display: flex;
-    .website-logo {
-      width: 120px;
-      height: 120px;
-      margin-right: 10px;
-      overflow: hidden;
-      img {
-        display: block;
-      }
-    }
-    .website-cont {
-      flex: 1;
-      .website-cont-item {
-        padding: 5px 0;
-      }
-      .limit-time {
-        color: #999;
-      }
-      .btn-group {
-        display: flex;
-        justify-content: space-between;
-        .btn-group-item {
-          position: relative;
-        }
-      }
-    }
-  }
-}
 
 .upgrade-tip {
   position: absolute;

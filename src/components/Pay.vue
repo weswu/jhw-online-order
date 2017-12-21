@@ -98,12 +98,9 @@ export default {
     },
     // 获取积分
     getPoints () {
-      var ctx = this
-      if (this.$store.state.points !== 0) {
-        this.$http.get('/api/integralRecord/total').then((res) => {
-          ctx.$store.commit('setPoints', res.data || 0)
-        })
-      }
+      this.$http.get('/api/integralRecord/total').then((res) => {
+        this.$store.commit('setPoints', res.data || 0)
+      })
     },
     // 微信支付
     pay (e) {
@@ -127,7 +124,7 @@ export default {
       this.$http.post('/api/order/detail?' + qs.stringify(order)).then((res) => {
         ctx.$store.commit('setLoading', false)
         ctx.order = res.data
-        // ctx.sendAjax()
+        ctx.sendAjax()
       })
     },
     // 查询是否支付成功
@@ -232,7 +229,6 @@ export default {
   }
   img {
     border: 1px solid #00c901;
-    padding: 5px;
     width: 180px;
   }
   .pay-code-cont{

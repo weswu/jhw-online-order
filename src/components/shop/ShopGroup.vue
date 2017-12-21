@@ -8,12 +8,12 @@
         </div>
       </div>
       <div class="shop-cont">
-        <ul v-for="(group, gIndex) in row.groups" :key="group.title" @click="user()">
+        <ul v-for="(group, gIndex) in row.groups" :key="group.title">
           <p v-if="group.title" class="shop-group-title">{{group.title}}<span v-if="group.sub">{{group.sub}}</span></p>
           <li v-for="(item, index) in group.items" :key="item.name">
             <div v-if="group.needCheck" @mouseenter="enter(item, $event)" @mouseleave="leave">
-              <mu-radio v-if="group.type === 'radio'" @change="chooseRadio({sIndex: sIndex, gIndex: gIndex, index: index, item: item})" :label="item.name" :name="group.name" :nativeValue="item.value" :value="group.value"/>
-              <mu-checkbox v-else @change="chooseCheck({sIndex: sIndex, gIndex: gIndex, index: index, item: item})" :label="item.name" :nativeValue="item.value" :value="group.value" :disabled="item.disabled"/>
+              <mu-radio v-if="group.type === 'radio'" @input="user(index)" @change="chooseRadio({sIndex: sIndex, gIndex: gIndex, index: index, item: item})" :label="item.name" :name="group.name" :nativeValue="item.value" :value="group.value"/>
+              <mu-checkbox v-else @input="user(index)" @change="chooseCheck({sIndex: sIndex, gIndex: gIndex, index: index, item: item})" :label="item.name" :nativeValue="item.value" :value="group.value" :disabled="item.disabled"/>
             </div>
             <span v-else @mouseenter="enter(item, $event)" @mouseleave="leave">{{item.name}}</span>
           </li>
@@ -71,8 +71,10 @@ export default {
     leave () {
       this.$parent.$parent.$refs.tooltip.hide()
     },
-    user () {
-      this.$store.dispatch('getUser', this.$parent.$parent.$refs.iframe)
+    user (index) {
+      if (index === 0) {
+        this.$store.dispatch('getUser', this.$parent.$parent.$refs.iframe)
+      }
     }
   }
 }
@@ -84,24 +86,26 @@ export default {
   overflow: hidden;
   zoom: 1;
   padding: 30px 0;
-}
-.designer .mu-card {
-  float: left;
-  width: 155px;
-  margin: 5px;
-}
-.designer .mu-card-media-title {
-  padding: 5px 10px;
-  background: rgba(0, 0, 0, .65);
-}
-.designer .mu-card-title {
-  font-size: 14px;
-  line-height: 24px;
-  color: #fff;
-}
-.designer .mu-card-sub-title {
-  font-size: 12px;
-  color: #fff;
+  .mu-card {
+    float: left;
+    width: 155px;
+    margin: 5px;
+  }
+  .mu-card-media-title {
+    padding: 5px 10px;
+    background: rgba(0, 0, 0, .65);
+  }
+  .mu-card-sub-title {
+    .mu-card-title {
+      font-size: 14px;
+      line-height: 24px;
+      color: #fff;
+    }
+    .mu-card-sub-title {
+      font-size: 12px;
+      color: #fff;
+    }
+  }
 }
 .card {
   width: 100%;

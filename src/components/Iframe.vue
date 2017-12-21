@@ -49,13 +49,13 @@ export default {
 
 <style lang="less">
 .iframe_login{
-  width: 1000px;
-  height: 700px;
+  width: 800px;
+  height: 690px;
   z-index: 999;
   position: fixed;
   left: 50%;
   top: 50%;
-  margin: -395px 0 0 -500px;
+  margin: -408px 0 0 -400px;
   display: none;
   iframe {
     width: 100%;

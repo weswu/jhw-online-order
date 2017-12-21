@@ -57,7 +57,7 @@ const actions = {
   getUser ({commit, state}, iframe) {
     let ctx = this
     let ifr = iframe
-    if (!state.user.name) {
+    if (!state.user.username) {
       this.commit('setLoading', true)
       this._vm.$http.get('/api/user/info').then((res) => {
         ctx.commit('setLoading', false)
