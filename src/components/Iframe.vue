@@ -66,7 +66,7 @@ export default {
   }
   .close{
     position: absolute;
-    right: 22px;
+    right: 5px;
     top: 5px;
     color: #000;
     background: rgba(255,255,255,0.8);

@@ -1,10 +1,10 @@
 <template>
-<transition name="toast-fade">
+  <transition name="toast-fade">
     <div class="tooltip-wrap" ref="tooltip" v-show="showing" :style="'left: ' + left + 'px; top: ' + top + 'px;'"  @mouseenter="enter" @mouseleave="hide">
       <div v-html='item.html' class="tooltip-cont"></div>
       <div class="tooltip-unit" v-if="item.unit"><span v-if="item.unit.match(/元/)">{{item.price}}</span>{{item.unit}}</div>
     </div>
-</transition>
+  </transition>
 </template>
 <script>
 export default {
@@ -84,20 +84,20 @@ export default {
     left: 50%;
     margin-left: -10px;
   }
-}
-.tooltip-cont {
- border: 1px solid #eee;
- border-radius: 3px;
- padding: 10px;
- background: #fff;
- font-size: 12px;
-}
-.tooltip-unit{
-  position: absolute;
+  .tooltip-cont {
+   border: 1px solid #eee;
+   border-radius: 3px;
+   padding: 10px;
+   background: #fff;
+   font-size: 12px;
+  }
+  .tooltip-unit{
+    position: absolute;
     right: 10px;
     color: red;
     top: 10px;
     font-size: 12px;
+  }
 }
 .toast-fade-enter-active,.toast-fade-leave-active{transition:opacity .5s}
 .toast-fade-enter,.toast-fade-leave-active{opacity:0}

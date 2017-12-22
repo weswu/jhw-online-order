@@ -89,7 +89,11 @@ export default {
       let ctx = this
       this.$http.get('/api/user/logout').then((res) => {
         ctx.$store.commit('setUser', {})
-        ctx.$store.commit('setLoginUrl', '')
+        // 跳到退出页面
+        ctx.$store.commit('setLoginUrl', res.data)
+        setTimeout(() => {
+          ctx.$store.commit('setLoginUrl', '')
+        }, 2000)
         let homeInfo = {
           interalRecordList: {
             content: [],

@@ -16,9 +16,9 @@
             </ul>
           </div>
           <div class="point">
-              <mu-checkbox label="使用积分抵扣" class="demo-checkbox" /><br>
-              <mu-text-field hintText="提示文字" />
-            </div>
+            <mu-checkbox label="使用积分抵扣" class="demo-checkbox" /><br>
+            <mu-text-field hintText="提示文字" />
+          </div>
           <div class="order-price">共需支付：<span>RMB {{totalPrice * year}}</span>RMB {{totalPrice * 0.5 * year}}</div>
           <mu-text-field label="手机号码" hintText="客服需要通过手机联系您确认订单" v-model="mobileNumb" @change="mobileNumbInput" :errorText="mobileNumbError" fullWidth />
           <div class="login-ft">

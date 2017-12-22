@@ -107,19 +107,20 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="less">
 .ask {
     overflow: hidden;
     margin-bottom: 20px;
-}
-.ask img {
-  width: 20px;
-  vertical-align: middle;}
-.ask span {
-    display: inline-block;
-    padding-left: 5px;
-    height: 30px;
-    line-height: 30px;
+    img {
+      width: 20px;
+      vertical-align: middle;
+    }
+    span {
+      display: inline-block;
+      padding-left: 5px;
+      height: 30px;
+      line-height: 30px;
+    }
 }
 .answer {
     position: relative;
@@ -132,16 +133,16 @@ export default {
     -moz-border-radius: 5px;
     -o-border-radius: 5px;
     -webkit-border-radius: 5px;
-}
-.answer em {
-    position: absolute;
-    top: -10px;
-    left: 20px;
-    display: block;
-    width: 0;
-    height: 0;
-    border-color: #F8F8F8 transparent;
-    border-style: solid;
-    border-width: 0 10px 10px;
+    em {
+        position: absolute;
+        top: -10px;
+        left: 20px;
+        display: block;
+        width: 0;
+        height: 0;
+        border-color: #F8F8F8 transparent;
+        border-style: solid;
+        border-width: 0 10px 10px;
+    }
 }
 </style>

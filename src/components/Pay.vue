@@ -139,6 +139,8 @@ export default {
         } else if (res === 'paysuccess') {
           // 跳转到支付已成功页面
           ctx.$refs.toast.show('支付已完成')
+          // 更新数据
+          ctx.$store.dispatch('getHomeInfo')
           ctx.$router.push({ name: 'paid', params: {outTradeNo: this.order.outTradeNo, totalPrice: this.order.totalPrice} })
         } else if (res === 'payfailed') {
           // 跳转到支付失败页面

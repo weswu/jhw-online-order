@@ -94,8 +94,6 @@ export default {
   .mu-card-media-title {
     padding: 5px 10px;
     background: rgba(0, 0, 0, .65);
-  }
-  .mu-card-sub-title {
     .mu-card-title {
       font-size: 14px;
       line-height: 24px;
@@ -117,14 +115,16 @@ export default {
     width: 170px;
     margin: 5px;
   }
- .mu-card-title{
-   font-size: 14px;
-   font-weight: bold;
- }
- .mu-card-sub-title {
-   font-size: 12px;
-   color: #000
- }
+  .mu-card-title-container {
+    .mu-card-title{
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .mu-card-sub-title {
+      font-size: 12px;
+      color: #000
+    }
+  }
 }
 
 </style>

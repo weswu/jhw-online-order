@@ -7,14 +7,6 @@ Vue.use(Vuex)
 const debug = process.env.NODE_ENV !== 'production'
 
 const state = {
-  webs: [
-    {
-      id: 1,
-      title: '网站名称',
-      status: '正常',
-      pic: 'static/26a0185a-47e6-43b6-b112-a7940f88fbde_7.jpg'
-    }
-  ],
   user: {},
   homeInfo: {
     interalRecordList: {
@@ -42,7 +34,6 @@ const state = {
 }
 
 const getters = {
-  webs: state => state.webs,
   user: state => state.user,
   homeInfo: state => state.homeInfo,
   points: state => state.points,
@@ -51,9 +42,6 @@ const getters = {
 }
 
 const actions = {
-  getWebs ({commit, state}) {
-    return state.webs
-  },
   getUser ({commit, state}, iframe) {
     let ctx = this
     let ifr = iframe

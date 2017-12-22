@@ -120,7 +120,7 @@ const state = {
             {name: '产品布局', price: 800, value: '297e2669600191860160021dffbe0094', disabled: false, unit: '元', html: '服务说明：<br/>点2次找到想要的产品，恰到好处的推荐关联的产品，提高重点产品的点击量，引流产品、利润产品、新产品的布局策划。'},
             {name: '公信力建设', price: 900, value: '297e2669600191860160021e2ba60097', disabled: false, unit: '元', html: '服务说明：<br/>网络成交关键看访问者是否相信你，打造强大的公信力有八大方式，我们经验丰富。<b>......咨询即送《网站公信力的因素》</b>'},
             {name: 'LOGO设计', price: 200, value: '297e2669600191860160021e6c5c009a', disabled: false, unit: '元', html: '服务说明：<br/>为您网站设计一个LOGO，提升企业形象<br/>A、定稿前限3次修改<br/>B、资深设计师创作'},
-            {name: '广告图设计', price: 200, value: '297e2669600191860160021ea3df009c', disabled: false, unit: '元', html: '服务说明：<br/>A、需由客户提供图片素材及广告语；<br/>B、客户提供素材需要清晰（无水印）；<br/>C、提供广告图PSD源文件给客户。'},
+            {name: '广告图设计', price: 300, value: '297e2669600191860160021ea3df009c', disabled: false, unit: '元', html: '服务说明：<br/>A、需由客户提供图片素材及广告语；<br/>B、客户提供素材需要清晰（无水印）；<br/>C、提供广告图PSD源文件给客户。'},
             {name: '按钮图标制作', price: 300, value: '297e2669600191860160021ed7fd009f', disabled: false, unit: '元', html: '服务说明：<br/>为您的网站设计按钮图标（一组9个图标）<br/>A、定稿前限2次修改<br/>B、资深设计师创作'},
             {name: '商品图片修图', price: 100, value: '297e2669600191860160021efcaf00a1', disabled: false, unit: '元', html: '服务说明：100元/5张<br/>A、为您的产品图片进行尺寸修改<br/>B、为您的产品图片添加水印'},
             {name: '实地拍照', price: 0, value: '297e2669600191860160021f2fae00a4', disabled: false, unit: '面议', html: '服务说明：<br/>为你网站照片上门实地拍照'}
@@ -144,7 +144,7 @@ const state = {
             {name: '微网站', price: 1500, value: '297e2669600191860160021fe16100ac', unit: '元/年', html: '功能说明：<br/>与微信公众号关联后，可以通过微信端访问的网站版本。'},
             {name: '微传单H5', price: 0, value: '297e26696001918601600220127d00af', unit: '元', html: '功能说明：<br/>海量模版+傻瓜式操作=5分钟制作微传单<br/>可以制作出单页面/多页面/展示型/互动型/微网站等，支持全业务场景应用<br/>微传单自动适配电脑、手机、PAD等多终端，<br/>网站中的文章、产品、广告都可以同步生成微传单，统一管理数据，各类个人推广、组织推广数据全面。'},
             {name: '多语言版本', price: 0, value: '297e26696001918601600220721b00b4', unit: '原版本30%', html: '功能说明：<br/>功能说明：<br/>多语言支持，包括：简体中文、英语、日语、韩语。'},
-            {name: '问卷调查', price: 1000, value: '297e2669600191860160022099eb00b6', unit: '元', html: '功能说明：<br/>了解客户想法，改善产品和服务<br/>使用调查问卷好优化活动主题及计划<br/>卷调查帮您发现教学中的优势和不足'}
+            {name: '问卷调查', price: 200, value: '297e2669600191860160022099eb00b6', unit: '元', html: '功能说明：<br/>了解客户想法，改善产品和服务<br/>使用调查问卷好优化活动主题及计划<br/>卷调查帮您发现教学中的优势和不足'}
           ]
         },
         {
@@ -193,9 +193,9 @@ const state = {
           items: [
             {name: '网站内容更新', price: 7200, value: '297e26696001918601600224212700dd', unit: '元/年', html: '服务说明：<br/>帮您为网站进行内容更新，节省您的时间<br/>A、需客户提供所需内容素材<br/>B、每月更新的内容4条原创'},
             {name: '竞价托管', price: 6800, value: '297e26696001918601600224737f00e2', unit: '元/年', html: '服务说明：<br/>百度竞价后台托管。不包含第三方费用。'},
-            {name: '微托管', price: 2400, value: '297e2669600191860160022587b500f6', unit: '元/年', html: '服务说明：<br/>帮您公众号进行内容更新，节省您的时间<br/>A、需客户提供所需内容素材<br/>B、每月更新的内容4条原创'},
+            {name: '微托管', price: 7200, value: '297e2669600191860160022587b500f6', unit: '元/年', html: '服务说明：<br/>帮您公众号进行内容更新，节省您的时间<br/>A、需客户提供所需内容素材<br/>B、每月更新的内容4条原创'},
             {name: '微博矩阵', price: 600, value: '297e26696001918601600225b5d400f8', unit: '元', html: '服务说明：<br/>帮您理清公司所有微博之间的关系，老板微博、官方微博、品牌微博、产品微博、员工微博等。'},
-            {name: '媒体软文', price: 200, value: '297e2669600191860160022499b300e5', html: '欢迎三方合作'},
+            {name: '媒体软文', price: 0, value: '297e2669600191860160022499b300e5', html: '欢迎三方合作'},
             {name: '微博营销', price: 0, value: '297e26696001918601600224bff500e7', html: '欢迎三方合作'},
             {name: '微信营销', price: 0, value: '297e26696001918601600224dd7800ea', html: '欢迎三方合作'},
             {name: '网红', price: 0, value: '297e26696001918601600224fe6900ec', html: '欢迎三方合作'},
@@ -437,6 +437,7 @@ const mutations = {
     state.year = state.yearList[params]
   },
   TOTAL (state) {
+    let priceItemIds = ''
     // 计算各项单个金额
     state.shopFunction.map(row => {
       row.groups.map(item => {
@@ -463,6 +464,7 @@ const mutations = {
           item.card.map(cardItem => {
             if (cardItem.value === item.cardId) {
               item.price = item.price + cardItem.price
+              priceItemIds = item.cardId
             }
           })
         }
@@ -470,7 +472,6 @@ const mutations = {
     })
     // 计算总金额
     let totalPrice = 0
-    let priceItemIds = ''
     state.shopFunction.map(row => {
       row.groups.map((item, index) => {
         totalPrice += item.price
