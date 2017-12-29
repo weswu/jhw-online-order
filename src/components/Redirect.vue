@@ -10,6 +10,9 @@ export default {
     let dataJson = {
       type: 1
     }
+    if (top.location === self.location) {
+      window.location.href = '/'
+    }
     window.parent.postMessage(dataJson, '*')
   }
 }
