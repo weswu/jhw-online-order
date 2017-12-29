@@ -39,19 +39,9 @@ export default {
   },
   methods: {
     openPaid (item) {
-      var ctx = this
+      if (this.homeInfo.priceItemIds && this.homeInfo.priceItemIds.match(new RegExp(item.id))) { return '' }
       this.priceItemIds = item.id
-      if (item.id === '297e26696001918601600220721b00b4') {
-        let items = this.$store.state.shop.shopFunction[2].groups[1].items
-        let ids = this.$store.state.homeInfo.priceItemIds
-        items.map((item2, index) => {
-          if (!ids.match(new RegExp(item2.value))) {} else {
-            ctx.totalPrice += item2.price * 0.3
-          }
-        })
-      } else {
-        this.totalPrice = item.price
-      }
+      this.totalPrice = item.price
       this.$refs.pay.openDialog()
     },
     state (v) {

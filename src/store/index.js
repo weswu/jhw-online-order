@@ -46,9 +46,7 @@ const actions = {
     let ctx = this
     let ifr = iframe
     if (!state.user.username) {
-      this.commit('setLoading', true)
       this._vm.$http.get('/api/user/info').then((res) => {
-        ctx.commit('setLoading', false)
         if (res.data.code === 5) {
           ctx.commit('setLoginUrl', res.headers.requires_auth_url)
           ifr.open()

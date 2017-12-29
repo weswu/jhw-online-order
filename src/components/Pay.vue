@@ -4,7 +4,9 @@
       <div id="O_Pay">
         <mu-row gutter class="pay-total">
           <mu-col width="50" tablet="50" desktop="50" class="fl">
-            支付金额：<span class="total">{{(totalPriceSingle || totalPrice) - points/10}} 元</span><span v-if="points>0">(- {{points/10}})</span>
+            支付金额：<span class="total">{{money}} 元</span>
+            <span class="discount" v-if="isOutPoint">(- {{points/10}})</span>
+            <span class="discount" v-if="isOutDiscount">(优惠-99)</span>
           </mu-col>
           <mu-col width="50" tablet="50" desktop="50" class="fr">
             积分抵扣:
@@ -39,7 +41,7 @@
 
 <script>
 import Toast from '@/components/Toast'
-import { mapGetters } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import qs from 'qs'
 export default {
   components: {
@@ -59,8 +61,22 @@ export default {
   },
   computed: {
     ...mapGetters('shop', ['totalPrice', 'priceItemIds']),
-    user () {
-      return this.$store.state.user
+    ...mapState(['user', 'homeInfo']),
+    money () {
+      var money = this.totalPriceSingle || this.totalPrice
+      if (this.points > 0 && money > this.points / 10) {
+        money = money - this.points / 10
+        this.isOutPoint = true
+      } else {
+        this.isOutPoint = false
+      }
+      if (this.homeInfo.isDiscount && money > 99) {
+        money = money - 99
+        this.isOutDiscount = true
+      } else {
+        this.isOutDiscount = false
+      }
+      return money
     }
   },
   methods: {
@@ -250,5 +266,8 @@ export default {
       padding-top: 5px;
     }
   }
+}
+.discount{
+  font-size: 12px;color: #999
 }
 </style>

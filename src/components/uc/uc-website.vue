@@ -16,7 +16,7 @@
             <a href="http://www.jihui88.com/member/index.html" target="_blank"><mu-raised-button label="数据管理" primary /></a>
           </div>
           <div class="btn-group-item">
-            <span class="upgrade-tip">限时优惠</span>
+            <span class="upgrade-tip">限时优惠<span v-if="homeInfo.isDiscount">99</span></span>
             <mu-raised-button label="升级" @click="toShop" secondary />
           </div>
         </div>
