@@ -1,6 +1,6 @@
 <template>
   <div>
-    <mu-dialog :open="dialog" @close="close" :title="title" scrollable>
+    <mu-dialog :open="dialog" @close="close" :title="title">
       <div id="O_Pay">
         <mu-row gutter class="pay-total">
           <mu-col width="50" tablet="50" desktop="50" class="fl">

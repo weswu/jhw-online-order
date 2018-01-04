@@ -37,7 +37,8 @@ const state = {
             {name: '批量导入', html: '功能说明：<br/>网站管理员可以对网站的文章、产品、订单、会员等各项数据进行导出导入。'},
             {name: '定期备份', html: '功能说明：<br/>网站管理员可以对网站的文章、产品、订单、会员等各项数据进行导出导入。'},
             {name: '无缝升级', html: '功能说明：<br/>手机端、PC端、微信端、小程序等的各类数据无缝升级，版本无缝升级，SEO无缝升级，每周迭代升级。'},
-            {name: '后台APP', html: '<img src="http://dfwjjingtai.b0.upaiyun.com/upload//j//j2//jihui88//picture//2017//03//06/f43c65d5-b300-47de-89b4-91754a91d02e.png"/><br>扫一扫，立即下载'}
+            {name: '后台APP', html: '<img src="http://dfwjjingtai.b0.upaiyun.com/upload//j//j2//jihui88//picture//2017//03//06/f43c65d5-b300-47de-89b4-91754a91d02e.png"/><br>扫一扫，立即下载'},
+            {name: '后台小程序', html: '功能说明：<br/>小程序码扫一扫，管理后台后台数据'}
           ]
         }
       ]
