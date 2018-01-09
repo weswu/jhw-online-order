@@ -7,6 +7,7 @@
             支付金额：<span class="total">{{money}} 元</span>
             <span class="discount" v-if="isOutPoint">(- {{points/10}})</span>
             <span class="discount" v-if="isOutDiscount">(优惠-99)</span>
+            <span class="discount" v-if="homeInfo.isDiscount && !isOutDiscount">(亲，还差{{1000 - money}}元即可享受99优惠哦)</span>
           </mu-col>
           <mu-col width="50" tablet="50" desktop="50" class="fr">
             积分抵扣:
@@ -70,7 +71,7 @@ export default {
       } else {
         this.isOutPoint = false
       }
-      if (this.homeInfo.isDiscount && money > 99) {
+      if (this.homeInfo.isDiscount && money > 1000) {
         money = money - 99
         this.isOutDiscount = true
       } else {
@@ -127,7 +128,7 @@ export default {
         payType: this.payment,
         year: this.year || this.$store.state.shop.year,
         integral: this.points,
-        orderType: this.$store.state.homeInfo.priceItemIds ? 'UPDATE' : 'CUSTOM',
+        orderType: this.homeInfo.priceItemIds ? 'UPDATE' : 'CUSTOM',
         designerId: this.$store.state.shop.designerId
       }
       if (order.priceItemIds === '') {
