@@ -4,7 +4,7 @@
       <div class="logo">
         <img src="http://img.jihui88.com/upload/w/w5/www2/picture/2017/07/05/8a688605-44c1-4729-88b3-c818641b12cc.png" alt="">
       </div>
-      <div class="nav" v-if="$route.name === 'shop' || $route.name === 'paid'">
+      <div class="nav">
         <ul>
           <li><a href="http://www.jihui88.com/">首页</a></li>
           <li><a href="http://www.jihui88.com/product_1.html">全网营销云平台</a></li>

@@ -36,7 +36,7 @@ export default {
       this.$router.push({ name: 'shop' })
     },
     setErrorImg (e) {
-      e.target.src = 'http://iph.href.lu/120x120'
+      e.target.src = 'http://img.jihui88.com/upload/w/w5/www2/picture/2017/07/05/54b68a5c-fdd2-4842-9e1e-b88d1c403f28.png'
     }
   }
 }

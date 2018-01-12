@@ -59,7 +59,7 @@ export default {
   display: none;
   iframe {
     width: 100%;
-    height: 406px;
+    height: 410px;
   }
   .wrapper{
     position: relative;
