@@ -18,7 +18,7 @@ export default {
     var ctx = this
     window.addEventListener('message', function (e) {
       var data = e.data || {}
-      if (data.type === 1 && !ctx.$store.state.user.nickname) {
+      if (data.type === 1 && !ctx.$store.state.user.username) {
         console.log('close iframe: 1')
         return ctx.close()
       }

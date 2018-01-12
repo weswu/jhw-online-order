@@ -6,8 +6,8 @@
       </div>
       <div class="website-cont">
         <div class="website-cont-item">
-          {{homeInfo.name}}
-          <mu-badge :content="homeInfo.name ? '正常' : '未登录'" color="#00c853" />
+          {{homeInfo.name || '匿名'}}
+          <mu-badge :content="user.username ? '正常' : '未登录'" color="#00c853" />
         </div>
         <div class="website-cont-item limit-time">有效期至 <span v-if="homeInfo.endTime">{{homeInfo.endTime | time('yyyy年MM月dd日')}}</span></div>
         <div class="website-cont-item btn-group">
@@ -28,8 +28,8 @@
 <script>
 import { mapState } from 'vuex'
 export default {
-  computed: mapState({
-    homeInfo: 'homeInfo'
+  computed: {
+    ...mapState(['user', 'homeInfo']),
   }),
   methods: {
     toShop () {

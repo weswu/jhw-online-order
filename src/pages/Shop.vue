@@ -3,6 +3,10 @@
     <div class="wrap shop-wrap">
       <div class="side-bar">
         <div class="side-bar-bd" :class="{'fixed': fixed}">
+          <ul class="select-buy" v-if="toggle">
+            <li :class="[item.type === toggle? 'active' : '']"  v-for="(item, index) in toggleList" @click="toggleClick(item.type)">{{item.name}}</li>
+          </ul>
+
           <div class="side-bar-bd_cont">
             <table class="mu-table w-table">
               <tr class="mu-thead" v-for="(item, index) in shopFunction" :key="item.title" v-if="index > 0">
@@ -31,7 +35,8 @@
         </div>
       </div>
       <div class="shop">
-        <shop-group></shop-group>
+        <SetMeal v-if="toggle"/>
+        <shop-group v-if="!toggle"></shop-group>
         <FAQ></FAQ>
       </div>
     </div>
@@ -42,6 +47,7 @@
 
 <script>
 import ShopGroup from '@/components/shop/ShopGroup'
+import SetMeal from '@/components/shop/SetMeal'
 import FAQ from '@/components/shop/FAQ'
 import Pay from '@/components/Pay'
 import Online from '@/components/shop/Online'
@@ -49,13 +55,25 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   components: {
     ShopGroup,
+    SetMeal,
     FAQ,
     Pay,
     Online
   },
   data () {
     return {
-      fixed: false
+      fixed: false,
+      toggle: false,
+      toggleList: [
+        {
+          name: '套餐',
+          type: true
+        },
+        {
+          name: '功能模板',
+          type: false
+        }
+      ]
     }
   },
   computed: {
@@ -79,6 +97,9 @@ export default {
     ...mapActions('shop', ['chooseYear']),
     toMain () {
       this.$refs.pay.openDialog()
+    },
+    toggleClick (v) {
+      this.toggle = v
     }
   }
 }
@@ -240,6 +261,22 @@ export default {
   font-size: 14px;
 }
 
+.select-buy{
+  text-align: center;
+  background: #f9f9f9;
+  border-bottom: 1px solid #eaeaea;
+  overflow: hidden;
+  height: 45px;line-height: 45px;
+  margin-bottom: 10px;
+  li {
+    float:left;width: 50%;color: #666;
+    cursor: pointer;
+  }
+  .active {
+    color: #ff6700
+  }
+}
+
 /* 自适应 */
 @media only screen and (max-width: 1100px) {
   .wrap {
@@ -251,6 +288,11 @@ export default {
       }
       .shop-nav-bd li, .shop-cont li {
         width: 33.3%;
+      }
+    }
+    .set-meal{
+      .mu-card{
+        width: 40%;
       }
     }
   }
