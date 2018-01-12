@@ -6,7 +6,7 @@
       </div>
       <div class="website-cont">
         <div class="website-cont-item">
-          {{homeInfo.name || '匿名'}}
+          <span v-if="user.username">{{homeInfo.name || '匿名'}}</span>
           <mu-badge :content="user.username ? '正常' : '未登录'" color="#00c853" />
         </div>
         <div class="website-cont-item limit-time">有效期至 <span v-if="homeInfo.endTime">{{homeInfo.endTime | time('yyyy年MM月dd日')}}</span></div>
