@@ -29,8 +29,8 @@
 import { mapState } from 'vuex'
 export default {
   computed: {
-    ...mapState(['user', 'homeInfo']),
-  }),
+    ...mapState(['user', 'homeInfo'])
+  },
   methods: {
     toShop () {
       this.$router.push({ name: 'shop' })
