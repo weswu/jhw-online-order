@@ -6,10 +6,10 @@
       </div>
       <div class="website-cont">
         <div class="website-cont-item">
-          <span v-if="user.username">{{homeInfo.name || '匿名'}}</span>
+          <span v-if="user.username">{{homeInfo.name || user.nickname || user.username}}</span>
           <mu-badge :content="user.username ? '正常' : '未登录'" color="#00c853" />
         </div>
-        <div class="website-cont-item limit-time">有效期至 <span v-if="homeInfo.endTime">{{homeInfo.endTime | time('yyyy年MM月dd日')}}</span></div>
+        <div class="website-cont-item limit-time"><span v-if="homeInfo.endTime">有效期至 {{homeInfo.endTime | time('yyyy年MM月dd日')}}</span><span v-if="!homeInfo.endTime">未购买</span></div>
         <div class="website-cont-item btn-group">
           <div class="btn-group-item">
             <a :href="homeInfo.siteUrl" target="_blank"><mu-raised-button label="界面编辑" primary /></a>

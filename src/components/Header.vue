@@ -31,7 +31,7 @@
         <a href="http://www.jihui88.com/member/register.html?redirectUrl=http://buy.jihui88.com" class="btn-register" v-if="!user.username">免费注册</a>
 
         <div class="" @click="toggle" v-if="user.username && opacity === 0">
-          <a href="javascript:;" class="btn-register">{{user.nickname || '匿名'}}</a>
+          <a href="javascript:;" class="btn-register">{{user.nickname || user.username}}</a>
         </div>
         <mu-icon-menu icon="person" :anchorOrigin="anchorOrigin" :targetOrigin="targetOrigin" :open="open" @close="handleClose" :style="'position: absolute;height:0;right:0;opacity: ' + opacity" v-if="user.username">
           <mu-menu-item title="用户中心" @click="toUc" />

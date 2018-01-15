@@ -8,9 +8,9 @@
       <div class="warpper">
         <mu-sub-header>
           <div class="spread-raised-button">
-            我的分享人：{{userInfo.posterUsername || '机汇网'}}  <span v-if="userInfo">（{{userInfo.posterUsername || '20017-5-5'}}）</span>
+            我的分享人：{{userInfo.posterUsername || '机汇网'}}
           </div>
-          <mu-raised-button href="#/rank" label="我推广的会员" class="spread-raised-button"/>
+          <mu-raised-button href="#/rank" label="我推广的会员" class="spread-raised-button" style="margin-left: 100px"/>
           <mu-raised-button label="马上推荐朋友" class="demo-raised-button" @click="open" />
         </mu-sub-header>
         <mu-content-block>
@@ -170,17 +170,17 @@ export default {
   }
 }
 
-.mu-tabs{
-  background: #fff;
-  .mu-tab-link{
-    color: #000;
-    font-size: 17px;
-  }
-  .mu-tab-active{
-    color: #ff4081
-  }
-}
 .spread {
+  .mu-tabs{
+    background: #fff;
+    .mu-tab-link{
+      color: #000;
+      font-size: 17px;
+    }
+    .mu-tab-active{
+      color: #ff4081
+    }
+  }
   .item{
     width: 25%;
     float:left;
@@ -205,7 +205,6 @@ export default {
     margin-top: 6px;
   }
 }
-.spread_a{color:#ff7300;padding:10px 0 5px 0;display:block;font-family:'Microsoft YaHei',Helvetica,Arial,'WenQuanYi Micro Hei';font-size:.6rem}
 .extend_img{width:100%}
 .extend_desc{color:#666;padding:15px 5px}
 

@@ -23,12 +23,12 @@ export default {
     return {
       paymentDetail: [
         {
-          title: '订单号',
+          title: '第三方订单号',
           desc: 'wx201711071615032345'
         },
         {
           title: '支付金额',
-          desc: 'RMB 12800'
+          desc: 'RMB 0'
         },
         {
           title: '支付方式',
