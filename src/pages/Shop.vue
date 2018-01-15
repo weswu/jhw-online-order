@@ -3,7 +3,7 @@
     <div class="wrap shop-wrap">
       <div class="side-bar">
         <div class="side-bar-bd" :class="{'fixed': fixed}">
-          <ul class="select-buy" v-if="toggle">
+          <ul class="select-buy">
             <li :class="[item.type === toggle? 'active' : '']"  v-for="(item, index) in toggleList" @click="toggleClick(item.type)">{{item.name}}</li>
           </ul>
 
