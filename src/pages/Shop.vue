@@ -28,7 +28,7 @@
           </mu-select-field>
           <div class="side-bar-origin-price">原价：RMB {{totalPrice}}</div>
           <div class="side-bar-price">RMB {{totalPrice}}</div>
-          <mu-raised-button @click="toMain" label="确认支付" primary fullWidth :disabled="totalPrice === 0 || toggle  ? true : false"/>
+          <mu-raised-button @click="toMain" label="确认支付" primary fullWidth :disabled="totalPrice === 0 || activeTab === 'tab2' ? true : false"/>
         </div>
       </div>
       <div class="shop">

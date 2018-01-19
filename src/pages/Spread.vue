@@ -10,8 +10,11 @@
           <div class="spread-raised-button">
             我的分享人：{{userInfo.posterUsername || '机汇网'}}
           </div>
-          <mu-raised-button href="#/rank" label="我推广的会员" class="spread-raised-button" style="margin-left: 100px"/>
+          <mu-raised-button href="#/rank" label="我推广的会员" class="spread-raised-button" style="margin-left: 37px"/>
           <mu-raised-button label="马上推荐朋友" class="demo-raised-button" @click="open" />
+          <span class="spread-url">我的推广链接：{{url}}
+            <mu-raised-button label="复制" class="demo-raised-button" v-clipboard:copy="url" v-clipboard:success="onCopy"/>
+          </span>
         </mu-sub-header>
         <mu-content-block>
           你可以把以下专属于你的推广海报保存到相册，并转发到朋友圈和微信群，即可获取积分和现金抵扣。
@@ -47,6 +50,7 @@
         <img v-lazy="'http://buy.jihui88.com/api/order/qrcode?url=' + pic" alt="">
         <mu-flat-button slot="actions" @click="close" primary label="取消"/>
       </mu-dialog>
+      <mu-toast v-if="toast" message="复制成功" @close="hideToast"/>
     </div>
   </div>
 
@@ -72,7 +76,9 @@ export default {
       },
       dialog: false,
       dialogQr: false,
-      pic: ''
+      pic: '',
+      url: 'http://www.jihui88.com/member/reg_m.html?d=' + (this.$store.state.homeInfo.userInfo.username || 'jihui'),
+      toast: false
     }
   },
   computed: {
@@ -158,6 +164,11 @@ export default {
     savepic (src) {
       var $a = window.$('<a></a>').attr('href', src).attr('download', 'poster.jpg')
       $a[0].click()
+    },
+    onCopy: function (e) {
+      this.toast = true
+      if (this.toastTimer) clearTimeout(this.toastTimer)
+      this.toastTimer = setTimeout(() => { this.toast = false }, 2000)
     }
   }
 }
@@ -215,6 +226,10 @@ export default {
   font-size: 20px;
   font-family: Microsoft YaHei;
   text-align: center;
+}
+.spread-url {
+  float: right;
+  margin-right: 10px;
 }
 .dialogQr{
   width: 317px

@@ -7,6 +7,7 @@ import store from './store'
 import Axios from './api'
 import MuseUI from 'muse-ui'
 import VueLazyload from 'vue-lazyload'
+import VueClipboard from 'vue-clipboard2'
 import 'muse-ui/dist/muse-ui.css'
 import './assets/app.less'
 import './assets/filters.js'
@@ -21,6 +22,7 @@ Vue.use(VueLazyload, {
   loading: '/static/loading.gif',
   attempt: 1
 })
+Vue.use(VueClipboard)
 
 /* eslint-disable no-new */
 new Vue({
