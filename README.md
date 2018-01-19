@@ -29,3 +29,7 @@
 - 订单的管理后台还是得有的，但是界面没要求，因为是我们内部查看和处理用的
 
 java -Xms256m -jar jhw-online-order-java-0.0.1-SNAPSHOT.jar --spring.profiles.active=wxw
+
+
+### 部署
+把dist内的所有文件复制到jhw-online-order-java项目里的resource/static文件夹下
