@@ -57,7 +57,8 @@ export default {
       dialog: false,
       order: {
         qrcode: ''
-      }
+      },
+      priceItemIds: ''
     }
   },
   computed: {
@@ -97,9 +98,10 @@ export default {
         this.pay()
       }
     },
-    openDialog () {
+    openDialog (id) {
+      this.priceItemIdsSingle = id
       if (!this.user.username) {
-        this.$store.dispatch('getUser', this.$parent.$parent.$refs.iframe)
+        this.$store.dispatch('getUser', this.$parent.$parent.$refs.iframe || this.$parent.$parent.$parent.$refs.iframe || this.$parent.$parent.$parent.$parent.$parent.$refs.iframe)
       } else {
         this.dialog = true
         this.pay('WX')
@@ -124,7 +126,7 @@ export default {
       var ctx = this
       this.payment = e || this.payment
       let order = {
-        priceItemIds: this.priceItemIds || this.$store.state.shop.priceItemIds,
+        priceItemIds: this.priceItemIdsSingle || this.$store.state.shop.priceItemIds,
         payType: this.payment,
         year: this.year || this.$store.state.shop.year,
         integral: this.points,

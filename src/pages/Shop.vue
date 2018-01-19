@@ -3,9 +3,6 @@
     <div class="wrap shop-wrap">
       <div class="side-bar">
         <div class="side-bar-bd" :class="{'fixed': fixed}">
-          <ul class="select-buy">
-            <li :class="[item.type === toggle? 'active' : '']"  v-for="(item, index) in toggleList" @click="toggleClick(item.type)">{{item.name}}</li>
-          </ul>
 
           <div class="side-bar-bd_cont">
             <table class="mu-table w-table">
@@ -35,9 +32,13 @@
         </div>
       </div>
       <div class="shop">
-        <SetMeal v-if="toggle"/>
-        <shop-group v-if="!toggle"></shop-group>
-        <FAQ></FAQ>
+        <mu-tabs :value="activeTab" @change="handleTabChange">
+          <mu-tab value="tab1" title="功能模板" />
+          <mu-tab value="tab2" title="套餐" />
+        </mu-tabs>
+        <shop-group v-if="activeTab === 'tab1'"></shop-group>
+        <SetMeal v-if="activeTab === 'tab2'"/>
+        <FAQ v-if="activeTab === 'tab1'"></FAQ>
       </div>
     </div>
     <Pay ref="pay" :title="'订单支付'"></Pay>
@@ -63,7 +64,7 @@ export default {
   data () {
     return {
       fixed: false,
-      toggle: false,
+      activeTab: 'tab1',
       toggleList: [
         {
           name: '套餐',
@@ -98,8 +99,8 @@ export default {
     toMain () {
       this.$refs.pay.openDialog()
     },
-    toggleClick (v) {
-      this.toggle = v
+    handleTabChange (v) {
+      this.activeTab = v
     }
   }
 }
