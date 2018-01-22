@@ -57,8 +57,7 @@ export default {
       dialog: false,
       order: {
         qrcode: ''
-      },
-      priceItemIds: ''
+      }
     }
   },
   computed: {

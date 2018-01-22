@@ -50,7 +50,7 @@
         <img v-lazy="'http://buy.jihui88.com/api/order/qrcode?url=' + pic" alt="">
         <mu-flat-button slot="actions" @click="close" primary label="取消"/>
       </mu-dialog>
-      <mu-toast v-if="toast" message="复制成功" @close="hideToast"/>
+      <mu-toast v-if="toast" message="复制成功"/>
     </div>
   </div>
 
@@ -104,6 +104,17 @@ export default {
             item.pic = 'http://img.jihui88.com/' + item.pic
             ctx.list.push(item)
           }
+        }
+      })
+
+      window.$.ajax({
+        type: 'get',
+        url: 'http://fetch.myacg.ga/sina_short_url_proxy_by_yx.php?lurl=' + this.url,
+        dataType: 'jsonp',
+        jsonp: 'callback',
+        jsonpCallback: 'yx_callback',
+        success: function (json) {
+          ctx.url = json[0].url_short
         }
       })
     },
@@ -209,7 +220,7 @@ export default {
   }
   .spread-raised-button{
     float: left;
-    margin-right: 30px;
+    margin-right: 20px;
     color: #000;
   }
   a.spread-raised-button{
@@ -230,6 +241,9 @@ export default {
 .spread-url {
   float: right;
   margin-right: 10px;
+  button{
+    margin-left: 5px;
+  }
 }
 .dialogQr{
   width: 317px
