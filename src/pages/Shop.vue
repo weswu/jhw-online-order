@@ -33,8 +33,8 @@
       </div>
       <div class="shop">
         <mu-tabs :value="activeTab" @change="handleTabChange">
-          <mu-tab value="tab1" title="功能模板" />
-          <mu-tab value="tab2" title="套餐" />
+          <mu-tab value="tab1" title="功能模板" class="shop-tab tab1"/>
+          <mu-tab value="tab2" title="套餐" class="shop-tab tab2"/>
         </mu-tabs>
         <shop-group v-if="activeTab === 'tab1'"></shop-group>
         <SetMeal v-if="activeTab === 'tab2'"/>
@@ -220,6 +220,19 @@ export default {
       position: relative;
     }
   }
+  .tab1 {
+    background: url(/static/icon/fun.png) 144px center no-repeat;
+    background-size: 30px;
+  }
+  .tab2 {
+    background: url(/static/icon/setMeal.png) 160px center no-repeat;
+    background-size: 26px;
+  }
+  .shop-tab.mu-tab-link{
+    font-size: 16px;
+    height: 53px;
+    line-height: 53px
+  }
 }
 .shop.pd-top {
   padding-top: 148px;
@@ -289,6 +302,14 @@ export default {
       }
       .shop-nav-bd li, .shop-cont li {
         width: 33.3%;
+      }
+      .tab1 {
+        background: url(/static/icon/fun.png) 98px center no-repeat;
+        background-size: 30px;
+      }
+      .tab2 {
+        background: url(/static/icon/setMeal.png) 115px center no-repeat;
+        background-size: 26px;
       }
     }
     .set-meal{
