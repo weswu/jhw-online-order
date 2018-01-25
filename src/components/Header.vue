@@ -35,6 +35,7 @@
         </div>
         <mu-icon-menu icon="person" :anchorOrigin="anchorOrigin" :targetOrigin="targetOrigin" :open="open" @close="handleClose" :style="'position: absolute;height:0;right:0;opacity: ' + opacity" v-if="user.username">
           <mu-menu-item title="用户中心" @click="toUc" />
+          <a href="http://www.jihui88.com/member/index.html#/account"><mu-menu-item title="账号设置"/></a>
           <mu-menu-item title="退出" @click="toLogout" />
         </mu-icon-menu>
       </div>
@@ -64,6 +65,7 @@ export default {
   methods: {
     get () {
       let ctx = this
+      // 自动登录
       if (!this.$store.state.user.nickname) {
         this.$http.get('/api/user/info').then((res) => {
           if (res.data.code !== 5) {

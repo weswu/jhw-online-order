@@ -98,7 +98,7 @@ export default {
           desc: '【适合】PC网站/小程序/微网站/微分销',
           pic: 'https://oss.aliyuncs.com/photogallery/photo/1678560599049721/18264/35077858-8695-4074-b997-669a44fdf09b.jpg',
           number: 94,
-          price: 4080,
+          price: 2080,
           isBuy: true
         }
       ],

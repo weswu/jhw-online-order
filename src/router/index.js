@@ -9,6 +9,8 @@ import Log from '@/pages/Log'
 import Spread from '@/pages/Spread'
 import Rank from '@/pages/SpreadRank'
 import Redirect from '@/components/Redirect'
+import QRCode from '@/components/QRCode'
+import Empty from '@/components/Empty'
 
 Vue.use(Router)
 
@@ -24,6 +26,8 @@ export default new Router({
     // 推广
     { path: '/spread', name: 'spread', component: Spread },
     { path: '/rank', name: 'rank', component: Rank },
-    { path: '/redirect', name: 'redirect', component: Redirect }
+    { path: '/redirect', name: 'redirect', component: Redirect, meta: { navHide: true, cname: '登录成功' } },
+    { path: '/qrcode', name: 'qrcode', component: QRCode, meta: { navHide: true, cname: '二维码' } },
+    { path: '/empty', name: 'empty', component: Empty, meta: { navHide: true, cname: '空' } }
   ]
 })

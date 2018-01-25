@@ -222,11 +222,11 @@ export default {
   }
   .tab1 {
     background: url(/static/icon/fun.png) 144px center no-repeat;
-    background-size: 30px;
+    background-size: 26px;
   }
   .tab2 {
     background: url(/static/icon/setMeal.png) 160px center no-repeat;
-    background-size: 26px;
+    background-size: 30px;
   }
   .shop-tab.mu-tab-link{
     font-size: 16px;
@@ -305,11 +305,11 @@ export default {
       }
       .tab1 {
         background: url(/static/icon/fun.png) 98px center no-repeat;
-        background-size: 30px;
+        background-size: 26px;
       }
       .tab2 {
         background: url(/static/icon/setMeal.png) 115px center no-repeat;
-        background-size: 26px;
+        background-size: 30px;
       }
     }
     .set-meal{

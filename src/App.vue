@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <PageHeader v-if="$route.name !== 'redirect'"></PageHeader>
+    <PageHeader v-show="!$route.meta.navHide"></PageHeader>
     <router-view/>
-    <PageFooter></PageFooter>
+    <PageFooter v-if="!$route.meta.navHide"></PageFooter>
     <!--加载中...-->
     <Loading></Loading>
     <!--文字提示...-->
-    <Tooltip ref="tooltip"></Tooltip>
+    <Tooltip ref="tooltip" v-if="!$route.meta.navHide"></Tooltip>
     <!--登录...-->
     <IframeLogin ref="iframe" v-if="$route.name !== 'redirect'"></IframeLogin>
   </div>
