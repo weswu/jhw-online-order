@@ -14,6 +14,7 @@
           <div class="btn-group-item">
             <a :href="homeInfo.siteUrl" target="_blank"><mu-raised-button label="界面编辑" primary /></a>
             <a href="http://www.jihui88.com/member/index.html" target="_blank"><mu-raised-button label="数据管理" primary /></a>
+            <a href="http://www.jihui88.com/member/index.html#/seo_list" target="_blank"><mu-raised-button label="SEO优化" primary /></a>
           </div>
           <div class="btn-group-item">
             <span class="upgrade-tip">限时优惠<span v-if="homeInfo.isDiscount">99</span></span>
@@ -45,7 +46,7 @@ export default {
 // 基本信息
 .website {
   background: #fff;
-  padding: 20px;
+  padding: 20px 20px 15px 20px;
   .website-wrap {
     display: flex;
     .website-logo {
@@ -71,6 +72,11 @@ export default {
         justify-content: space-between;
         .btn-group-item {
           position: relative;
+          a {
+            .mu-raised-button{
+              margin-bottom: 4px
+            }
+          }
         }
       }
     }

@@ -6,7 +6,7 @@
 
           <div class="side-bar-bd_cont">
             <table class="mu-table w-table">
-              <tr class="mu-thead" v-for="(item, index) in shopFunction" :key="item.title" v-if="index > 0">
+              <tr class="mu-thead" v-for="(item, index) in shopFunction" :key="item.title" v-if="index > 0 && activeTab === 'tab1'">
                 <th class="mu-th"><div class="mu-th-wrapper">{{item.title}}</div></th>
                 <td class="mu-th" colspan="2">
                   <div class="" v-if="row.needCheck" v-for="(row, rIndex) in item.groups" :key="row.title">
@@ -21,6 +21,21 @@
                   </div>
                 </td>
               </tr>
+              <tr class="mu-thead" v-for="(item, index) in meal" :key="item.title" v-if="activeTab === 'tab2'">
+                <th class="mu-th"><div class="mu-th-wrapper">{{item.title}}</div></th>
+                <td class="mu-th" colspan="2">
+                  <div class="">
+                    <mu-flexbox class="mt8">
+                      <mu-flexbox-item class="flex-demo">
+                        {{item.name}}
+                      </mu-flexbox-item>
+                      <mu-flexbox-item class="flex-demo">
+                        {{item.price}}
+                      </mu-flexbox-item>
+                    </mu-flexbox>
+                  </div>
+                </td>
+              </tr>
             </table>
           </div>
           <mu-select-field :value="0" :labelFocusClass="['label-foucs']" label="选择使用年限" @change="chooseYear" fullWidth>
@@ -28,15 +43,15 @@
           </mu-select-field>
           <div class="side-bar-origin-price">原价：RMB {{totalPrice}}</div>
           <div class="side-bar-price">RMB {{totalPrice}}</div>
-          <mu-raised-button @click="toMain" label="确认支付" primary fullWidth :disabled="totalPrice === 0 || activeTab === 'tab2' ? true : false"/>
+          <mu-raised-button @click="toMain" label="确认支付" primary fullWidth :disabled="totalPrice === 0"/>
         </div>
       </div>
       <div class="shop">
-        <mu-tabs :value="activeTab" @change="handleTabChange">
+        <mu-tabs :value="activeTab" @change="chooseTab">
           <mu-tab value="tab1" title="功能模板" class="shop-tab tab1"/>
           <mu-tab value="tab2" title="套餐" class="shop-tab tab2"/>
         </mu-tabs>
-        <shop-group v-if="activeTab === 'tab1'"></shop-group>
+        <shop-group v-if="activeTab === 'tab1'"/>
         <SetMeal v-if="activeTab === 'tab2'"/>
         <FAQ v-if="activeTab === 'tab1'"></FAQ>
       </div>
@@ -64,7 +79,6 @@ export default {
   data () {
     return {
       fixed: false,
-      activeTab: 'tab1',
       toggleList: [
         {
           name: '套餐',
@@ -78,7 +92,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('shop', ['year', 'yearList', 'totalPrice', 'shopFunction'])
+    ...mapGetters('shop', ['year', 'yearList', 'totalPrice', 'shopFunction', 'meal', 'activeTab'])
   },
   mounted () {
     let that = this
@@ -95,12 +109,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions('shop', ['chooseYear']),
+    ...mapActions('shop', ['chooseYear', 'chooseTab']),
     toMain () {
       this.$refs.pay.openDialog()
     },
     handleTabChange (v) {
-      this.activeTab = v
+      this.$store.commit('setUser', v)
     }
   }
 }

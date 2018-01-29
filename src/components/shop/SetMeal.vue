@@ -1,140 +1,69 @@
 <template>
-  <div class="set-meal">
-    <mu-card v-for="(item, index) in list">
-      <div class="mu-card-title">
-        {{item.name}}
-      </div>
-      <mu-card-text :title="item.desc">
-        {{item.desc}}
-      </mu-card-text>
-      <p class="desc" :title="item.desc2">{{item.desc2}}</p>
-      <img :src="item.pic" class="img"/>
-      <p class="p-num">使用人数: <span>{{item.number}}%</span></p>
-      <div class="score">
-        <img src="/static/star.png">
-        <img src="/static/star.png">
-        <img src="/static/star.png">
-        <img src="/static/star.png">
-        <img src="/static/star.png">
-        <span class="s">5.0分</span>
-      </div>
-      <p class="price">
-        ￥
-        <font>{{item.price}}</font>
-        <font v-if="item.price !== 4080">/首年</font>
-      </p>
-      <mu-card-actions>
-        <mu-raised-button @click="toMain(item)" :label="item.id === '8a9e457e610db01c01610e099245000a' ? '续费' : '购买'" primary v-if="!item.isBuy"/>
-        <mu-raised-button :label="item.id === '8a9e457e610db01c01610e099245000a' ? '续费' : '已购买'" primary disabled v-if="item.isBuy"/>
-      </mu-card-actions>
-    </mu-card>
-    <Pay ref="pay" :title="renew === '8a9e457e610db01c01610e099245000a' ? '续费' : '购买'" :totalPriceSingle="totalPrice" :year="'1'"></Pay>
+  <div id="meal">
+    <div class="set-meal" v-for="(item, idx) in meal" :key="item.title">
+      <p class="meal-title">{{item.title}}</p>
+      <mu-card v-for="(row, index) in item.items" :key="row.name">
+        <div class="mu-card-title">
+          {{row.name}}<span v-if="row.disabled">（续费）</span>
+        </div>
+        <mu-card-text :title="row.desc" v-if="row.desc">
+          {{row.desc}}
+        </mu-card-text>
+        <mu-card-text :title="row.desc2" v-if="row.desc2">
+          {{row.desc2}}
+        </mu-card-text>
+        <img :src="row.pic" class="img"/>
+        <p class="p-num">使用人数: <span>{{row.number}}%</span></p>
+        <div class="score">
+          <img src="/static/star.png">
+          <img src="/static/star.png">
+          <img src="/static/star.png">
+          <img src="/static/star.png">
+          <img src="/static/star.png">
+          <span class="s">5.0分</span>
+        </div>
+        <mu-radio class="price" v-if="!row.isHide" @input="user(index)" @change="chooseMeal({idx: idx, index: index, item: row})" :label="'￥'+row.price+(row.unit||'')" :name="item.title" :nativeValue="row.value" :value="item.value"/>
+        <p class="price price2" v-if="row.isHide">
+          ￥{{row.price}}{{row.unit||''}}
+        </p>
+      </mu-card>
+    </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import Pay from '@/components/Pay'
+import { mapGetters, mapActions } from 'vuex'
 export default {
-  components: {
-    Pay
-  },
   data () {
     return {
-      list: [
-        {
-          id: '2c9080ce60f7b2650160f7c2e3910025',
-          name: '展示型网站',
-          desc: '【适合】形象展示、产品推广、企业信息发布的企业，中小企业为主，或搜索引擎优化推广的企业',
-          desc2: '【买点】高效展示布局/丰富的内容/关键词优化/精美原创设计',
-          pic: 'https://oss.aliyuncs.com/photogallery/photo/1678560599049721/17047/23a11d91-0a91-474f-98c2-2745e90b31a3.jpg',
-          number: 49,
-          price: 6800,
-          isBuy: false
-        },
-        {
-          id: '2c9080ce60f7b2650160f7c3327f0028',
-          name: '营销型网站',
-          desc: '【适合】工程类、招商类、项目类、设备类等大额非标准化交易，或开展付费推广的企业',
-          desc2: '【买点】预设成交逻辑/提升询盘转化/关键词优化/数据分析',
-          pic: 'https://oss.aliyuncs.com/photogallery/photo/1678560599049721/17052/a953743e-824f-4a3c-9d52-caa120bf53ef.jpg',
-          number: 21,
-          price: 16800,
-          isBuy: false
-        },
-        {
-          id: '2c9080ce60f7b2650160f7c40283002d',
-          name: '外贸型网站',
-          desc: '【适合】外贸企业的形象展示、产品推广企业信息发布等大额、出口类交易',
-          desc2: '【买点】高效展示布局/丰富的内容/多语言/精美原创设计',
-          pic: 'https://oss.aliyuncs.com/photogallery/photo/1678560599049721/17558/4b0d8722-a2c1-4aa1-9239-8eefb37e1461.jpg',
-          number: 19,
-          price: 12800,
-          isBuy: false
-        },
-        {
-          id: '2c9080ce60f7b2650160f7c448650030',
-          name: '品牌型网站',
-          desc: '【适合】打造企业品牌，展示品牌实力，体现集团实力，企业信息发布的企业，上市公司、集团公司为主',
-          desc2: '【买点】高端设计理念/先进互联网前端技术/最强实力布局/丰富的内容',
-          pic: 'https://oss.aliyuncs.com/photogallery/photo/1678560599049721/18264/35077858-8695-4074-b997-669a44fdf09b.jpg',
-          number: 6,
-          price: 25800,
-          isBuy: false
-        },
-        {
-          id: '2c9080ce60f7b2650160f7c495fd0033',
-          name: '电商型网站',
-          desc: '【适合】官方商城品牌形象及业务拓展,微商城开启主流电商模式',
-          desc2: '【买点】会员互动/在线交易/内部采购,自有商户收款/支持多种支付方式',
-          pic: 'https://oss.aliyuncs.com/photogallery/photo/1678560599049721/18264/35077858-8695-4074-b997-669a44fdf09b.jpg',
-          number: 5,
-          price: 16800,
-          isBuy: false
-        },
-        {
-          id: '8a9e457e610db01c01610e099245000a',
-          name: '续费',
-          desc: '【适合】PC网站/小程序/微网站/微分销',
-          pic: 'https://oss.aliyuncs.com/photogallery/photo/1678560599049721/18264/35077858-8695-4074-b997-669a44fdf09b.jpg',
-          number: 94,
-          price: 2080,
-          isBuy: true
-        }
-      ],
-      totalPrice: 0,
       renew: ''
     }
   },
-  waitForData: true,
   computed: {
-    ...mapState({
-      homeInfo: state => state.homeInfo
-    })
-  },
-  mounted () {
-    let renew = true
-    this.list.forEach(item => {
-      if (this.homeInfo.priceItemIds && this.homeInfo.priceItemIds.match(new RegExp(item.id))) {
-        item.isBuy = true
-        renew = false
-      }
-    })
-    this.list[5].isBuy = renew
+    ...mapGetters('shop', ['meal'])
   },
   methods: {
-    toMain (item) {
-      this.renew = item.id
-      this.totalPrice = item.price
-      this.$refs.pay.openDialog(item.id)
+    ...mapActions('shop', ['chooseMeal']),
+    user (index) {
+      if (index === 0) {
+        this.$store.dispatch('getUser', this.$parent.$parent.$refs.iframe)
+      }
     }
   }
 }
 </script>
 
 <style lang="less">
+#meal{
+  margin-top: 30px;margin-bottom: 10px;
+}
 .set-meal{
-  overflow: hidden;margin-top: 30px;margin-bottom: 10px;
+  overflow: hidden;
+  .meal-title{
+    padding: 10px 27px;
+    font-size: 14px;
+    color: #000;
+  }
   .mu-card{
     text-align: center;
     width: 30%; float: left;
@@ -178,9 +107,17 @@ export default {
     }
     .price {
       color: #FF6600;
-      font-size: 12px;
+      font-size: 14px;
       height: 24px;
+      line-height: 24px;
       margin-top: 8px;
+      margin-bottom: 14px;
+      .mu-radio-label{
+        color: #FF6600;
+      }
+    }
+    .price2{
+      margin-bottom: 19px;
     }
     .desc{
       font-size: 12px;

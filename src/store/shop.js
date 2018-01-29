@@ -1,3 +1,184 @@
+const meal = [
+  {
+    title: '电脑端',
+    type: 'radio',
+    price: 0,
+    value: '',
+    renew: 2080,
+    items: [
+      {
+        value: '2c9080ce60f7b2650160f7c2e3910025',
+        name: '展示型网站',
+        unit: '元/首年',
+        desc: '【适合】形象展示、产品展示、信息发布等',
+        desc2: '【卖点】设计师一对一定制设计；特有SEO模块，网站上线最快次日收录',
+        pic: 'https://oss.aliyuncs.com/photogallery/photo/1678560599049721/17047/23a11d91-0a91-474f-98c2-2745e90b31a3.jpg',
+        number: 49,
+        price: 6800
+      },
+      {
+        value: '2c9080ce60f7b2650160f7c40283002d',
+        name: '外贸型网站',
+        unit: '元/首年',
+        desc: '【适合】外贸企业的形象展示、产品推广、信息发布等大额、出口类交易',
+        desc2: '【卖点】众多外贸网站制作经验，高级设计师一对一定制设计',
+        pic: 'https://oss.aliyuncs.com/photogallery/photo/1678560599049721/17558/4b0d8722-a2c1-4aa1-9239-8eefb37e1461.jpg',
+        number: 19,
+        price: 12800
+      },
+      {
+        value: '2c9080ce60f7b2650160f7c3327f0028',
+        name: '营销型网站',
+        unit: '元/首年',
+        desc: '【适合】希望通过网站获得更多询盘的企业（工程类、招商类、项目类、设备类等）',
+        desc2: '【卖点】策划师一对一梳理网站卖点，高级设计师一对一定制设计，网站做到满意为止',
+        pic: 'https://oss.aliyuncs.com/photogallery/photo/1678560599049721/17052/a953743e-824f-4a3c-9d52-caa120bf53ef.jpg',
+        number: 21,
+        price: 16800
+      },
+      {
+        value: '2c9080ce60f7b2650160f7c495fd0033',
+        name: '电商型网站',
+        unit: '元/首年',
+        desc: '【适合】零售类产品',
+        desc2: '【卖点】功能丰富-积分换购、会员等级、限时秒杀、在线交易、多种支付方式等',
+        pic: 'https://oss.aliyuncs.com/photogallery/photo/1678560599049721/18264/35077858-8695-4074-b997-669a44fdf09b.jpg',
+        number: 5,
+        price: 16800
+      },
+      {
+        value: '2c9080ce60f7b2650160f7c448650030',
+        name: '品牌型网站',
+        unit: '元/首年',
+        desc: '【适合】提高品牌形象，突出集团实力。上市公司或集团公司为主',
+        desc2: '【卖点】首席设计师一对一定制设计，网站做到满意为止',
+        pic: 'https://oss.aliyuncs.com/photogallery/photo/1678560599049721/18264/35077858-8695-4074-b997-669a44fdf09b.jpg',
+        number: 6,
+        price: 25800
+      },
+      {
+        value: '8a9e457e610db01c01610e099245000a',
+        name: '续费',
+        unit: '元/年',
+        desc: '【适合】展示型网站/外贸型网站/营销型网站/电商型网站/品牌型网站',
+        desc2: ' ',
+        pic: 'https://oss.aliyuncs.com/photogallery/photo/1678560599049721/18264/35077858-8695-4074-b997-669a44fdf09b.jpg',
+        number: 94,
+        price: 2080,
+        isHide: true
+      }
+    ]
+  },
+  {
+    title: '手机端',
+    price: 0,
+    value: '',
+    renew: 1500,
+    items: [
+      {
+        value: '297e2669613f7026016140f6a3180011',
+        name: '手机网站（含微网站）',
+        unit: '元/首年',
+        desc: '【适合】手机端官方形象展示、产品推广、信息发布',
+        desc2: '【卖点】可被手机搜索引擎收录、拥有排名。与微信完美兼容，可转化为微网站',
+        pic: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/03/82b8bd94-f360-4808-bdb9-f8153c4a5f6a.jpg',
+        number: 68,
+        price: 5800
+      },
+      {
+        value: '297e2669613f7026016140f6e4a80014',
+        name: '手机商城（含微商城）',
+        unit: '元/首年',
+        desc: '【适合】手机端官方形象展示、电商转化、客户收集、产品销售、信息发布',
+        desc2: '【卖点】包含手机网站所有功能，额外新增支付功能',
+        pic: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/03/dec4cd61-c635-4b75-891c-f741d80f3c89.jpg',
+        number: 32,
+        price: 8800
+      },
+      {
+        value: '8a9e457e610db01c01610e099245000a',
+        name: '续费',
+        unit: '元/年',
+        desc: '【适合】手机网站/手机商城',
+        desc2: ' ',
+        pic: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/03/82b8bd94-f360-4808-bdb9-f8153c4a5f6a.jpg',
+        number: 97,
+        price: 1500,
+        isHide: true
+      }
+    ]
+  },
+  {
+    title: '微信端',
+    price: 0,
+    value: '',
+    renew: 1500,
+    items: [
+      {
+        value: '297e2669613f7026016140f7276b0017',
+        name: '展示型小程序',
+        unit: '元/首年',
+        desc: '【适合】微信引流、形象展示、产品展示、O2O',
+        desc2: '【卖点】我们的精选优质模板/集展示、互动、交易为一体，微信营销最强工具',
+        pic: 'http://dfwjjingtai.b0.upaiyun.com/upload//j//j6//jz//picture//2018//01//10/830e3c58-ef21-40da-885a-70adf52fb5da.jpg',
+        number: 53,
+        price: 5800
+      },
+      {
+        value: '297e2669613f7026016140f7719b001a',
+        name: '电商型小程序',
+        unit: '元/首年',
+        desc: '【适合】微信引流、电商转化、客户收集、形象展示、产品销售、O2O',
+        desc2: '【卖点】包含展示型小程序所有功能，额外新增支付功能',
+        pic: 'http://dfwjjingtai.b0.upaiyun.com/upload//j//j6//jz//picture//2018//01//10/e8acc853-c25a-4890-b73e-6ec757fc9af0.jpg',
+        number: 34,
+        price: 8800
+      },
+      {
+        value: '297e2669613f7026016140f8ed260020',
+        name: '微传单',
+        unit: '元',
+        desc: '【适合】活动推广、新品上市、公司通知、邀请函、招聘人才等众多场景',
+        desc2: '【卖点】特有个人推广/组织推广功能，数据分析，让员工、经销商、企业、上下游等一起推广',
+        pic: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/03/2c3179c1-d249-495d-8cae-1dd580bebc8a.jpg',
+        number: 20,
+        price: 3000
+      },
+      {
+        value: '297e2669613f7026016140f951b20024',
+        name: '微信众筹',
+        unit: '元',
+        desc: '【适合】活动众筹、培训众筹、项目（产品）众筹等',
+        desc2: '【卖点】在微信中形成病毒式传播，发起单位，众筹者轻松推广你的品牌/产品/活动',
+        pic: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/03/82b8bd94-f360-4808-bdb9-f8153c4a5f6a.jpg',
+        number: 5,
+        price: 10000
+      },
+      {
+        value: '297e2669613f7026016140f98df40026',
+        name: '微分销',
+        unit: '元',
+        desc: '【适合】零售类产品',
+        desc2: '【卖点】让消费者成为你的业务员（分销商）',
+        pic: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/03/0ff41011-35d1-471c-a270-60c99afb892a.jpg',
+        number: 8,
+        price: 15800
+      },
+      {
+        value: '8a9e457e610db01c01610e099245000a',
+        name: '续费',
+        unit: '元/年',
+        desc: '【适合】展示型小程序/电商型小程序/微传单/微信众筹/微分销',
+        desc2: ' ',
+        pic: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/03/82b8bd94-f360-4808-bdb9-f8153c4a5f6a.jpg',
+        number: 90,
+        price: 1500,
+        isHide: true
+      }
+    ]
+  }
+]
+
 const state = {
   totalPrice: 600,
   priceItemIds: '297e2669600191860160021b8fcc007f',
@@ -274,7 +455,9 @@ const state = {
       html: '服务说明：<br/>三年经验，擅长欧美风；初级设计师，案例数50以上（经验值1）'
     }
   ],
-  designerId: ''
+  designerId: '',
+  meal: meal,
+  activeTab: 'tab1'
 }
 
 const getters = {
@@ -330,7 +513,9 @@ const getters = {
       }
     })
     return rowArr
-  }
+  },
+  meal: state => state.meal,
+  activeTab: state => state.activeTab
 }
 
 const actions = {
@@ -356,11 +541,25 @@ const actions = {
   chooseYear ({commit, state}, params) {
     // 异步可执行
     commit('CHOOSE_YEAR', params)
-    commit('TOTAL')
+    if (state.activeTab === 'tab1') { commit('TOTAL') }
+    if (state.activeTab === 'tab2') { commit('MEAL_TOTAL') }
+  },
+  // 套餐
+  chooseTab ({commit, state}, params) {
+    commit('setActiveTab', params)
+    if (params === 'tab1') { commit('TOTAL') }
+    if (params === 'tab2') { commit('MEAL_TOTAL') }
+  },
+  chooseMeal ({commit, state}, params) {
+    commit('CHOOSE_MEAL_RADIO', params)
+    commit('MEAL_TOTAL')
   }
 }
 
 const mutations = {
+  setActiveTab (state, activeTab) {
+    state.activeTab = activeTab
+  },
   CHOOSE_RADIO (state, params) {
     if (state.shopFunction[params.sIndex].groups[params.gIndex].custom) {
       if (params.index === 1) {
@@ -460,7 +659,7 @@ const mutations = {
             }
           }
         })
-        // 套餐
+        // 功能套餐
         if (item.custom && item.cardId !== '') {
           item.card.map(cardItem => {
             if (cardItem.value === item.cardId) {
@@ -497,6 +696,35 @@ const mutations = {
     state.totalPrice = totalPrice
     state.priceItemIds = priceItemIds
   },
+  // 套餐
+  CHOOSE_MEAL_RADIO (state, params) {
+    state.meal[params.idx].value = params.item.value
+    state.meal[params.idx].name = params.item.name
+  },
+  MEAL_TOTAL (state, params) {
+    let totalPrice = 0
+    let priceItemIds = ''
+    // 计算各项单个金额
+    state.meal.map(row => {
+      row.items.map(item => {
+        if (item.value === row.value) {
+          if (!item.disabled) row.price = item.price
+          // 续费
+          if (item.unit === '元/首年') {
+            if (item.disabled) {
+              row.price = row.renew * state.year
+            } else {
+              row.price = item.price + row.renew * (state.year - 1)
+            }
+          }
+        }
+      })
+      totalPrice += row.price
+      priceItemIds ? priceItemIds += (row.value ? ',' + row.value : '') : priceItemIds = row.value
+    })
+    state.totalPrice = totalPrice
+    state.priceItemIds = priceItemIds
+  },
   UPGRADE (state, params) {
     // 升级 已购产品不可用
     if (params) {
@@ -513,6 +741,13 @@ const mutations = {
                 }
               }
             })
+          })
+        })
+        state.meal.map(row => {
+          row.items.map(item => {
+            if (ids === item.value) {
+              item.disabled = true
+            }
           })
         })
       })
