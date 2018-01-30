@@ -29,6 +29,15 @@
             </div>
           </mu-flexbox-item>
           <mu-flexbox-item>
+            <div class="pay-code alipay">
+              <p>
+                <a :href="'http://buy.jihui88.com/alipay.html?orderId=' + order.orderId" target="_blank"><img src="/static/pay.png" alt=""></a>
+              </p>
+              <div class="pay-code-cont">
+                <i class="material-icons">done</i>
+                <div class="text">请使用支付宝支付<br>点击跳转支付</div>
+              </div>
+            </div>
           </mu-flexbox-item>
         </mu-flexbox>
 
