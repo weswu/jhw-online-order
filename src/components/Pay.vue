@@ -35,7 +35,7 @@
               </p>
               <div class="pay-code-cont">
                 <i class="material-icons">done</i>
-                <div class="text">请使用支付宝支付<br>点击跳转支付</div>
+                <div class="text">请使用支付宝支付<br>点击支付</div>
               </div>
             </div>
           </mu-flexbox-item>
