@@ -3,13 +3,16 @@
     <mu-dialog :open="dialog" @close="close" :title="title">
       <div id="O_Pay">
         <mu-row gutter class="pay-total">
-          <mu-col width="50" tablet="50" desktop="50" class="fl">
+          <mu-col width="50" tablet="50" desktop="50" class="fl" v-if="!another">
             支付金额：<span class="total">{{money}} 元</span>
             <span class="discount" v-if="isOutPoint">(- {{points/10}})</span>
             <span class="discount" v-if="isOutDiscount">(优惠-99)</span>
             <span class="discount" v-if="homeInfo.isDiscount && !isOutDiscount">(亲，还差{{1000 - money}}元即可享受99优惠哦)</span>
           </mu-col>
-          <mu-col width="50" tablet="50" desktop="50" class="fr">
+          <mu-col width="50" tablet="50" desktop="50" class="fl" v-if="another">
+            支付金额：<span class="total">{{order.totalPrice}} 元</span>
+          </mu-col>
+          <mu-col width="50" tablet="50" desktop="50" class="fr" v-if="!another">
             积分抵扣:
             <mu-text-field :hintText="'可用积分 '+$store.state.points" hintTextClass="hintTextClass" type="number" class="points"
                @change="poi" @input="checkPoint" :errorText="errorText" v-model.number="points" min="0" :max="$store.state.points"/>
@@ -42,20 +45,26 @@
         </mu-flexbox>
 
       </div>
+      <mu-flat-button label="找人代付" v-clipboard:copy="url" v-clipboard:success="onCopy" slot="actions" v-if="!another"/>
+      <mu-flat-button label="银行转账" @click="bankDialog" slot="actions" v-if="!another"/></a>
       <mu-flat-button label="返回" @click="close" slot="actions"/>
     </mu-dialog>
     <!--消息...-->
-    <Toast ref="toast"></Toast>
+    <Toast ref="toast"/>
+    <mu-toast v-if="toast" message="链接复制成功"/>
+    <Bank ref="bank" :outTradeNo="order.outTradeNo" :orderId="order.orderId"/>
   </div>
 </template>
 
 <script>
 import Toast from '@/components/Toast'
+import Bank from '@/components/pay/Bank'
 import { mapState, mapGetters } from 'vuex'
 import qs from 'qs'
 export default {
   components: {
-    Toast
+    Toast,
+    Bank
   },
   props: ['title', 'totalPriceSingle', 'year'],
   data () {
@@ -66,7 +75,10 @@ export default {
       dialog: false,
       order: {
         qrcode: ''
-      }
+      },
+      url: '',
+      toast: false,
+      another: false
     }
   },
   computed: {
@@ -106,7 +118,15 @@ export default {
         this.pay()
       }
     },
-    openDialog (id) {
+    openDialog (id, orderId) {
+      if (id === 'another') {
+        this.dialog = true
+        this.another = true
+        this.order.orderId = orderId
+        this.anotherPay()
+        return
+      }
+      debugger
       this.priceItemIdsSingle = id
       if (!this.user.username) {
         this.$store.dispatch('getUser', this.$parent.$parent.$refs.iframe || this.$parent.$parent.$parent.$refs.iframe || this.$parent.$parent.$parent.$parent.$parent.$refs.iframe)
@@ -151,6 +171,7 @@ export default {
       this.$http.post('/api/order/detail?' + qs.stringify(order)).then((res) => {
         ctx.$store.commit('setLoading', false)
         ctx.order = res.data
+        ctx.url = 'http://buy.jihui88.com/#/alipay?orderId=' + ctx.order.orderId
         ctx.sendAjax()
       })
     },
@@ -181,6 +202,24 @@ export default {
       this.timer = setTimeout(function () {
         ctx.sendAjax()
       }, 2000)
+    },
+    // 找人代付
+    onCopy (e) {
+      this.toast = true
+      if (this.toastTimer) clearTimeout(this.toastTimer)
+      this.toastTimer = setTimeout(() => { this.toast = false }, 2000)
+    },
+    anotherPay () {
+      var ctx = this
+      this.$store.commit('setLoading', true)
+      this.$http.post('/api/order/getPayInfo?orderId=' + this.order.orderId).then((res) => {
+        ctx.$store.commit('setLoading', false)
+        ctx.order = res.data
+      })
+    },
+    // 转账
+    bankDialog () {
+      this.$refs.bank.show()
     }
   }
 }

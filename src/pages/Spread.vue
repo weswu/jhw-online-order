@@ -176,7 +176,7 @@ export default {
       var $a = window.$('<a></a>').attr('href', src).attr('download', 'poster.jpg')
       $a[0].click()
     },
-    onCopy: function (e) {
+    onCopy (e) {
       this.toast = true
       if (this.toastTimer) clearTimeout(this.toastTimer)
       this.toastTimer = setTimeout(() => { this.toast = false }, 2000)
