@@ -1,5 +1,74 @@
 const meal = [
   {
+    title: '微信端',
+    price: 0,
+    value: '',
+    renew: 1500,
+    items: [
+      {
+        value: '297e2669613f7026016140f7276b0017',
+        name: '展示型小程序',
+        unit: '元/首年',
+        desc: '【适合】微信引流、形象展示、产品展示、O2O',
+        desc2: '【卖点】我们的精选优质模板/集展示、互动、交易为一体，微信营销最强工具',
+        pic: 'http://dfwjjingtai.b0.upaiyun.com/upload//j//j6//jz//picture//2018//01//10/830e3c58-ef21-40da-885a-70adf52fb5da.jpg',
+        number: 53,
+        price: 5800
+      },
+      {
+        value: '297e2669613f7026016140f7719b001a',
+        name: '电商型小程序',
+        unit: '元/首年',
+        desc: '【适合】微信引流、电商转化、客户收集、形象展示、产品销售、O2O',
+        desc2: '【卖点】包含展示型小程序所有功能，额外新增支付功能',
+        pic: 'http://dfwjjingtai.b0.upaiyun.com/upload//j//j6//jz//picture//2018//01//10/e8acc853-c25a-4890-b73e-6ec757fc9af0.jpg',
+        number: 34,
+        price: 8800
+      },
+      {
+        value: '297e2669613f7026016140f8ed260020',
+        name: '微传单',
+        unit: '元',
+        desc: '【适合】活动推广、新品上市、公司通知、邀请函、招聘人才等众多场景',
+        desc2: '【卖点】特有个人推广/组织推广功能，数据分析，让员工、经销商、企业、上下游等一起推广',
+        pic: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/03/2c3179c1-d249-495d-8cae-1dd580bebc8a.jpg',
+        number: 20,
+        price: 3000
+      },
+      {
+        value: '297e2669613f7026016140f951b20024',
+        name: '微信众筹',
+        unit: '元',
+        desc: '【适合】活动众筹、培训众筹、项目（产品）众筹等',
+        desc2: '【卖点】在微信中形成病毒式传播，发起单位，众筹者轻松推广你的品牌/产品/活动',
+        pic: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/03/82b8bd94-f360-4808-bdb9-f8153c4a5f6a.jpg',
+        number: 5,
+        price: 10000
+      },
+      {
+        value: '297e2669613f7026016140f98df40026',
+        name: '微分销',
+        unit: '元',
+        desc: '【适合】零售类产品',
+        desc2: '【卖点】让消费者成为你的业务员（分销商）',
+        pic: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/03/0ff41011-35d1-471c-a270-60c99afb892a.jpg',
+        number: 8,
+        price: 15800
+      },
+      {
+        value: '8a9e457e610db01c01610e099245000a',
+        name: '续费',
+        unit: '元/年',
+        desc: '【适合】展示型小程序/电商型小程序/微传单/微信众筹/微分销',
+        desc2: ' ',
+        pic: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/03/82b8bd94-f360-4808-bdb9-f8153c4a5f6a.jpg',
+        number: 90,
+        price: 1500,
+        isHide: true
+      }
+    ]
+  },
+  {
     title: '电脑端',
     type: 'radio',
     price: 0,
@@ -103,75 +172,6 @@ const meal = [
         desc2: ' ',
         pic: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/03/82b8bd94-f360-4808-bdb9-f8153c4a5f6a.jpg',
         number: 97,
-        price: 1500,
-        isHide: true
-      }
-    ]
-  },
-  {
-    title: '微信端',
-    price: 0,
-    value: '',
-    renew: 1500,
-    items: [
-      {
-        value: '297e2669613f7026016140f7276b0017',
-        name: '展示型小程序',
-        unit: '元/首年',
-        desc: '【适合】微信引流、形象展示、产品展示、O2O',
-        desc2: '【卖点】我们的精选优质模板/集展示、互动、交易为一体，微信营销最强工具',
-        pic: 'http://dfwjjingtai.b0.upaiyun.com/upload//j//j6//jz//picture//2018//01//10/830e3c58-ef21-40da-885a-70adf52fb5da.jpg',
-        number: 53,
-        price: 5800
-      },
-      {
-        value: '297e2669613f7026016140f7719b001a',
-        name: '电商型小程序',
-        unit: '元/首年',
-        desc: '【适合】微信引流、电商转化、客户收集、形象展示、产品销售、O2O',
-        desc2: '【卖点】包含展示型小程序所有功能，额外新增支付功能',
-        pic: 'http://dfwjjingtai.b0.upaiyun.com/upload//j//j6//jz//picture//2018//01//10/e8acc853-c25a-4890-b73e-6ec757fc9af0.jpg',
-        number: 34,
-        price: 8800
-      },
-      {
-        value: '297e2669613f7026016140f8ed260020',
-        name: '微传单',
-        unit: '元',
-        desc: '【适合】活动推广、新品上市、公司通知、邀请函、招聘人才等众多场景',
-        desc2: '【卖点】特有个人推广/组织推广功能，数据分析，让员工、经销商、企业、上下游等一起推广',
-        pic: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/03/2c3179c1-d249-495d-8cae-1dd580bebc8a.jpg',
-        number: 20,
-        price: 3000
-      },
-      {
-        value: '297e2669613f7026016140f951b20024',
-        name: '微信众筹',
-        unit: '元',
-        desc: '【适合】活动众筹、培训众筹、项目（产品）众筹等',
-        desc2: '【卖点】在微信中形成病毒式传播，发起单位，众筹者轻松推广你的品牌/产品/活动',
-        pic: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/03/82b8bd94-f360-4808-bdb9-f8153c4a5f6a.jpg',
-        number: 5,
-        price: 10000
-      },
-      {
-        value: '297e2669613f7026016140f98df40026',
-        name: '微分销',
-        unit: '元',
-        desc: '【适合】零售类产品',
-        desc2: '【卖点】让消费者成为你的业务员（分销商）',
-        pic: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/03/0ff41011-35d1-471c-a270-60c99afb892a.jpg',
-        number: 8,
-        price: 15800
-      },
-      {
-        value: '8a9e457e610db01c01610e099245000a',
-        name: '续费',
-        unit: '元/年',
-        desc: '【适合】展示型小程序/电商型小程序/微传单/微信众筹/微分销',
-        desc2: ' ',
-        pic: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/03/82b8bd94-f360-4808-bdb9-f8153c4a5f6a.jpg',
-        number: 90,
         price: 1500,
         isHide: true
       }
