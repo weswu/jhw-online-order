@@ -27,7 +27,7 @@
               </p>
               <div class="pay-code-cont">
                 <i class="material-icons">fullscreen</i>
-                <div class="text">请使用微信扫一扫<br>扫描二维码支付</div>
+                <div class="text">微信支付</div>
               </div>
             </div>
           </mu-flexbox-item>
@@ -38,7 +38,7 @@
               </p>
               <div class="pay-code-cont">
                 <i class="material-icons">done</i>
-                <div class="text">请使用支付宝支付<br>点击支付</div>
+                <div class="text">支付宝支付</div>
               </div>
             </div>
           </mu-flexbox-item>

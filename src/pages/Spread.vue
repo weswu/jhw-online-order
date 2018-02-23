@@ -21,7 +21,7 @@
         </mu-content-block>
       </div>
       <mu-tabs :value='activeTab' @change='handleTabChange' class='view-tabs'>
-        <mu-tab v-for="item in tabs" :value="item.value" :title="item.title"/>
+        <mu-tab v-for="item in tabs" :value="item.value" :title="item.title" :key="item.value"/>
       </mu-tabs>
       <template v-for='item in list'>
         <div class='item' v-if='item.posterCate === activeTab'>
