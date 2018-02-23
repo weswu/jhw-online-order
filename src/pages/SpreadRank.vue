@@ -13,32 +13,6 @@
     </div>
   </div>
 </template>
-
-<script>
-import jsonp from 'jsonp'
-export default {
-  data () {
-    return {
-      list: []
-    }
-  },
-  created () {
-    this.get()
-  },
-  methods: {
-    get () {
-      jsonp('https://wx.jihui88.net/rest/api/comm/poster/userlist?username=jihui', null, function (err, data) {
-        if (err) {
-          console.error(err.message)
-        } else {
-          console.log(data)
-          debugger
-        }
-      })
-    }
-  }
-}
-</script>
 <style scoped>
 .spread .mu-content-block {
   overflow: hidden;
