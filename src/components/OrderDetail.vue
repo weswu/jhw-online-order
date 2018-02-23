@@ -10,7 +10,7 @@
       </div>
       <div class="order-detail-bd">
         <h2>订单详细</h2>
-        <div class="detail-free-product">
+        <div class="detail-free-product" v-if="$store.state.homeInfo.priceItemIds">
           <span v-for="(item,index) in list" :key="index">{{item.name}}</span>
         </div><br/>
         <div class="detail-bd-item" v-for="(item,index) in priceItemList" :key="index">

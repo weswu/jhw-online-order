@@ -22,7 +22,8 @@
              提示：您可以将账号信息拍照保存在手机中，以便转账时查看！
            </div>
         </div>
-        <mu-raised-button @click="submit" label="确认订单" primary /> <span class="done" @click="notify">已经转账，提交转账回执单</span>
+        <mu-raised-button @click="submit" label="确认订单" primary />
+        <mu-raised-button @click="notify" label="已经转账，提交转账回执单" primary />
       </div>
       <mu-flat-button label="关闭" @click="close" slot="actions"/>
     </mu-dialog>
@@ -104,6 +105,9 @@ export default {
     },
     notify () {
       this.dialog3 = true
+      if (this.no === '') {
+        this.no = this.outTradeNo
+      }
     },
     close3 () {
       this.dialog3 = false

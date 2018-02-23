@@ -4,9 +4,9 @@
       <div id="O_Pay">
         <mu-row gutter class="pay-total">
           <mu-col width="50" tablet="50" desktop="50" class="fl" v-if="!another">
-            支付金额：<span class="total">{{money}} 元</span>
-            <span class="discount" v-if="isOutPoint">(- {{points/10}})</span>
-            <span class="discount" v-if="isOutDiscount">(优惠-99)</span>
+            支付金额：<span class="total">{{money}} </span>
+            <span class="discount" v-if="isOutPoint"><span style="text-decoration: line-through;">{{totalPriceSingle || totalPrice}}</span> (积分- {{points/10}})</span>
+            <span class="discount" v-if="isOutDiscount">原价<span style="text-decoration: line-through;">{{totalPriceSingle || totalPrice}}</span> (优惠-99)元</span>
             <span class="discount" v-if="homeInfo.isDiscount && !isOutDiscount">(亲，还差{{1000 - money}}元即可享受99优惠哦)</span>
           </mu-col>
           <mu-col width="50" tablet="50" desktop="50" class="fl" v-if="another">
@@ -126,7 +126,6 @@ export default {
         this.anotherPay()
         return
       }
-      debugger
       this.priceItemIdsSingle = id
       if (!this.user.username) {
         this.$store.dispatch('getUser', this.$parent.$parent.$refs.iframe || this.$parent.$parent.$parent.$refs.iframe || this.$parent.$parent.$parent.$parent.$parent.$refs.iframe)
