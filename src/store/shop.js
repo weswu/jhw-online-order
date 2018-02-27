@@ -743,13 +743,6 @@ const mutations = {
             })
           })
         })
-        state.meal.map(row => {
-          row.items.map(item => {
-            if (ids === item.value) {
-              item.disabled = true
-            }
-          })
-        })
       })
     }
   }

@@ -24,7 +24,7 @@
         </div>
         <mu-radio class="price" v-if="!row.isHide" @input="user(index)" @change="chooseMeal({idx: idx, index: index, item: row})" :label="'￥'+row.price+(row.unit||'')" :name="item.title" :nativeValue="row.value" :value="item.value"/>
         <p class="price price2" v-if="row.isHide">
-          ￥{{row.price}}{{row.unit||''}}
+          ￥<span v-if="row.disabled">{{item.renew}}</span><span v-if="!row.disabled">{{row.price}}{{row.unit||''}}</span> 
         </p>
       </mu-card>
     </div>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <mu-dialog :open="dialog" @close="close" :title="title">
+    <mu-dialog :open="dialog" @close="close" :title="title" dialogClass="dialogPay">
       <div id="O_Pay">
         <mu-row gutter class="pay-total">
           <mu-col width="50" tablet="50" desktop="50" class="fl" v-if="!another">
@@ -42,11 +42,32 @@
               </div>
             </div>
           </mu-flexbox-item>
+          <mu-flexbox-item>
+            <div class="pay-code people">
+              <p v-clipboard:copy="url" v-clipboard:success="onCopy" slot="actions">
+                <span class="bank-icon">
+                  <a href="javascript:;"><img src="/static/people.png" alt=""></a>
+                </span>
+              </p>
+              <div class="pay-code-cont">
+                <i class="material-icons">done</i>
+                <div class="text">找人代付</div>
+              </div>
+            </div>
+          </mu-flexbox-item>
+          <mu-flexbox-item>
+            <div class="pay-code bank">
+              <p @click="bankDialog">
+                <a href="javascript:;"><img src="/static/bank.png" alt=""></a>
+              </p>
+              <div class="pay-code-cont">
+                <i class="material-icons">done</i>
+                <div class="text">银行转账</div>
+              </div>
+            </div>
+          </mu-flexbox-item>
         </mu-flexbox>
-
       </div>
-      <mu-flat-button label="找人代付" v-clipboard:copy="url" v-clipboard:success="onCopy" slot="actions" v-if="!another"/>
-      <mu-flat-button label="银行转账" @click="bankDialog" slot="actions" v-if="!another"/></a>
       <mu-flat-button label="返回" @click="close" slot="actions"/>
     </mu-dialog>
     <!--消息...-->
@@ -213,6 +234,7 @@ export default {
       this.$store.commit('setLoading', true)
       this.$http.post('/api/order/getPayInfo?orderId=' + this.order.orderId).then((res) => {
         ctx.$store.commit('setLoading', false)
+        ctx.url = 'http://buy.jihui88.com/#/alipay?orderId=' + ctx.order.orderId
         ctx.order = res.data
       })
     },
@@ -253,5 +275,24 @@ export default {
 }
 .discount{
   font-size: 12px;color: #999
+}
+.people{
+  .pay-code-cont{
+    background: #2e363e;
+  }
+  img{
+    border: 1px solid #2e363e;
+  }
+}
+.bank{
+  .pay-code-cont{
+    background: #733594;
+  }
+  img{
+    border: 1px solid #733594;
+  }
+}
+.dialogPay{
+  width: 85%;max-width: 800px;
 }
 </style>
