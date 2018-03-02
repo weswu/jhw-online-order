@@ -72,7 +72,7 @@ export default {
             ctx.$store.commit('setUser', res.data)
             ctx.$store.dispatch('getHomeInfo')
           } else {
-            ctx.$store.commit('setLoginUrl', res.headers.requires_auth_url)
+            ctx.$store.commit('setLoginUrl', res.headers.requires_auth_url + '&dialog=1')
             ctx.$parent.$refs.iframe.open('none')
           }
         })

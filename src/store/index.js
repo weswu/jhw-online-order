@@ -48,7 +48,7 @@ const actions = {
     if (!state.user.username) {
       this._vm.$http.get('/api/user/info').then((res) => {
         if (res.data.code === 5) {
-          ctx.commit('setLoginUrl', res.headers.requires_auth_url)
+          ctx.commit('setLoginUrl', res.headers.requires_auth_url + '&dialog=1')
           ifr.open()
         } else {
           ctx.commit('setUser', res.data)

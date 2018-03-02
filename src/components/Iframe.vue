@@ -50,7 +50,7 @@ export default {
 <style lang="less">
 .iframe_login{
   width: 652px;
-  height: 406px;
+  height: 500px;
   z-index: 999;
   position: fixed;
   left: 50%;
@@ -59,7 +59,10 @@ export default {
   display: none;
   iframe {
     width: 100%;
-    height: 410px;
+    height: 500px;
+    border: 1px solid #f0f0f0;
+    box-shadow: 0px 0px 1px #eee;
+    border-radius: 3px;
   }
   .wrapper{
     position: relative;
