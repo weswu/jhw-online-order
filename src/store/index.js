@@ -45,10 +45,15 @@ const actions = {
   getUser ({commit, state}, iframe) {
     let ctx = this
     let ifr = iframe
+    let end = ''
+    if (iframe.type === 'singup') {
+      ifr = iframe.ifr
+      end = '&page=register'
+    }
     if (!state.user.username) {
       this._vm.$http.get('/api/user/info').then((res) => {
         if (res.data.code === 5) {
-          ctx.commit('setLoginUrl', res.headers.requires_auth_url + '&dialog=1')
+          ctx.commit('setLoginUrl', res.headers.requires_auth_url + end)
           ifr.open()
         } else {
           ctx.commit('setUser', res.data)

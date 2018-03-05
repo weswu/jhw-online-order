@@ -1,8 +1,10 @@
 <template>
-  <div class="iframe_login" ref="login" :style="'display:' + display">
-    <div class="wrapper">
-      <iframe id="iframeLogin" name="header" :src="$store.state.loginUrl" frameBorder="0" scrolling="no"></iframe>
-      <mu-icon-button icon="clear" @click="close" class="close"/>
+  <div class="iframe_bg" :style="'display:' + display">
+    <div class="iframe_login" ref="login" :style="'width:'+width+'px'">
+      <div class="wrapper">
+        <iframe id="iframeLogin" name="header" :src="$store.state.loginUrl" frameBorder="0" scrolling="no" :style="width==='692'?'border:none':''"></iframe>
+        <img src="http://www.jihui88.com/member/static/images/f-x.png" alt="close" @click="close" class="close">
+      </div>
     </div>
   </div>
 </template>
@@ -11,7 +13,8 @@
 export default {
   data () {
     return {
-      display: 'none'
+      display: 'none',
+      width: '348'
     }
   },
   mounted () {
@@ -21,6 +24,11 @@ export default {
       if (data.type === 1 && !ctx.$store.state.user.username) {
         console.log('close iframe: 1')
         return ctx.close()
+      }
+      if (data.type === 'qq') {
+        ctx.width = '692'
+      } else {
+        ctx.width = '348'
       }
     }, false)
   },
@@ -33,6 +41,7 @@ export default {
     close () {
       var ctx = this
       this.display = 'none'
+      this.width = '348'
       this.$store.commit('setLoading', true)
       this.$http.get('/api/user/info').then((res) => {
         ctx.$store.commit('setLoading', false)
@@ -48,20 +57,36 @@ export default {
 </script>
 
 <style lang="less">
+.iframe_bg{
+  position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+    overflow: hidden;
+    z-index: 1000;
+    transition: all .3s;
+    -o-transition: all .3s;
+    -moz-transition: all .3s;
+    -webkit-transition: all .3s;
+}
 .iframe_login{
-  width: 692px;
+  width: 348px;
   height: 500px;
   z-index: 999;
   position: fixed;
   left: 50%;
   top: 50%;
-  margin: -300px 0 0 -346px;
-  display: none;
+  transform: translate(-50%,-50%);
+  -o-transform: translate(-50%,-50%);
+  -moz-transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
   iframe {
     width: 100%;
     height: 500px;
-    border: 1px solid #f0f0f0;
-    box-shadow: 0px 0px 1px #eee;
+    border: 1px solid #c1c1c1;
+    box-shadow: 0px 0px 10px 5px #3d3d3d;
     border-radius: 3px;
   }
   .wrapper{
@@ -69,11 +94,9 @@ export default {
   }
   .close{
     position: absolute;
-    right: -48px;
-    top: 0;
-    color: #000;
-    background: rgba(255,255,255,0.8);
-    border-radius: 0;
+    right: 11px;
+    top: 10px;
+    cursor: pointer;
     z-index: 99;
   }
 }

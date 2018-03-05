@@ -28,7 +28,7 @@
 
       <div class="account">
         <a href="javascript:;" class="btn-login" @click="toLogin" v-if="!user.username">登录</a>
-        <a href="http://www.jihui88.com/member/register.html?redirectUrl=http://buy.jihui88.com" class="btn-register" v-if="!user.username">免费注册</a>
+        <a href="javascript:;" class="btn-register" @click="toLogin('signup')" v-if="!user.username">免费注册</a>
 
         <div class="" @click="toggle" v-if="user.username && opacity === 0">
           <a href="javascript:;" class="btn-register">{{user.nickname || user.username}}</a>
@@ -84,8 +84,15 @@ export default {
     toUc () {
       this.$router.push({path: 'uc'})
     },
-    toLogin () {
-      this.$store.dispatch('getUser', this.$parent.$refs.iframe)
+    toLogin (e) {
+      var data = this.$parent.$refs.iframe
+      if (e === 'singup') {
+        data = {
+          ifr: this.$parent.$refs.iframe,
+          type: 'singup'
+        }
+      }
+      this.$store.dispatch('getUser', data)
     },
     toLogout () {
       let ctx = this

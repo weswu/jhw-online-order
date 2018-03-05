@@ -10,7 +10,7 @@
 .online{
     display: block;
     position: fixed;
-    z-index: 2147483646 !important;
+    z-index: 99;
     left: auto;
     left: 8px;
     margin-left: 0px;
