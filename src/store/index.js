@@ -46,7 +46,7 @@ const actions = {
     let ctx = this
     let ifr = iframe
     let end = ''
-    if (iframe.type === 'singup') {
+    if (iframe.type === 'signup') {
       ifr = iframe.ifr
       end = '&page=register'
     }

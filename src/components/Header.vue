@@ -86,10 +86,10 @@ export default {
     },
     toLogin (e) {
       var data = this.$parent.$refs.iframe
-      if (e === 'singup') {
+      if (e === 'signup') {
         data = {
           ifr: this.$parent.$refs.iframe,
-          type: 'singup'
+          type: 'signup'
         }
       }
       this.$store.dispatch('getUser', data)
