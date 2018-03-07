@@ -30,6 +30,9 @@ export default {
       } else {
         ctx.width = '348'
       }
+      if (data.type === 'init') {
+        ctx.width = '348'
+      }
     }, false)
   },
   methods: {
@@ -88,6 +91,7 @@ export default {
     border: 1px solid #c1c1c1;
     box-shadow: 0px 0px 10px 5px #3d3d3d;
     border-radius: 3px;
+    background: #fff;
   }
   .wrapper{
     position: relative;

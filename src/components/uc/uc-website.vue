@@ -13,7 +13,7 @@
         <div class="website-cont-item btn-group">
           <div class="btn-group-item">
             <a :href="homeInfo.siteUrl" target="_blank"><mu-raised-button label="界面编辑" primary /></a>
-            <a href="http://www.jihui88.com/member/index.html" target="_blank"><mu-raised-button label="数据管理" primary /></a>
+            <a href="http://www.jihui88.com/member/index.html" target="_blank"><mu-raised-button label="数据管理中心" primary /></a>
             <a href="http://www.jihui88.com/member/index.html#/seo_list" target="_blank"><mu-raised-button label="SEO优化" primary /></a>
           </div>
           <div class="btn-group-item">
