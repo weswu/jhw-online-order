@@ -1,8 +1,8 @@
 <template>
   <div class="iframe_bg" :style="'display:' + display">
-    <div class="iframe_login" ref="login" :style="'width:'+width+'px'">
+    <div class="iframe_login" ref="login">
       <div class="wrapper">
-        <iframe id="iframeLogin" name="header" :src="$store.state.loginUrl" frameBorder="0" scrolling="no" :style="width==='692'?'border:none':''"></iframe>
+        <iframe id="iframeLogin" name="header" :src="$store.state.loginUrl" frameBorder="0" scrolling="no" :width="width" :style="width==='692'?'border:none':''"></iframe>
         <img src="http://www.jihui88.com/member/static/images/f-x.png" alt="close" @click="close" class="close">
       </div>
     </div>

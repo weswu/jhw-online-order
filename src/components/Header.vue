@@ -72,7 +72,7 @@ export default {
             ctx.$store.commit('setUser', res.data)
             ctx.$store.dispatch('getHomeInfo')
           } else {
-            ctx.$store.commit('setLoginUrl', res.headers.requires_auth_url + '&dialog=1')
+            ctx.$store.commit('setLoginUrl', res.headers.requires_auth_url)
             ctx.$parent.$refs.iframe.open('none')
           }
         })
@@ -100,9 +100,6 @@ export default {
         ctx.$store.commit('setUser', {})
         // 跳到退出页面
         ctx.$store.commit('setLoginUrl', res.data)
-        setTimeout(() => {
-          ctx.$store.commit('setLoginUrl', '')
-        }, 2000)
         let homeInfo = {
           interalRecordList: {
             content: [],
