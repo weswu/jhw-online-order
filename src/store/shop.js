@@ -59,7 +59,7 @@ const meal = [
         value: '8a9e457e610db01c01610e099245000a',
         name: '续费',
         unit: '元/年',
-        desc: '【适合】展示型小程序/电商型小程序/微传单/微信众筹/微分销',
+        desc: '【适合】展示型小程序/电商型小程序',
         desc2: ' ',
         pic: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/03/82b8bd94-f360-4808-bdb9-f8153c4a5f6a.jpg',
         number: 90,
@@ -73,7 +73,7 @@ const meal = [
     type: 'radio',
     price: 0,
     value: '',
-    renew: 2080,
+    renew: 2580,
     items: [
       {
         value: '2c9080ce60f7b2650160f7c2e3910025',
@@ -133,7 +133,7 @@ const meal = [
         desc2: ' ',
         pic: 'https://oss.aliyuncs.com/photogallery/photo/1678560599049721/18264/35077858-8695-4074-b997-669a44fdf09b.jpg',
         number: 94,
-        price: 2080,
+        price: 2580,
         isHide: true
       }
     ]
@@ -716,6 +716,8 @@ const mutations = {
             } else {
               row.price = item.price + row.renew * (state.year - 1)
             }
+          } else {
+            if (item.disabled) row.price = 0
           }
         }
       })
