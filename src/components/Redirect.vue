@@ -8,9 +8,6 @@
 export default {
   mounted () {
     window.parent.postMessage({type: 1}, '*')
-    if (top.location === self.location) {
-      window.location.href = '/'
-    }
   }
 }
 </script>
