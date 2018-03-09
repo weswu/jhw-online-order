@@ -7,13 +7,10 @@
 <script>
 export default {
   mounted () {
-    let dataJson = {
-      type: 1
-    }
+    window.parent.postMessage({type: 1}, '*')
     if (top.location === self.location) {
       window.location.href = '/'
     }
-    window.parent.postMessage(dataJson, '*')
   }
 }
 </script>
