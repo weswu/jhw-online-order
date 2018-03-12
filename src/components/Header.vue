@@ -102,9 +102,6 @@ export default {
         ctx.$store.commit('setLoginUrl', res.data)
         setTimeout(() => {
           ctx.$store.commit('setLoginUrl', '')
-          setTimeout(() => {
-            ctx.$store.commit('setLoginUrl', 'http://www.jihui88.com/member/login.html?backURL=http://buy.jihui88.com/#/')
-          }, 1000)
         }, 1000)
         let homeInfo = {
           interalRecordList: {
