@@ -89,7 +89,7 @@ export default {
     width: 100%;
     height: 500px;
     border: 1px solid #c1c1c1;
-    box-shadow: 0px 0px 10px 5px #3d3d3d;
+    box-shadow: 0 0 6px 3px #3d3d3d;
     border-radius: 3px;
     background: #fff;
   }

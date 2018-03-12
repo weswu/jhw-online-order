@@ -100,6 +100,12 @@ export default {
         ctx.$store.commit('setUser', {})
         // 跳到退出页面
         ctx.$store.commit('setLoginUrl', res.data)
+        setTimeout(() => {
+          ctx.$store.commit('setLoginUrl', '')
+          setTimeout(() => {
+            ctx.$store.commit('setLoginUrl', 'http://www.jihui88.com/member/login.html?backURL=http://buy.jihui88.com/#/')
+          }, 200)
+        }, 200)
         let homeInfo = {
           interalRecordList: {
             content: [],
