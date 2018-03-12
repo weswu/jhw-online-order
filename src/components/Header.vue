@@ -73,7 +73,7 @@ export default {
             ctx.$store.dispatch('getHomeInfo')
           } else {
             ctx.$store.commit('setLoginUrl', res.headers.requires_auth_url)
-            ctx.$parent.$refs.iframe.open('none')
+            ctx.$parent.$refs.iframe && ctx.$parent.$refs.iframe.open('none')
           }
         })
       }

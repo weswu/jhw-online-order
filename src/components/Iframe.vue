@@ -53,7 +53,7 @@ export default {
           ctx.$store.dispatch('getHomeInfo')
           ctx.$store.commit('setLoginUrl', '')
         } else {
-          conlog.log('not data')
+          console.log('not data')
           ctx.commit('setLoginUrl', res.headers.requires_auth_url)
         }
       })
