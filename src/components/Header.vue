@@ -72,6 +72,7 @@ export default {
             ctx.$store.commit('setUser', res.data)
             ctx.$store.dispatch('getHomeInfo')
           } else {
+            console.log('a==='+res.headers.requires_auth_url)
             ctx.$store.commit('setLoginUrl', res.headers.requires_auth_url)
             ctx.$parent.$refs.iframe && ctx.$parent.$refs.iframe.open('none')
           }
