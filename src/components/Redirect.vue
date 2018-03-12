@@ -26,7 +26,6 @@ export default {
 
     var addBind = getUrlParam('addBind')
     var bindType = getUrlParam('bindType')
-    var backURL = getUrlParam('backURL')
 
     if (addBind && addBind === '1') {
       top.postMessage({ type: 'bind' }, '*')
@@ -35,12 +34,12 @@ export default {
     }
 
     // （在没有解决掉微信跳转问题前不要删除）如果当前页面不在iframe内， 则跳转到相应页面
-    if (window.parent === this) {
+    if (window.location === window.parent.location) {
       if (addBind && addBind === '1') {
         window.location.href = 'http://www.jihui88.com/member/login.html?addBind=1&bindType=' +
-          bindType + '&backURL=' + backURL + '&page=bind'
+          bindType + '&backURL=http://buy.jihui88.com&page=bind'
       } else {
-        window.location.href = backURL
+        window.location.href = 'http://buy.jihui88.com'
       }
     }
   }
