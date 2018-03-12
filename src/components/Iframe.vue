@@ -48,12 +48,13 @@ export default {
       this.$store.commit('setLoading', true)
       this.$http.get('/api/user/info').then((res) => {
         ctx.$store.commit('setLoading', false)
+        console.log('login' + res)
         if (res.data.data !== 5) {
           ctx.$store.commit('setUser', res.data)
           ctx.$store.dispatch('getHomeInfo')
           ctx.$store.commit('setLoginUrl', '')
         } else {
-          console.log('not data')
+          console.log('not data' + res.headers.requires_auth_url)
           ctx.commit('setLoginUrl', res.headers.requires_auth_url)
         }
       })
