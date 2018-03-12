@@ -14,6 +14,8 @@ import './assets/filters.js'
 Vue.use(MuseUI)
 Vue.prototype.$http = Axios
 Vue.config.productionTip = false
+// 开启debug模式
+Vue.config.debug = true
 
 // or with options
 Vue.use(VueLazyload, {

@@ -12,7 +12,6 @@ export default {
     // （在没有解决掉微信跳转问题前不要删除）如果当前页面不在iframe内， 则跳转到相应页面
     if (window.location === window.parent.location) {
       console.log('微信登录')
-      debugger
       if (addBind && addBind === '1') {
         window.location.href = 'http://www.jihui88.com/member/login.html?addBind=1&bindType=' +
           bindType + '&backURL=http://buy.jihui88.com&page=bind'
@@ -21,7 +20,6 @@ export default {
       }
     } else {
       console.log('QQ登录')
-      debugger
       if (addBind && addBind === '1') {
         window.parent.postMessage({ type: 'bind' }, '*')
       } else {
