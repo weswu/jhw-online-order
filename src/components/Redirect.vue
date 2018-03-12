@@ -19,10 +19,12 @@ export default {
         window.location.href = 'http://buy.jihui88.com'
       }
     } else {
-      console.log('QQ登录')
+      console.log(window.location.href)
       if (addBind && addBind === '1') {
+        console.log('QQbid')
         window.parent.postMessage({ type: 'bind' }, '*')
       } else {
+        console.log('QQclose')
         window.parent.postMessage({ type: 1 }, '*')
       }
     }
