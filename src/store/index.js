@@ -45,15 +45,16 @@ const actions = {
   getUser ({commit, state}, iframe) {
     let ctx = this
     let ifr = iframe
-    let end = ''
+    let end = false
     if (iframe.type === 'signup') {
       ifr = iframe.ifr
-      end = '&page=register'
+      end = true
     }
     if (!state.user.username) {
       this._vm.$http.get('/api/user/info').then((res) => {
         if (res.data.code === 5) {
-          ctx.commit('setLoginUrl', res.headers.requires_auth_url + end)
+          var url = res.headers.requires_auth_url
+          ctx.commit('setLoginUrl', end ? (url.split('&backURL=')[0] + '&page=register&backURL=' + url.split('&backURL=')[1]) : url)
           ifr.open()
         } else {
           ctx.commit('setUser', res.data)
