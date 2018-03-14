@@ -9,24 +9,20 @@ export default {
   mounted () {
     var addBind = this.$route.query.addBind
     var bindType = this.$route.query.bindType
-    // （在没有解决掉微信跳转问题前不要删除）如果当前页面不在iframe内， 则跳转到相应页面
-    if (window.location === window.parent.location) {
-      console.log('微信登录')
-      if (addBind && addBind === '1') {
-        window.location.href = 'http://www.jihui88.com/member/login.html?addBind=1&bindType=' +
-          bindType + '&backURL=http://buy.jihui88.com&page=bind'
-      } else {
-        window.location.href = 'http://buy.jihui88.com'
-      }
+    if (addBind && addBind === '1') {
+      console.log('QQbid')
+      window.parent.postMessage({ type: 'bind' }, '*')
     } else {
-      console.log(window.location.href)
+      console.log('QQclose')
+      window.parent.postMessage({ type: 1 }, '*')
+    }
+    if(window.opener){//判断是否有父窗口,即打开本页面的窗口
       if (addBind && addBind === '1') {
-        console.log('QQbid')
-        window.parent.postMessage({ type: 'bind' }, '*')
+        window.opener.postMessage({type: 'bind'}, '*')
       } else {
-        console.log('QQclose')
-        window.parent.postMessage({ type: 1 }, '*')
+        window.opener.postMessage({type: 1}, '*')
       }
+      window.close();  //关闭窗口
     }
   }
 
