@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <mu-flexbox class="mt8">
+    <mu-flexbox class="mt8" :style="'height:' + height + 'px'">
       <mu-flexbox-item>
         <div class="pay-code">
           <p>
@@ -71,7 +71,8 @@ export default {
         qrcode: ''
       },
       url: '',
-      toast: false
+      toast: false,
+      height: ''
     }
   },
   created () {
@@ -80,6 +81,7 @@ export default {
     this.layoutId = this.$route.query.layoutId || ''
     this.ids = this.$route.query.ids || '297e2669600191860160021b8fcc007f'
     this.designerId = this.$route.query.designerId || ''
+    this.height = this.$route.query.height || '428'
     if (!this.$store.state.user.nickname) {
       setTimeout(function () {
         ctx.pay()
