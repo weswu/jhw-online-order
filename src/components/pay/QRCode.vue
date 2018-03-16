@@ -8,24 +8,70 @@
           </p>
           <div class="pay-code-cont">
             <i class="material-icons">fullscreen</i>
-            <div class="text">请使用微信扫一扫<br>扫描二维码支付</div>
+            <div class="text">微信支付</div>
           </div>
         </div>
       </mu-flexbox-item>
       <mu-flexbox-item>
+        <div class="pay-code alipay">
+          <p>
+            <a :href="'http://buy.jihui88.com/alipay.html?orderId=' + order.orderId" target="_blank"><img src="/static/pay.png" alt=""></a>
+          </p>
+          <div class="pay-code-cont">
+            <i class="material-icons">done</i>
+            <div class="text">支付宝支付</div>
+          </div>
+        </div>
       </mu-flexbox-item>
+      <mu-flexbox-item>
+        <div class="pay-code people">
+          <p v-clipboard:copy="url" v-clipboard:success="onCopy" slot="actions">
+            <span class="bank-icon">
+              <a href="javascript:;"><img src="/static/people.png" alt=""></a>
+            </span>
+          </p>
+          <div class="pay-code-cont">
+            <i class="material-icons">done</i>
+            <div class="text">找人代付</div>
+          </div>
+        </div>
+      </mu-flexbox-item>
+      <mu-flexbox-item>
+        <div class="pay-code bank">
+          <p @click="bankDialog">
+            <a href="javascript:;"><img src="/static/bank.png" alt=""></a>
+          </p>
+          <div class="pay-code-cont">
+            <i class="material-icons">done</i>
+            <div class="text">银行转账</div>
+          </div>
+        </div>
+      </mu-flexbox-item>
+
     </mu-flexbox>
+    <!--消息...-->
+    <Toast ref="toast"/>
+    <mu-toast v-if="toast" message="链接复制成功"/>
+    <Bank ref="bank" :outTradeNo="order.outTradeNo" :orderId="order.orderId"/>
   </div>
 </template>
 
 <script>
+import Toast from '@/components/Toast'
+import Bank from '@/components/pay/Bank'
 import qs from 'qs'
 export default {
+  components: {
+    Toast,
+    Bank
+  },
   data () {
     return {
       order: {
         qrcode: ''
-      }
+      },
+      url: '',
+      toast: false
     }
   },
   created () {
@@ -67,6 +113,7 @@ export default {
           window.parent.postMessage(dataJson, '*')
         }
         ctx.order = res.data
+        ctx.url = 'http://buy.jihui88.com/#/alipay?orderId=' + ctx.order.orderId
         ctx.sendAjax()
       })
     },
@@ -105,11 +152,17 @@ export default {
       this.timer = setTimeout(function () {
         ctx.sendAjax()
       }, 2000)
+    },
+    // 找人代付
+    onCopy (e) {
+      this.toast = true
+      if (this.toastTimer) clearTimeout(this.toastTimer)
+      this.toastTimer = setTimeout(() => { this.toast = false }, 2000)
+    },
+    // 转账
+    bankDialog () {
+      this.$refs.bank.show()
     }
   }
 }
 </script>
-
-<style lang="less">
-
-</style>
