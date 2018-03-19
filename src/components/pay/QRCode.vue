@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="" style="background: #fff;">
     <mu-flexbox class="mt8" :style="'height:' + height + 'px'">
       <mu-flexbox-item>
         <div class="pay-code">
