@@ -12,6 +12,8 @@ import Redirect from '@/components/Redirect'
 import QRCode from '@/components/pay/QRCode'
 import Empty from '@/components/Empty'
 import Alipay from '@/components/pay/Alipay'
+// 补单系统
+import Admin from '@/pages/Admin'
 
 Vue.use(Router)
 
@@ -30,6 +32,13 @@ export default new Router({
     { path: '/redirect', name: 'redirect', component: Redirect, meta: { navHide: true, cname: '登录成功' } },
     { path: '/qrcode', name: 'qrcode', component: QRCode, meta: { navHide: true, cname: '二维码' } },
     { path: '/empty', name: 'empty', component: Empty, meta: { navHide: true, cname: '空' } },
-    { path: '/alipay', name: 'alipay', component: Alipay }
+    { path: '/alipay', name: 'alipay', component: Alipay },
+    { path: '/admin',
+      name: 'admin',
+      component: Admin,
+      children: [
+        { path: '/login', component: '@/components/admin/login' }
+      ]
+    }
   ]
 })
