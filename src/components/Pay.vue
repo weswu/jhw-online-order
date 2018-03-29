@@ -4,7 +4,7 @@
       <div id="O_Pay">
         <mu-row gutter class="pay-total">
           <mu-col width="50" tablet="50" desktop="50" class="fl" v-if="!another">
-            支付金额：<span class="total">{{money}} </span>
+            <span v-if="order.outTradeNo" style="margin-right:10px;">订单号：{{order.outTradeNo}}</span> 支付金额：<span class="total">{{money}} </span>
             <span class="discount" v-if="isOutPoint"><span style="text-decoration: line-through;">{{totalPriceSingle || totalPrice}}</span> (积分- {{points/10}})</span>
             <span class="discount" v-if="isOutDiscount">原价<span style="text-decoration: line-through;">{{totalPriceSingle || totalPrice}}</span> (优惠-99)元</span>
             <span class="discount" v-if="homeInfo.isDiscount && !isOutDiscount">(亲，还差{{1000 - money}}元即可享受99优惠哦)</span>

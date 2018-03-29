@@ -14,6 +14,9 @@ import Empty from '@/components/Empty'
 import Alipay from '@/components/pay/Alipay'
 // 补单系统
 import Admin from '@/pages/Admin'
+import ALogin from '@/components/admin/login'
+import AOrder from '@/components/admin/order'
+import APermission from '@/components/admin/permission'
 
 Vue.use(Router)
 
@@ -33,11 +36,13 @@ export default new Router({
     { path: '/qrcode', name: 'qrcode', component: QRCode, meta: { navHide: true, cname: '二维码' } },
     { path: '/empty', name: 'empty', component: Empty, meta: { navHide: true, cname: '空' } },
     { path: '/alipay', name: 'alipay', component: Alipay },
+    // 补单系统
     { path: '/admin',
-      name: 'admin',
       component: Admin,
       children: [
-        { path: '/login', component: '@/components/admin/login' }
+        { path: 'login', component: ALogin, meta: { navHide: true } },
+        { path: 'order', component: AOrder, meta: { navHide: true } },
+        { path: 'permission', component: APermission, meta: { navHide: true } }
       ]
     }
   ]

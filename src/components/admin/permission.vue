@@ -1,0 +1,152 @@
+<template>
+  <div class="">
+    <mu-sub-header>权限管理
+      <mu-raised-button label="添加权限" @click="open" style="float:right;margin: 5px;"/>
+    </mu-sub-header>
+    <mu-table :showCheckbox="false" ref="table">
+      <mu-thead>
+        <mu-tr>
+          <mu-th v-for="(item,index) in columns" :key="index" :style="item.width ? 'width:' + item.width + 'px' : ''">{{item.title}}</mu-th>
+        </mu-tr>
+      </mu-thead>
+      <mu-tbody>
+        <mu-tr v-for="(item,index) in list" :key="index">
+          <mu-td>{{item.username}}</mu-td>
+          <mu-td>{{item.permissionType}}</mu-td>
+          <mu-td>
+            <mu-icon value="mode_edit" color="blue" title="修改"  @click="open(item)"/>
+            <mu-icon value="delete_forever" color="red" title="删除" @click="open(item, 'del')"/>
+          </mu-td>
+        </mu-tr>
+      </mu-tbody>
+    </mu-table>
+    
+    <mu-dialog :open="dialog" :title="title" @close="close">
+      <div v-if="title !== '删除权限'">
+        <mu-text-field hintText="用户账号" v-model="username"/><br/>
+        <mu-select-field v-model="permissionType" :labelFocusClass="['label-foucs']" label="权限页面">
+          <mu-menu-item v-for="v,index in pagelist" :key="index" :value="v.value" :title="v.text" />
+        </mu-select-field>
+      </div>
+      <div v-if="title === '删除权限'">
+        你确定要删除吗?<br/>
+      </div>
+      <mu-flat-button slot="actions" @click="close" primary label="取消"/>
+      <mu-flat-button slot="actions" primary @click="sub" label="确定" v-if="title !== '删除权限'"/>
+      <mu-flat-button slot="actions" primary @click="del" label="确定" v-if="title === '删除权限'"/>
+    </mu-dialog>
+  </div>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      list: [
+        {
+          'permissionId': '32323',
+          'permissionType': 'ORDER',
+          'username': 'string'
+        }
+      ],
+      columns: [
+        { title: '用户名' },
+        { title: '权限页面' },
+        { title: '操作', width: 160 }
+      ],
+      pagelist: [
+        {text: 'ORDER', value: 'ORDER'},
+        {text: 'PERMISSION', value: 'PERMISSION'}
+      ],
+      dialog: false,
+      title: '添加权限',
+      username: '',
+      permissionType: '',
+      id: ''
+    }
+  },
+  created () {
+    this.get()
+  },
+  methods: {
+    get () {
+      this.$http.get('/admin/permission/list').then((res) => {
+        if (res.code === 0) {
+          this.list = res.data.content
+        }
+      })
+    },
+    open (item, text) {
+      if (text === 'del') {
+        this.id = item.permissionId
+        this.title = '删除权限'
+      } else if (item.permissionId) {
+        this.id = item.permissionId
+        this.username = item.username
+        this.permissionType = item.permissionType
+        this.title = '修改权限'
+      } else {
+        item.id = ''
+        this.title = '添加权限'
+      }
+      this.dialog = true
+    },
+    close () {
+      this.dialog = false
+    },
+    vail () {
+      if (!this.username) {
+        this.$parent.$refs.toast.show('账号不能为空')
+        return true
+      }
+      if (!this.permissionType) {
+        this.$parent.$refs.toast.show('权限页面不能为空')
+        return true
+      }
+    },
+    sub () {
+      var ctx = this
+      if (this.vail()) { return }
+      this.dialog = false
+      if (this.id) {
+        this.edit()
+      } else {
+        this.$http.post('/admin/permission/detail?username=' + this.username + '&permissionType=' + this.permissionType).then((res) => {
+          if (res.code === 0) {
+            ctx.$parent.$refs.toast.show('添加成功')
+            ctx.list.push(res.data.data)
+            ctx.username = ''
+          }
+        })
+      }
+    },
+    edit (item) {
+      var ctx = this
+      this.$http.put('/admin/permission/detail/' + this.id + '?username=' + this.username + '&permissionType=' + this.permissionType).then((res) => {
+        if (res.code === 0) {
+          ctx.$parent.$refs.toast.show('修改成功')
+          ctx.list.push(res.data.data)
+          ctx.username = ''
+        }
+      })
+    },
+    del () {
+      var ctx = this
+      this.dialog = false
+      this.$http.delete('/admin/permission/delete/' + this.id).then((res) => {
+        if (res.code === 0) {
+          ctx.$parent.$refs.toast.show('删除成功')
+          for (let i = 0; i < ctx.list.length; i++) {
+            if (ctx.list[i].permissionId === this.id) {
+              ctx.list.splice(i, 1)
+            }
+          }
+        }
+      })
+    }
+  }
+}
+</script>
+
+<style lang="css">
+</style>
