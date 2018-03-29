@@ -20,7 +20,8 @@
         </mu-tr>
       </mu-tbody>
     </mu-table>
-    
+    <mu-pagination class="pagin" :total="total" :current="this.searchData.page + 1" :pageSize="this.searchData.size" @pageChange="handleClick"></mu-pagination>
+
     <mu-dialog :open="dialog" :title="title" @close="close">
       <div v-if="title !== '删除权限'">
         <mu-text-field hintText="用户账号" v-model="username"/><br/>
@@ -54,6 +55,12 @@ export default {
         { title: '权限页面' },
         { title: '操作', width: 160 }
       ],
+      total: 11,
+      searchData: {
+        page: 0,
+        size: 5,
+        sort: 'addTime,desc'
+      },
       pagelist: [
         {text: 'ORDER', value: 'ORDER'},
         {text: 'PERMISSION', value: 'PERMISSION'}
@@ -72,9 +79,13 @@ export default {
     get () {
       this.$http.get('/admin/permission/list').then((res) => {
         if (res.code === 0) {
-          this.list = res.data.content
+          // this.list = res.data.content
         }
       })
+    },
+    handleClick (index) {
+      this.searchData.page = index - 1
+      this.get()
     },
     open (item, text) {
       if (text === 'del') {
@@ -114,8 +125,10 @@ export default {
         this.$http.post('/admin/permission/detail?username=' + this.username + '&permissionType=' + this.permissionType).then((res) => {
           if (res.code === 0) {
             ctx.$parent.$refs.toast.show('添加成功')
-            ctx.list.push(res.data.data)
+            ctx.list.push(res.data)
             ctx.username = ''
+          } else {
+            ctx.$parent.$refs.toast.show(res.msg)
           }
         })
       }
@@ -125,8 +138,15 @@ export default {
       this.$http.put('/admin/permission/detail/' + this.id + '?username=' + this.username + '&permissionType=' + this.permissionType).then((res) => {
         if (res.code === 0) {
           ctx.$parent.$refs.toast.show('修改成功')
-          ctx.list.push(res.data.data)
+          ctx.list.forEach(item => {
+            if (item.permissionId === ctx.id) {
+              item.username = this.username
+              item.permissionType = this.permissionType
+            }
+          })
           ctx.username = ''
+        } else {
+          ctx.$parent.$refs.toast.show(res.msg)
         }
       })
     },
@@ -141,6 +161,9 @@ export default {
               ctx.list.splice(i, 1)
             }
           }
+          ctx.total = ctx.total - 1
+        } else {
+          ctx.$parent.$refs.toast.show(res.msg)
         }
       })
     }

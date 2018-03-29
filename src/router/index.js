@@ -39,6 +39,7 @@ export default new Router({
     // 补单系统
     { path: '/admin',
       component: Admin,
+      meta: { navHide: true },
       children: [
         { path: 'login', component: ALogin, meta: { navHide: true } },
         { path: 'order', component: AOrder, meta: { navHide: true } },

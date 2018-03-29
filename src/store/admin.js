@@ -1,20 +1,12 @@
 const state = {
-  user: {
-    name: '姓名',
-    username: 'username'
-  },
   homeInfo: {}
 }
 
 const getters = {
-  user: state => state.user,
   homeInfo: state => state.homeInfo
 }
 
 const mutations = {
-  setUser (state, user) {
-    state.user = user
-  },
   setHomeInfo (state, homeInfo) {
     state.homeInfo = homeInfo
   }

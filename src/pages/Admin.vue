@@ -3,11 +3,9 @@
     <div class="layout">
       <div class="content">
         <mu-appbar title="补单系统">
-          <mu-flat-button label="登录" slot="right" href="#/admin/login" v-if="!user.username"/>
-          <mu-flat-button :label="user.name" slot="right" v-if="user.username"/>
-          <mu-icon-menu icon="more_vert" slot="right" v-if="user.username">
-            <mu-menu-item title="退出" @click="signout"/>
-          </mu-icon-menu>
+          <mu-flat-button label="登录" slot="right" href="#/admin/login" v-if="!homeInfo.username"/>
+          <mu-flat-button :label="homeInfo.name || homeInfo.username" slot="right" v-if="homeInfo.username" style="text-transform: none;"/>
+          <mu-flat-button label="退出" slot="right" v-if="homeInfo.username" @click="signout"/>
         </mu-appbar>
         <div class="content-left">
           <mu-list @change="handleListChange" :value="active" v-for="(item,index) in homeInfo.navigateList" :key="index">
@@ -40,11 +38,16 @@ export default {
   },
   computed: {
     ...mapGetters({
-      user: 'admin/user',
       homeInfo: 'admin/homeInfo'
     })
   },
+  created () {
+    this.get()
+  },
   methods: {
+    get () {
+      this.$store.dispatch('admin/getHomeInfo')
+    },
     handleListChange (val) {
       this.active = val
     },
@@ -120,6 +123,10 @@ export default {
     float: right;
   }
   .mu-table .mu-icon{
+    cursor: pointer;
+  }
+  .red{
+    color: red;
     cursor: pointer;
   }
 }

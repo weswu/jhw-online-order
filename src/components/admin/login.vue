@@ -40,7 +40,6 @@ export default {
       }
       this.$http.post('/auth/admin/login?' + qs.stringify(this.model)).then((res) => {
         if (res.code === 0) {
-          ctx.$store.commit('admin/setUser', res.data)
           ctx.$store.dispatch('admin/getHomeInfo')
           ctx.$router.push({ path: '/admin/order' })
         } else {
