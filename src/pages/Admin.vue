@@ -55,7 +55,7 @@ export default {
       var ctx = this
       this.$http.post('/auth/admin/logout').then((res) => {
         if (res.code === 0) {
-          ctx.$store.commit('admin/setUser', {})
+          ctx.$store.commit('admin/setHomeInfo', {})
           ctx.$router.push({ path: '/admin/login' })
         } else {
           ctx.$refs.toast.show(res.msg)
