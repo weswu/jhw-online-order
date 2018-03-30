@@ -129,5 +129,25 @@ export default {
     color: red;
     cursor: pointer;
   }
+  .green{
+    color: green
+  }
+  .mu-sub-header{
+    border-bottom: 1px solid #ddd;
+  }
+  .search{
+    .mu-text-field{
+      font-size: 12px;
+      width: 180px;
+    }
+    .mu-raised-button{
+      height: 30px;
+      line-height: 30px;
+      min-width: 70px;
+    }
+    .mu-raised-button-label{
+      font-size: 12px;
+    }
+  }
 }
 </style>

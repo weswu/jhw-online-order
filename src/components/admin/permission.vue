@@ -1,8 +1,11 @@
 <template>
   <div class="">
-    <mu-sub-header>权限管理
-      <mu-raised-button label="添加权限" @click="open" style="float:right;margin: 5px;"/>
-    </mu-sub-header>
+    <mu-sub-header>权限管理</mu-sub-header>
+    <mu-content-block class="search">
+      <mu-text-field hintText="用户名" v-model="searchData.name"/>
+      <mu-raised-button label="搜索" @click="search" style="margin-left:10px;"/>
+      <mu-raised-button label="添加权限" @click="open" primary style="float:right;margin: 5px;"/>
+    </mu-content-block>
     <mu-table :showCheckbox="false" ref="table">
       <mu-thead>
         <mu-tr>
@@ -20,7 +23,7 @@
         </mu-tr>
       </mu-tbody>
     </mu-table>
-    <mu-pagination class="pagin" :total="total" :current="this.searchData.page + 1" :pageSize="this.searchData.size" @pageChange="handleClick"></mu-pagination>
+    <mu-pagination class="pagin" :total="total" :current="searchData.page + 1" :pageSize="searchData.size" @pageChange="handleClick"></mu-pagination>
 
     <mu-dialog :open="dialog" :title="title" @close="close">
       <div v-if="title !== '删除权限'">
@@ -54,7 +57,8 @@ export default {
       searchData: {
         page: 0,
         size: 10,
-        sort: 'addTime,desc'
+        sort: 'addTime,desc',
+        name: ''
       },
       pagelist: [
         {text: '订单', value: 'ORDER'},
@@ -86,6 +90,10 @@ export default {
     },
     handleClick (index) {
       this.searchData.page = index - 1
+      this.get()
+    },
+    search () {
+      this.searchData.page = 0
       this.get()
     },
     open (item, text) {
