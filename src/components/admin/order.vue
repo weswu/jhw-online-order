@@ -17,7 +17,7 @@
           <mu-td><span v-if="item.paymentType === 'UN_PAY'">未支付</span> <span v-if="item.paymentType !== 'UN_PAY'" class="green">已支付</span> </mu-td>
           <mu-td>{{item.addTime | time('yyyy-MM-dd hh:mm')}}</mu-td>
           <mu-td>
-            <span v-if="!item.auditId" @click="examine(item)" class="red">线下0元支付</span> <span v-if="item.auditId">已审核</span>
+            <span v-if="!item.auditId" @click="examine(item.orderId)" class="red">线下0元支付</span> <span v-if="item.auditId">已审核</span>
           </mu-td>
         </mu-tr>
       </mu-tbody>
@@ -31,7 +31,9 @@ import qs from 'qs'
 export default {
   data () {
     return {
-      list: [],
+      list: [
+        { orderId: 'cc' }
+      ],
       columns: [
         { title: '订单编号' },
         { title: '交易额' },
@@ -46,7 +48,8 @@ export default {
         sort: 'addTime,desc',
         outTradeNo: '',
         state: 'NORMAL' // NORMAL,INIT,DEL
-      }
+      },
+      id: ''
     }
   },
   created () {
@@ -74,20 +77,21 @@ export default {
       this.searchData.page = 0
       this.get()
     },
-    examine (item) {
-      var ctx = this
-      var a = false
-      this.$http.post('/admin/order/audit?orderId=' + item.orderId).then((res) => {
+    examine (id) {
+      let ctx = this
+      ctx.id = id
+      this.$http.post('/admin/order/audit?orderId=' + id).then((res) => {
         if (res.code === 0) {
           ctx.$parent.$refs.toast.show('审核成功')
+          ctx.list.forEach(item => {
+            if (item.orderId === ctx.id) {
+              item.auditId = '1'
+            }
+          })
         } else {
           ctx.$parent.$refs.toast.show(res.msg)
-          a = true
         }
       })
-      if (!a) {
-        item.auditId = 'pay'
-      }
     }
   }
 }
