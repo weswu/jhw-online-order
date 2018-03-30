@@ -36,10 +36,10 @@ export default {
         { title: '添加时间', width: 160 },
         { title: '操作', width: 160 }
       ],
-      total: 10,
+      total: 0,
       searchData: {
         page: 0,
-        size: 5,
+        size: 10,
         sort: 'addTime,desc'
       }
     }

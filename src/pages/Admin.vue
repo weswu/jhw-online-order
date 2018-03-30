@@ -9,7 +9,7 @@
         </mu-appbar>
         <div class="content-left">
           <mu-list @change="handleListChange" :value="active" v-for="(item,index) in homeInfo.navigateList" :key="index">
-            <mu-list-item :title="item.name" :value="item.url" href="'#/admin/'+item.url"></mu-list-item>
+            <mu-list-item :title="item.name" :value="item.url" :href="'#/admin/'+item.url"></mu-list-item>
           </mu-list>
         </div>
         <div class="content-right">

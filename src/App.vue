@@ -1,14 +1,14 @@
 <template>
   <div id="app">
-    <PageHeader v-show="!$route.meta.navHide"></PageHeader>
+    <PageHeader v-show="!$route.meta.navHide" v-if="!$route.meta.admin"></PageHeader>
     <router-view/>
-    <PageFooter v-if="!$route.meta.navHide"></PageFooter>
+    <PageFooter v-if="!$route.meta.navHide && !$route.meta.admin"></PageFooter>
     <!--加载中...-->
     <Loading></Loading>
     <!--文字提示...-->
-    <Tooltip ref="tooltip" v-if="!$route.meta.navHide"></Tooltip>
+    <Tooltip ref="tooltip" v-if="!$route.meta.navHide && !$route.meta.admin"></Tooltip>
     <!--登录...-->
-    <IframeLogin ref="iframe" v-if="$route.name !== 'redirect'"></IframeLogin>
+    <IframeLogin ref="iframe" v-if="$route.name !== 'redirect' && !$route.meta.admin"></IframeLogin>
   </div>
 </template>
 

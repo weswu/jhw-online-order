@@ -39,11 +39,11 @@ export default new Router({
     // 补单系统
     { path: '/admin',
       component: Admin,
-      meta: { navHide: true },
+      meta: { admin: true },
       children: [
-        { path: 'login', component: ALogin, meta: { navHide: true } },
-        { path: 'order', component: AOrder, meta: { navHide: true } },
-        { path: 'permission', component: APermission, meta: { navHide: true } }
+        { path: 'login', component: ALogin, meta: { admin: true } },
+        { path: 'order', component: AOrder, meta: { admin: true } },
+        { path: 'permission', component: APermission, meta: { admin: true } }
       ]
     }
   ]

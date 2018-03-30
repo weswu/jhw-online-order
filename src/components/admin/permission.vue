@@ -12,7 +12,7 @@
       <mu-tbody>
         <mu-tr v-for="(item,index) in list" :key="index">
           <mu-td>{{item.username}}</mu-td>
-          <mu-td>{{item.permissionType}}</mu-td>
+          <mu-td><span v-if="item.permissionType === 'ORDER'">订单</span><span v-if="item.permissionType === 'PERMISSION'">权限</span></mu-td>
           <mu-td>
             <mu-icon value="mode_edit" color="blue" title="修改"  @click="open(item)"/>
             <mu-icon value="delete_forever" color="red" title="删除" @click="open(item, 'del')"/>
@@ -43,27 +43,21 @@
 export default {
   data () {
     return {
-      list: [
-        {
-          'permissionId': '32323',
-          'permissionType': 'ORDER',
-          'username': 'string'
-        }
-      ],
+      list: [],
       columns: [
         { title: '用户名' },
         { title: '权限页面' },
         { title: '操作', width: 160 }
       ],
-      total: 11,
+      total: 0,
       searchData: {
         page: 0,
-        size: 5,
+        size: 10,
         sort: 'addTime,desc'
       },
       pagelist: [
-        {text: 'ORDER', value: 'ORDER'},
-        {text: 'PERMISSION', value: 'PERMISSION'}
+        {text: '订单', value: 'ORDER'},
+        {text: '权限', value: 'PERMISSION'}
       ],
       dialog: false,
       title: '添加权限',
