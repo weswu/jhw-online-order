@@ -8,8 +8,8 @@
           <mu-flat-button label="退出" slot="right" v-if="homeInfo.username" @click="signout"/>
         </mu-appbar>
         <div class="content-left">
-          <mu-list @change="handleListChange" :value="active" v-for="(item,index) in homeInfo.navigateList" :key="index">
-            <mu-list-item :title="item.name" :value="item.url" :href="'#/admin/'+item.url"></mu-list-item>
+          <mu-list @change="handleListChange" :value="active">
+            <mu-list-item :title="item.name" :value="item.url" :href="'#/admin/'+item.url" v-for="(item,index) in homeInfo.navigateList" :key="index"></mu-list-item>
           </mu-list>
         </div>
         <div class="content-right">

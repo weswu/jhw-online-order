@@ -1,5 +1,9 @@
 const state = {
-  homeInfo: {}
+  homeInfo: {
+    navigateList: [
+      { name: '登录', url: 'login' }
+    ]
+  }
 }
 
 const getters = {

@@ -40,7 +40,8 @@ export default {
       searchData: {
         page: 0,
         size: 10,
-        sort: 'addTime,desc'
+        sort: 'addTime,desc',
+        state: 'normal' // normal,init,del
       }
     }
   },
@@ -51,9 +52,13 @@ export default {
     get () {
       var ctx = this
       this.$http.get('/admin/order/list?' + qs.stringify(this.searchData)).then((res) => {
-        ctx.list = res.data.content
-        if (this.searchData.page === 0) {
-          this.total = res.data.totalElements
+        if (res.code === 0) {
+          ctx.list = res.data.content
+          if (this.searchData.page === 0) {
+            ctx.total = res.data.totalElements
+          }
+        } else {
+          ctx.$parent.$refs.toast.show(res.msg)
         }
       })
     },

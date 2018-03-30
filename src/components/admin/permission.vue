@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import qs from 'qs'
 export default {
   data () {
     return {
@@ -71,9 +72,15 @@ export default {
   },
   methods: {
     get () {
-      this.$http.get('/admin/permission/list').then((res) => {
+      var ctx = this
+      this.$http.get('/admin/permission/list?' + qs.stringify(this.searchData)).then((res) => {
         if (res.code === 0) {
-          // this.list = res.data.content
+          ctx.list = res.data.content
+          if (this.searchData.page === 0) {
+            ctx.total = res.data.totalElements
+          }
+        } else {
+          ctx.$parent.$refs.toast.show(res.msg)
         }
       })
     },
