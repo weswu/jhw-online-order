@@ -31,9 +31,7 @@ import qs from 'qs'
 export default {
   data () {
     return {
-      list: [
-        { orderId: 'cc' }
-      ],
+      list: [],
       columns: [
         { title: '订单编号' },
         { title: '交易额' },
