@@ -2,7 +2,7 @@
   <div id="Admin">
     <div class="layout">
       <div class="content">
-        <mu-appbar title="补单系统">
+        <mu-appbar title="订购系统后台管理">
           <mu-flat-button label="登录" slot="right" href="#/admin/login" v-if="!homeInfo.username"/>
           <mu-flat-button :label="homeInfo.name || homeInfo.username" slot="right" v-if="homeInfo.username" style="text-transform: none;"/>
           <mu-flat-button label="退出" slot="right" v-if="homeInfo.username" @click="signout"/>

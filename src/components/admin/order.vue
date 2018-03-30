@@ -41,7 +41,7 @@ export default {
         page: 0,
         size: 10,
         sort: 'addTime,desc',
-        state: 'normal' // normal,init,del
+        state: 'NORMAL' // NORMAL,INIT,DEL
       }
     }
   },

@@ -98,7 +98,8 @@ export default {
         this.permissionType = item.permissionType
         this.title = '修改权限'
       } else {
-        item.id = ''
+        this.id = ''
+        this.username = ''
         this.title = '添加权限'
       }
       this.dialog = true
