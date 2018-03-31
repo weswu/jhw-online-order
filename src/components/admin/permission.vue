@@ -2,9 +2,9 @@
   <div class="">
     <mu-sub-header>订单系统后台管理</mu-sub-header>
     <mu-content-block class="search">
-      <mu-text-field hintText="用户名" v-model="searchData.name"/>
-      <mu-raised-button label="搜索" @click="search" style="margin-left:10px;"/>
-      <mu-raised-button label="添加权限" @click="open" primary style="float:right;margin: 5px;"/>
+      <input type="text" v-model="searchData.name" placeholder="用户名">
+      <button type="button" name="button" @click="search">搜索</button>
+      <button type="button" name="button" @click="open" style="float:right;margin: 5px;">添加权限</button>
     </mu-content-block>
     <mu-table :showCheckbox="false" ref="table">
       <mu-thead>
@@ -27,7 +27,17 @@
         </mu-tr>
       </mu-tbody>
     </mu-table>
-    <mu-pagination class="pagin" :total="total" :current="searchData.page + 1" :pageSize="searchData.size" @pageChange="handleClick"></mu-pagination>
+    <div class="pagination">
+      <div class="btn">
+        <input type="text" v-model="page">
+        <button type="button" name="button" @click="searchPage">GO</button>
+      </div>
+      <mu-pagination :total="total" :current="searchData.page + 1" :pageSize="searchData.size" @pageChange="handleClick"></mu-pagination>
+      <div class="info">
+        共有{{total}}条，每页显示：10条
+      </div>
+    </div>
+
 
     <mu-dialog :open="dialog" :title="title" @close="close">
       <div v-if="title !== '删除权限'">
@@ -73,6 +83,7 @@ export default {
       title: '添加权限',
       username: '',
       permissionType: '',
+      page: '',
       id: ''
     }
   },
@@ -99,6 +110,15 @@ export default {
     },
     search () {
       this.searchData.page = 0
+      this.get()
+    },
+    searchPage () {
+      if (this.page < 1) {
+        this.searchData.page = 0
+      } else {
+        this.searchData.page = this.page - 1
+      }
+      this.page = ''
       this.get()
     },
     open (item, text) {
@@ -185,6 +205,3 @@ export default {
   }
 }
 </script>
-
-<style lang="css">
-</style>

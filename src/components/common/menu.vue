@@ -19,6 +19,9 @@ export default {
       active: 'order'
     }
   },
+  mounted () {
+    this.active = this.$route.path.split('/')[2]
+  },
   methods: {
     handleListChange (val) {
       this.active = val

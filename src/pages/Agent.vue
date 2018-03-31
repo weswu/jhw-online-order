@@ -2,8 +2,8 @@
   <div id="A_Page">
     <div class="layout">
       <div class="content">
-        <Header :homeInfo="homeInfo"/>
-        <Menu :homeInfo="homeInfo"/>
+        <AHeader :homeInfo="homeInfo"/>
+        <AMenu :homeInfo="homeInfo"/>
         <div class="content-right">
           <div class="body">
             <router-view/>
@@ -19,13 +19,13 @@
 <script>
 import { mapGetters } from 'vuex'
 import Toast from '@/components/Toast'
-import Header from '@/components/common/header'
-import Menu from '@/components/common/menu'
+import AHeader from '@/components/common/header'
+import AMenu from '@/components/common/menu'
 export default {
   components: {
     Toast,
-    Header,
-    Menu
+    AHeader,
+    AMenu
   },
   computed: {
     ...mapGetters({
