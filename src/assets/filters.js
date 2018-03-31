@@ -23,8 +23,7 @@ Vue.filter('price', function (v) {
  * 3.合并
 */
 Vue.filter('time', function (date, format) {
-  debugger
-  date = new Date(date)
+  date = new Date(parseInt(date))
   format = format || 'yyyy-MM-dd hh:mm:ss'
   var o = {
     'M+': date.getMonth() + 1, // 月份
