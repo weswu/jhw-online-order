@@ -3,7 +3,7 @@
     <div class="layout">
       <div class="content">
         <AHeader :homeInfo="homeInfo"/>
-        <AMenu :homeInfo="homeInfo"/>
+        <AMenu :homeInfo="homeInfo" :title="'经销商补单系统'"/>
         <div class="content-right">
           <div class="body">
             <router-view/>

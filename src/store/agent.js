@@ -1,9 +1,6 @@
 const state = {
   homeInfo: {
-    navigateList: [
-      { name: '经销商补单系统', url: 'login' }
-    ],
-    username: '15161561561'
+    navigateList: []
   }
 }
 

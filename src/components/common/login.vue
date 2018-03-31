@@ -1,25 +1,23 @@
 <template>
-
-  <div class="iframe_bg" :style="'display:' + display">
-    <div class="iframe_login" ref="login" :style="'width:'+width+'px'">
+  <div id="A_Login" class="iframe_bg" :style="'display:' + display">
+    <div class="iframe_login" ref="login">
       <div class="wrapper">
-        <div id="A_Login">
-          <div class="login">
-            <div class="login-bd">
-              <h1>请登录</h1>
-              <mu-text-field label="账号" hintText="输入你的登录账号" v-model="model.username" fullWidth />
-              <mu-text-field label="密码" hintText="输入你的登录密码" type="password" v-model="model.password" fullWidth />
-              <mu-text-field label="验证码" hintText="输入验证码" v-model="model.code" fullWidth />
+        <div class="form">
+          <img src="http://www.jihui88.com/member/static/images/f-logo.png" alt="" class="logo">
+          <div class="f-login">
+            <div class="f-input">
+              <input name="username" type="text" :placeholder="placeholder" v-model="model.username" class="border">
+              <input name="password" type="password" placeholder="请输入密码" v-model="model.password" class="border">
+              <input type="text" name="randCode" placeholder="填写验证码" v-model="model.code">
               <img :src="'http://buy.jihui88.com/verificationCode'+verifyPic" class="veriImg" @click="refreshCode">
-              <mu-raised-button @click="submit" label="登录" type="submit" primary/>
             </div>
+            <button type="button" class="submit" @click="submit">登录</button>
           </div>
-        </div>:''"></iframe>
+        </div>
         <img src="http://www.jihui88.com/member/static/images/f-x.png" alt="close" @click="close" class="close">
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -33,14 +31,24 @@ export default {
         password: '',
         code: ''
       },
-      verifyPic: ''
+      verifyPic: '',
+      placeholder: '请输入账号'
+    }
+  },
+  mounted () {
+    let name = this.$route.path.split('/')[1]
+    if (name === 'agent') {
+      this.placeholder = '请输入经销商账号'
+    } else if (name === 'admin') {
+      this.placeholder = '请输入管理员账号'
     }
   },
   methods: {
     open (val) {
-      setTimeout(() => {
-        this.display = val || 'block'
-      }, 200)
+      this.display = 'block'
+    },
+    close () {
+      this.display = 'none'
     },
     refreshCode () {
       this.verifyPic = '?time=' + new Date().getTime()
@@ -48,17 +56,17 @@ export default {
     submit (e) {
       var ctx = this
       if (!this.model.username) {
-        return this.$parent.$refs.toast.show('账号不能为空')
+        return this.$parent.$parent.$refs.toast.show('账号不能为空')
       }
       if (!this.model.password) {
-        return this.$parent.$refs.toast.show('密码不能为空')
+        return this.$parent.$parent.$refs.toast.show('密码不能为空')
       }
       this.$http.post('/auth/admin/login?' + qs.stringify(this.model)).then((res) => {
         if (res.code === 0) {
-          ctx.$store.dispatch('admin/getHomeInfo')
-          ctx.$router.push({ path: '/admin/order' })
+          ctx.$store.dispatch(ctx.$route.path.split('/')[1] + '/getHomeInfo')
+          ctx.display = 'none'
         } else {
-          ctx.$parent.$refs.toast.show(res.msg)
+          ctx.$parent.$parent.$refs.toast.show(res.msg)
         }
       })
     }
@@ -66,17 +74,117 @@ export default {
 }
 </script>
 
-<style scoped>
-.login{
-  margin: 0;
+
+<style lang="less" scoped>
+.form {
+  width: 100%;
+  height: 501px;
+  box-sizing: border-box;
+  background: #fff;
+  text-align: center;
+  font-family: \\5FAE\8F6F\96C5\9ED1;
+  position: relative;
+  border: 1px solid #c1c1c1;
+  box-shadow: 0 0 6px 3px #3d3d3d;
+  border-radius: 3px;
+.logo {
+  margin: 82px auto 28px;
 }
-.login-bd{
+.f-login {
+  width: 260px;
+  margin: 0 auto;
+}
+.f-input {
+  width: 260px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  margin: 0 auto;
   position: relative;
 }
-.veriImg{
-  width: 80px;
+input {
+  border-radius: 5px;
+  border: none;
+  width: 100%;
+  height: 37px;
+  padding: 10px 15px;
+  outline: 0 none;
+}
+.border {
+  border-bottom: 1px solid #d9d9d9;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.veriImg {
   position: absolute;
-  margin-top: -56px;
+  right: 14px;
+  margin-top: -31px;
+  width: 65px;
+}
+.submit {
+  background: #ff6700;
+  border-radius: 5px;
+  border: 0 none;
+  cursor: pointer;
+  display: block;
+  width: 260px;
+  margin: 0 auto;
+  text-align: center;
+  height: 38px;
+  color: #fff;
+  font-size: 14px;
+  transition: all .3s ease 0s;
+  -moz-transition: all .3s ease 0s;
+  -webkit-transition: all .3s ease 0s;
+  -o-transition: all .3s ease 0s;
+  margin-top: 20px
+  }
+}
+
+// iframe
+  .iframe_bg{
+    position: fixed;
+    top: 0;
+    left: 0;
     right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+    overflow: hidden;
+    z-index: 1000;
+    transition: all .3s;
+    -o-transition: all .3s;
+    -moz-transition: all .3s;
+    -webkit-transition: all .3s;
+  }
+.iframe_login{
+  width: 348px;
+  height: 500px;
+  z-index: 999;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  -o-transform: translate(-50%,-50%);
+  -moz-transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
+  iframe {
+    width: 100%;
+    height: 500px;
+    border: 1px solid #c1c1c1;
+    box-shadow: 0 0 6px 3px #3d3d3d;
+    border-radius: 3px;
+    background: #fff;
+  }
+  .wrapper{
+    position: relative;
+  }
+  .close{
+    position: absolute;
+    right: 11px;
+    top: 10px;
+    cursor: pointer;
+    z-index: 99;
+  }
 }
 </style>

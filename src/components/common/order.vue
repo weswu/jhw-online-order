@@ -32,7 +32,7 @@
           <mu-td class="red" v-if="item.paymentType === 'UN_PAY'">未支付</mu-td>
           <mu-td class="green" v-if="item.paymentType !== 'UN_PAY'">已支付</mu-td>
 
-          <mu-td><a href="javascript:;" class="detail">详情</a></mu-td>
+          <mu-td><a href="javascript:;" class="detail" @click="detail(item.orderId)">详情</a></mu-td>
         </mu-tr>
       </mu-tbody>
     </mu-table>
@@ -46,13 +46,17 @@
         共有{{total}}条，每页显示：10条
       </div>
     </div>
-
+    <OrderDetail ref="OrderDetail" v-on:edit="edit"/>
   </div>
 </template>
 
 <script>
 import qs from 'qs'
+import OrderDetail from '@/components/common/orderDetail'
 export default {
+  components: {
+    OrderDetail
+  },
   data () {
     return {
       list: [
@@ -104,7 +108,16 @@ export default {
   methods: {
     get () {
       var ctx = this
-      this.$http.get('/admin/order/list?' + qs.stringify(this.searchData)).then((res) => {
+      let url = ''
+      if (!this.pageName) {
+        this.pageName = this.$route.path.split('/')[1]
+      }
+      if (this.pageName === 'agent') {
+        url = 'agent'
+      } else if (this.pageName === 'admin') {
+        url = 'order'
+      }
+      this.$http.get('/admin/' + url + '/list?' + qs.stringify(this.searchData)).then((res) => {
         if (res.code === 0) {
           ctx.list = res.data.content
           if (this.searchData.page === 0) {
@@ -132,19 +145,22 @@ export default {
       this.page = ''
       this.get()
     },
-    examine (id) {
+    detail (id) {
+      this.$refs.OrderDetail.open(id)
+    },
+    edit (data) {
       let ctx = this
-      ctx.id = id
-      this.$http.post('/admin/order/audit?orderId=' + id).then((res) => {
-        if (res.code === 0) {
-          ctx.$parent.$refs.toast.show('审核成功')
-          ctx.list.forEach(item => {
-            if (item.orderId === ctx.id) {
-              item.auditId = '1'
-            }
-          })
-        } else {
-          ctx.$parent.$refs.toast.show(res.msg)
+      debugger
+      ctx.list.forEach(item => {
+        if (item.orderId === data.orderId) {
+          if (data.auditId) {
+            item.auditId = '01'
+          } else {
+            item.addTime = this.detail.addTime
+            item.agentId = this.detail.agentId
+            item.paidPrice = this.detail.paidPrice
+            item.agentPrice = this.detail.agentPrice
+          }
         }
       })
     }

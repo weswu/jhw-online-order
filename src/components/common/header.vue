@@ -10,12 +10,18 @@
         <mu-menu-item title="退出" @click="signout"/>
       </mu-icon-menu>
     </mu-appbar>
+    <!--登录...-->
+    <IframeLogin ref="iframe"></IframeLogin>
   </div>
 </template>
 
 <script>
+import IframeLogin from '@/components/common/login'
 export default {
   props: ['homeInfo'],
+  components: {
+    IframeLogin
+  },
   data () {
     return {
       open: false
@@ -26,14 +32,17 @@ export default {
       this.open = !this.open
     },
     signIn () {
-      this.$router.push({ path: '/' + this.$route.path.split('/')[1] + '/login' })
+      this.$refs.iframe.open()
     },
     signout () {
       var ctx = this
+      let pageName = ''
+      if (!this.pageName) {
+        pageName = this.$route.path.split('/')[1]
+      }
       this.$http.post('/auth/admin/logout').then((res) => {
         if (res.code === 0) {
-          ctx.$store.commit('admin/setHomeInfo', {})
-          ctx.$router.push({ path: '/admin/login' })
+          ctx.$store.commit(pageName + '/setHomeInfo', {})
         } else {
           ctx.$refs.toast.show(res.msg)
         }
