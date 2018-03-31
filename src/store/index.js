@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import shop from './shop'
 import admin from './admin'
+import agent from './agent'
 
 Vue.use(Vuex)
 
@@ -103,7 +104,8 @@ export default new Vuex.Store({
   mutations,
   modules: {
     shop,
-    admin
+    admin,
+    agent
   },
   strict: debug
 })

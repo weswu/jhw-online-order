@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <mu-sub-header>权限管理</mu-sub-header>
+    <mu-sub-header>订单系统后台管理</mu-sub-header>
     <mu-content-block class="search">
       <mu-text-field hintText="用户名" v-model="searchData.name"/>
       <mu-raised-button label="搜索" @click="search" style="margin-left:10px;"/>
@@ -15,7 +15,11 @@
       <mu-tbody>
         <mu-tr v-for="(item,index) in list" :key="index">
           <mu-td>{{item.username}}</mu-td>
-          <mu-td><span v-if="item.permissionType === 'ORDER'">订单</span><span v-if="item.permissionType === 'PERMISSION'">权限</span></mu-td>
+          <mu-td>
+            <span v-if="item.permissionType === 'ORDER'">订单管理</span>
+            <span v-if="item.permissionType === 'PERMISSION'">权限管理</span>
+            <span v-if="item.permissionType === 'AGENT'">经销商补单</span>
+          </mu-td>
           <mu-td>
             <mu-icon value="mode_edit" color="blue" title="修改"  @click="open(item)"/>
             <mu-icon value="delete_forever" color="red" title="删除" @click="open(item, 'del')"/>
@@ -61,8 +65,9 @@ export default {
         name: ''
       },
       pagelist: [
-        {text: '订单', value: 'ORDER'},
-        {text: '权限', value: 'PERMISSION'}
+        {text: '订单管理', value: 'ORDER'},
+        {text: '权限管理', value: 'PERMISSION'},
+        {text: '经销商补单', value: 'AGENT'}
       ],
       dialog: false,
       title: '添加权限',

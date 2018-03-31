@@ -15,8 +15,10 @@ import Alipay from '@/components/pay/Alipay'
 // 补单系统
 import Admin from '@/pages/Admin'
 import ALogin from '@/components/admin/login'
-import AOrder from '@/components/admin/order'
+import AOrder from '@/components/common/order'
 import APermission from '@/components/admin/permission'
+// 经销商补单系统
+import Agent from '@/pages/Agent'
 
 Vue.use(Router)
 
@@ -44,6 +46,14 @@ export default new Router({
         { path: 'login', component: ALogin, meta: { admin: true } },
         { path: 'order', component: AOrder, meta: { admin: true } },
         { path: 'permission', component: APermission, meta: { admin: true } }
+      ]
+    },
+    // 补单系统
+    { path: '/agent',
+      component: Agent,
+      meta: { admin: true },
+      children: [
+        { path: 'order', component: AOrder, meta: { admin: true } }
       ]
     }
   ]

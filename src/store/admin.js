@@ -1,7 +1,8 @@
 const state = {
   homeInfo: {
     navigateList: [
-      { name: '登录', url: 'login' }
+      { name: '订单列表', url: 'order' },
+      { name: '权限管理', url: 'permission' }
     ]
   }
 }
