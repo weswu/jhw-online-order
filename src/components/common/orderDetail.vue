@@ -124,6 +124,7 @@ export default {
       this.$http.get('/admin/' + this.path + '/order/detail?orderId=' + id).then((res) => {
         ctx.detail = res.data
         ctx.time = this.format(this.detail.addTime)
+        ctx.time24 = this.format2(this.detail.addTime)
       })
       this.dialog = true
     },
@@ -155,6 +156,10 @@ export default {
     },
     add0 (m) {
       return m < 10 ? '0' + m : m
+    },
+    format2 (value) {
+      var time = new Date(parseInt(value))
+      return time.getHours() + ':' + time.getMinutes()
     },
     submit () {
       let ctx = this
