@@ -128,7 +128,7 @@ export default {
         url = 'order'
       }
       this.$http.get('/admin/' + url + '/order/detail?orderId=' + id).then((res) => {
-        ctx.detail = res.data.order
+        ctx.detail = res.data
         ctx.time = this.format(this.detail.addTime)
       })
       this.dialog = true

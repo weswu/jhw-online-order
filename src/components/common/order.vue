@@ -20,9 +20,9 @@
         <mu-tr v-for="(item,index) in list" :key="index">
           <mu-td>{{item.outTradeNo}}</mu-td>
           <mu-td>{{item.name}}</mu-td>
-          <mu-td class="price">￥{{item.totalPrice}}</mu-td>
-          <mu-td class="price">￥{{item.paidPrice}}</mu-td>
-          <mu-td class="price">￥{{item.agentPrice}}</mu-td>
+          <mu-td class="price"><span v-if="item.totalPrice">￥</span><span v-if="!item.totalPrice">-</span>{{item.totalPrice}}</mu-td>
+          <mu-td class="price"><span v-if="item.totalPrice">￥</span><span v-if="!item.totalPrice">-</span>{{item.paidPrice}}</mu-td>
+          <mu-td class="price"><span v-if="item.totalPrice">￥</span><span v-if="!item.totalPrice">-</span>{{item.agentPrice}}</mu-td>
 
           <mu-td v-if="item.agentId">线下订单</mu-td>
           <mu-td v-if="!item.agentId">线上订单</mu-td>
@@ -59,33 +59,19 @@ export default {
   },
   data () {
     return {
-      list: [
-        {
-          outTradeNo: 'T201722181R27889',
-          name: '展示版网站',
-          price: 200,
-          'addTime': '2018-03-31 04:57:47',
-          'agentId': 'string',
-          'agentPrice': 0,
-          'auditId': 'string',
-          orderId: 'string',
-          paidPrice: 0,
-          paymentType: 'UN_PAY',
-          totalPrice: 0
-        }
-      ],
+      list: [],
       columns: [
         { title: '订单编号' },
         { title: '产品名称' },
-        { title: '原价', width: 60 },
+        { title: '原价', width: 70 },
         { title: '客户应付金额', width: 110 },
         { title: '经销商支付金额' },
-        { title: '标记', width: 110 },
+        { title: '标记', width: 90 },
         { title: '订单创建时间', width: 130 },
         { title: '状态', width: 70 },
         { title: '操作', width: 60 }
       ],
-      total: 10000,
+      total: 0,
       searchData: {
         page: 0,
         size: 10,

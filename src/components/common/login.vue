@@ -11,7 +11,7 @@
               <input type="text" name="randCode" placeholder="填写验证码" v-model="model.code">
               <img :src="'http://buy.jihui88.com/verificationCode'+verifyPic" class="veriImg" @click="refreshCode">
             </div>
-            <button type="button" class="submit" @click="submit">登录</button>
+            <button type="button" class="submit" @click="submit" @keyup.enter="submit">登录</button>
           </div>
         </div>
         <img src="http://www.jihui88.com/member/static/images/f-x.png" alt="close" @click="close" class="close">
