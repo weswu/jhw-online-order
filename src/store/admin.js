@@ -17,14 +17,6 @@ const mutations = {
 const actions = {
   getHomeInfo ({commit}) {
     var ctx = this
-    ctx.commit('admin/setHomeInfo', {
-      name: 'wuxiao',
-      navigateList: [
-        { name: '订单列表', url: 'order' },
-        { name: '权限管理', url: 'permission' },
-        { name: '订单列表', url: 'agent' }
-      ]
-    })
     this._vm.$http.get('/admin/home/info').then((res) => {
       if (res.data) {
         ctx.commit('admin/setHomeInfo', res.data)
