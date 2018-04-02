@@ -120,14 +120,8 @@ export default {
   methods: {
     open (id) {
       var ctx = this
-      var url = ''
-      this.path = this.$route.path.split('/')[1]
-      if (this.path === 'agent') {
-        url = 'agent'
-      } else if (this.path === 'admin') {
-        url = 'order'
-      }
-      this.$http.get('/admin/' + url + '/order/detail?orderId=' + id).then((res) => {
+      this.path = this.$route.path.split('/')[2]
+      this.$http.get('/admin/' + this.path + '/order/detail?orderId=' + id).then((res) => {
         ctx.detail = res.data
         ctx.time = this.format(this.detail.addTime)
       })
@@ -164,12 +158,6 @@ export default {
     },
     submit () {
       let ctx = this
-      var url = ''
-      if (this.path === 'agent') {
-        url = 'agent'
-      } else if (this.path === 'admin') {
-        url = 'order'
-      }
       var data = {
         orderId: this.detail.orderId,
         addTime: this.detail.addTime,
@@ -177,7 +165,7 @@ export default {
         paidPrice: this.detail.paidPrice,
         agentPrice: this.detail.agentPrice
       }
-      this.$http.post('/admin/' + url + '/order/submit?' + qs.stringify(data)).then((res) => {
+      this.$http.post('/admin/' + this.path + '/order/submit?' + qs.stringify(data)).then((res) => {
         if (res.code === 0) {
           ctx.$parent.$parent.$refs.toast.show('提交成功')
           ctx.$emit('edit', data)

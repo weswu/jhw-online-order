@@ -6,7 +6,7 @@
           <img src="http://www.jihui88.com/member/static/images/f-logo.png" alt="" class="logo">
           <div class="f-login">
             <div class="f-input">
-              <input name="username" type="text" :placeholder="placeholder" v-model="model.username" class="border">
+              <input name="username" type="text" placeholder="请输入管理员/经销商账号" v-model="model.username" class="border">
               <input name="password" type="password" placeholder="请输入密码" v-model="model.password" class="border">
               <input type="text" name="randCode" placeholder="填写验证码" v-model="model.code">
               <img :src="'http://buy.jihui88.com/verificationCode'+verifyPic" class="veriImg" @click="refreshCode">
@@ -35,14 +35,6 @@ export default {
       placeholder: '请输入账号'
     }
   },
-  mounted () {
-    let name = this.$route.path.split('/')[1]
-    if (name === 'agent') {
-      this.placeholder = '请输入经销商账号'
-    } else if (name === 'admin') {
-      this.placeholder = '请输入管理员账号'
-    }
-  },
   methods: {
     open (val) {
       this.display = 'block'
@@ -63,7 +55,7 @@ export default {
       }
       this.$http.post('/auth/admin/login?' + qs.stringify(this.model)).then((res) => {
         if (res.code === 0) {
-          ctx.$store.dispatch(ctx.$route.path.split('/')[1] + '/getHomeInfo')
+          ctx.$store.dispatch('admin/getHomeInfo')
           ctx.display = 'none'
         } else {
           ctx.$parent.$parent.$refs.toast.show(res.msg)

@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <mu-sub-header>订单系统后台管理</mu-sub-header>
+    <mu-sub-header>权限管理</mu-sub-header>
     <mu-content-block class="search">
       <input type="text" v-model="searchData.name" placeholder="用户名">
       <button type="button" name="button" @click="search">搜索</button>
@@ -58,6 +58,7 @@
 
 <script>
 import qs from 'qs'
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
@@ -85,6 +86,19 @@ export default {
       permissionType: '',
       page: '',
       id: ''
+    }
+  },
+  computed: {
+    ...mapGetters({
+      homeInfo: 'admin/homeInfo'
+    })
+  },
+  watch: {
+    homeInfo: {
+      handler () {
+        this.get()
+      },
+      deep: true
     }
   },
   created () {

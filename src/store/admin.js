@@ -2,7 +2,8 @@ const state = {
   homeInfo: {
     navigateList: [
       { name: '订单列表', url: 'order' },
-      { name: '权限管理', url: 'permission' }
+      { name: '权限管理', url: 'permission' },
+      { name: '订单列表', url: 'agent' }
     ]
   }
 }

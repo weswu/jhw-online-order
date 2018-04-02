@@ -3,7 +3,7 @@
     <div class="layout">
       <div class="content">
         <AHeader :homeInfo="homeInfo"/>
-        <AMenu :homeInfo="homeInfo" :title="'订单系统后台管理'"/>
+        <AMenu :homeInfo="homeInfo" :title="'订单管理系统'"/>
         <div class="content-right">
           <div class="body">
             <router-view/>

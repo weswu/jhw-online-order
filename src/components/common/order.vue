@@ -1,8 +1,8 @@
 <template>
   <div id="A_Order">
     <mu-sub-header>
-      <span v-if="pageName === 'admin'">订单系统后台管理</span>
-      <span v-if="pageName === 'agent'">经销商补单系统</span>
+      <span v-if="pageName === 'order'">订单列表</span>
+      <span v-if="pageName === 'agent'">经销商补单</span>
     </mu-sub-header>
     <mu-content-block class="search">
       <input type="text" name="" value="" v-model="searchData.outTradeNo" placeholder="订单编号">
@@ -52,6 +52,7 @@
 
 <script>
 import qs from 'qs'
+import { mapGetters } from 'vuex'
 import OrderDetail from '@/components/common/orderDetail'
 export default {
   components: {
@@ -85,25 +86,32 @@ export default {
       pageName: ''
     }
   },
+  computed: {
+    ...mapGetters({
+      homeInfo: 'admin/homeInfo'
+    })
+  },
+  watch: {
+    homeInfo: {
+      handler () {
+        this.get()
+      },
+      deep: true
+    }
+  },
   created () {
     this.get()
   },
   mounted () {
-    this.pageName = this.$route.path.split('/')[1]
+    this.pageName = this.$route.path.split('/')[2]
   },
   methods: {
     get () {
       var ctx = this
-      let url = ''
       if (!this.pageName) {
-        this.pageName = this.$route.path.split('/')[1]
+        this.pageName = this.$route.path.split('/')[2]
       }
-      if (this.pageName === 'agent') {
-        url = 'agent'
-      } else if (this.pageName === 'admin') {
-        url = 'order'
-      }
-      this.$http.get('/admin/' + url + '/list?' + qs.stringify(this.searchData)).then((res) => {
+      this.$http.get('/admin/' + this.pageName + '/list?' + qs.stringify(this.searchData)).then((res) => {
         if (res.code === 0) {
           ctx.list = res.data.content
           if (this.searchData.page === 0) {
