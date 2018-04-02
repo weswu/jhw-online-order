@@ -150,7 +150,6 @@ export default {
     },
     edit (data) {
       let ctx = this
-      debugger
       ctx.list.forEach(item => {
         if (item.orderId === data.orderId) {
           if (data.auditId) {
