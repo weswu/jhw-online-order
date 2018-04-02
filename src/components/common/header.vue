@@ -2,7 +2,7 @@
   <div id="A_Header">
     <mu-appbar>
       <div class="logo">
-        <img src="http://img.jihui88.com/upload/w/w5/www2/picture/2017/07/05/54b68a5c-fdd2-4842-9e1e-b88d1c403f28.png" alt="">
+        <a href="http://www.jihui88.com/"><img src="http://img.jihui88.com/upload/w/w5/www2/picture/2017/07/05/54b68a5c-fdd2-4842-9e1e-b88d1c403f28.png" alt=""></a>
       </div>
       <mu-flat-button label="登录" slot="right" @click="signIn" v-if="!homeInfo.username"/>
       <mu-flat-button :label="homeInfo.name || homeInfo.username" labelPosition="before" icon="arrow_drop_down" slot="right" v-if="homeInfo.username" @click="toggle"/>

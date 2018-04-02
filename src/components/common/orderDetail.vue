@@ -22,7 +22,7 @@
         </mu-flexbox>
         <mu-flexbox>
           <mu-flexbox-item class="flex-demo"> 订单编号：{{detail.outTradeNo}}</mu-flexbox-item>
-          <mu-flexbox-item class="flex-demo"> 产品名称：{{detail.name}}</mu-flexbox-item>
+          <mu-flexbox-item class="flex-demo overflow"> 产品名称：{{detail.name}}</mu-flexbox-item>
         </mu-flexbox>
         <mu-flexbox>
           <mu-flexbox-item class="flex-demo"> 订单创建时间：
@@ -55,7 +55,10 @@
         </mu-flexbox>
 
         <mu-flexbox class="bg">
-          <mu-flexbox-item class="flex-demo">产品名称：{{detail.name}}</mu-flexbox-item>
+          <mu-flexbox-item class="flex-demo" style="height: auto;">
+            <div style="width: 80px;float: left;">产品名称：</div>
+            <div style="display: inline-block;width: 80%;float: left;text-indent: 0;line-height: 26px;padding: 5px 0;">{{detail.name}}</div>
+          </mu-flexbox-item>
         </mu-flexbox>
         <mu-flexbox>
           <mu-flexbox-item class="flex-demo"> 原价：<span class="price">￥{{detail.totalPrice}}</span></mu-flexbox-item>
@@ -123,8 +126,8 @@ export default {
       this.path = this.$route.path.split('/')[2]
       this.$http.get('/admin/' + this.path + '/order/detail?orderId=' + id).then((res) => {
         ctx.detail = res.data
-        ctx.time = this.format(this.detail.addTime)
-        ctx.time24 = this.format2(this.detail.addTime)
+        ctx.time = ctx.format(this.detail.addTime)
+        ctx.time24 = ctx.format2(this.detail.addTime)
       })
       this.dialog = true
     },
@@ -250,12 +253,14 @@ export default {
       height: 38px;
       line-height: 38px;
       text-indent: 15px;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
     }
     .mu-flexbox-item:first-child {
       border-left: none;
+    }
+    .overflow{
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
     }
   }
   .first-flexbox{

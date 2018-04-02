@@ -106,7 +106,6 @@ export default {
   },
   created () {
     this.get()
-    console.log('2')
   },
   mounted () {
     this.pageName = this.$route.path.split('/')[2]
@@ -120,7 +119,7 @@ export default {
       this.$http.get('/admin/' + this.pageName + '/list?' + qs.stringify(this.searchData)).then((res) => {
         if (res.code === 0) {
           ctx.list = res.data.content
-          if (this.searchData.page === 0) {
+          if (ctx.searchData.page === 0) {
             ctx.total = res.data.totalElements
           }
         } else {
@@ -155,10 +154,10 @@ export default {
           if (data.auditId) {
             item.auditId = '01'
           } else {
-            item.addTime = this.detail.addTime
-            item.agentId = this.detail.agentId
-            item.paidPrice = this.detail.paidPrice
-            item.agentPrice = this.detail.agentPrice
+            item.addTime = data.addTime
+            item.agentId = data.agentId
+            item.paidPrice = data.paidPrice
+            item.agentPrice = data.agentPrice
           }
         }
       })

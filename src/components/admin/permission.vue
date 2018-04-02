@@ -115,7 +115,7 @@ export default {
       this.$http.get('/admin/permission/list?' + qs.stringify(this.searchData)).then((res) => {
         if (res.code === 0) {
           ctx.list = res.data.content
-          if (this.searchData.page === 0) {
+          if (ctx.searchData.page === 0) {
             ctx.total = res.data.totalElements
           }
         } else {
