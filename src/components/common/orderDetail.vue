@@ -8,7 +8,7 @@
         订单编号：{{detail.outTradeNo}}
         <div class="examine" v-if="path === 'order' && !detail.auditId" style="float: right;">
           <button type="button" name="button" @click="examine('auditPass')" style="background:#417505;color:#fff">审核通过</button>
-          <button type="button" name="button" @click="examine('auditNotPass')" style="background:#d0021b;color:#fff">审核不通过</button>
+          <button type="button" name="button" @click="examine('auditNotPass')" style="background:#d0021b;color:#fff;margin-right: 0;">审核不通过</button>
         </div>
       </mu-sub-header>
       <mu-content-block>
@@ -136,7 +136,7 @@ export default {
     },
     examine (e) {
       let ctx = this
-      this.$http.post('/admin/order/' + e).then((res) => {
+      this.$http.post('/admin/order/' + e + '?orderId=' + this.detail.orderId).then((res) => {
         if (res.code === 0) {
           ctx.$parent.$refs.toast.show('操作成功')
           ctx.$emit('edit', {orderId: this.detail.orderId, auditId: '01'})
