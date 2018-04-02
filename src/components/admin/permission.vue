@@ -207,7 +207,7 @@ export default {
     del () {
       var ctx = this
       this.dialog = false
-      this.$http.delete('/admin/permission/delete/' + this.id).then((res) => {
+      this.$http.delete('/admin/permission/detail/' + this.id).then((res) => {
         if (res.code === 0) {
           ctx.$parent.$refs.toast.show('删除成功')
           for (let i = 0; i < ctx.list.length; i++) {
