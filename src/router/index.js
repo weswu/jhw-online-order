@@ -38,11 +38,11 @@ export default new Router({
     // 订单管理系统
     { path: '/admin',
       component: Admin,
-      meta: { admin: true, title: '订单管理系统' },
+      meta: { admin: true, title: '机汇网订单管理系统' },
       children: [
-        { path: 'order', component: AOrder, meta: { admin: true, title: '订单管理系统__订单管理' } },
-        { path: 'permission', component: APermission, meta: { admin: true, title: '订单管理系统_权限管理' } },
-        { path: 'agent', component: AOrder, meta: { admin: true, title: '订单管理系统__经销商补单' } }
+        { path: 'order', component: AOrder, meta: { admin: true, title: '机汇网订单管理系统' } },
+        { path: 'permission', component: APermission, meta: { admin: true, title: '机汇网订单管理系统' } },
+        { path: 'agent', component: AOrder, meta: { admin: true, title: '机汇网订单管理系统' } }
       ]
     }
   ]
