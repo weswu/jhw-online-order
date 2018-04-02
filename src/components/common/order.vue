@@ -20,9 +20,9 @@
         <mu-tr v-for="(item,index) in list" :key="index">
           <mu-td>{{item.outTradeNo}}</mu-td>
           <mu-td>{{item.name}}</mu-td>
-          <mu-td class="price"><span v-if="item.totalPrice">￥</span><span v-if="!item.totalPrice">-</span>{{item.totalPrice}}</mu-td>
-          <mu-td class="price"><span v-if="item.totalPrice">￥</span><span v-if="!item.totalPrice">-</span>{{item.paidPrice}}</mu-td>
-          <mu-td class="price"><span v-if="item.totalPrice">￥</span><span v-if="!item.totalPrice">-</span>{{item.agentPrice}}</mu-td>
+          <mu-td class="price">￥{{item.totalPrice || 0}}</mu-td>
+          <mu-td class="price"><span v-if="item.paidPrice">￥{{item.paidPrice}}</span><span v-if="!item.paidPrice">-</span></mu-td>
+          <mu-td class="price"><span v-if="item.agentPrice">￥{{item.agentPrice}}</span><span v-if="!item.agentPrice">-</span></mu-td>
 
           <mu-td v-if="item.agentId">线下订单</mu-td>
           <mu-td v-if="!item.agentId">线上订单</mu-td>
@@ -94,13 +94,19 @@ export default {
   watch: {
     homeInfo: {
       handler () {
-        this.get()
+        var ctx = this
+        setTimeout(function () {
+          if (ctx.list.length === 0) {
+            ctx.get()
+          }
+        }, 1000)
       },
       deep: true
     }
   },
   created () {
     this.get()
+    console.log('2')
   },
   mounted () {
     this.pageName = this.$route.path.split('/')[2]

@@ -6,7 +6,7 @@
     <div id="A_Order_Detail">
       <mu-sub-header>
         订单编号：{{detail.outTradeNo}}
-        <div class="examine" v-if="path === 'admin' && !detail.auditId" style="float: right;">
+        <div class="examine" v-if="path === 'order' && !detail.auditId" style="float: right;">
           <button type="button" name="button" @click="examine('auditPass')" style="background:#417505;color:#fff">审核通过</button>
           <button type="button" name="button" @click="examine('auditNotPass')" style="background:#d0021b;color:#fff">审核不通过</button>
         </div>
@@ -245,6 +245,9 @@ export default {
       height: 38px;
       line-height: 38px;
       text-indent: 15px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
     }
     .mu-flexbox-item:first-child {
       border-left: none;

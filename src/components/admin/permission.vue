@@ -96,7 +96,12 @@ export default {
   watch: {
     homeInfo: {
       handler () {
-        this.get()
+        var ctx = this
+        setTimeout(function () {
+          if (ctx.list.length === 0) {
+            ctx.get()
+          }
+        }, 1000)
       },
       deep: true
     }
