@@ -28,6 +28,7 @@
           <mu-td v-if="!item.agentId">线上订单</mu-td>
 
           <mu-td>{{item.addTime | time('yyyy-MM-dd hh:mm')}}</mu-td>
+          <mu-td>{{item.endTime | time('yyyy-MM-dd hh:mm')}}</mu-td>
 
           <mu-td class="red" v-if="item.paymentType === 'UN_PAY'">未支付</mu-td>
           <mu-td class="green" v-if="item.paymentType !== 'UN_PAY'">已支付</mu-td>
@@ -60,7 +61,9 @@ export default {
   },
   data () {
     return {
-      list: [],
+      list: [
+        {}
+      ],
       columns: [
         { title: '订单编号' },
         { title: '产品名称' },
@@ -69,6 +72,7 @@ export default {
         { title: '经销商支付金额' },
         { title: '标记', width: 90 },
         { title: '订单创建时间', width: 130 },
+        { title: '过期时间', width: 130 },
         { title: '状态', width: 70 },
         { title: '操作', width: 60 }
       ],

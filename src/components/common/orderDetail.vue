@@ -10,6 +10,10 @@
           <button type="button" name="button" @click="examine('auditPass')" style="background:#417505;color:#fff">审核通过</button>
           <button type="button" name="button" @click="examine('auditNotPass')" style="background:#d0021b;color:#fff;margin-right: 0;">审核不通过</button>
         </div>
+        <div class="" v-if="path === 'order' && detail.auditId" style="float: right;">
+           <span v-if="detail.auditId !== 'notPass'" style="color:#417505">审核已通过</span>
+           <span v-else style="color:#d0021b">审核不通过</span>
+        </div>
       </mu-sub-header>
       <mu-content-block>
         <div class="order-state">
@@ -46,6 +50,10 @@
             <span class="update" @click="update1=false" v-if="update1">确定</span>
 
           </mu-flexbox-item>
+        </mu-flexbox>
+        <mu-flexbox>
+          <mu-flexbox-item class="flex-demo"> 使用年限：{{detail.year}}</mu-flexbox-item>
+          <mu-flexbox-item class="flex-demo"> 到期时间：{{detail.endTime | time('yyyy-MM-dd hh:mm')}}</mu-flexbox-item>
         </mu-flexbox>
         <mu-flexbox>
           <mu-flexbox-item class="flex-demo"> 支付状态：
@@ -125,9 +133,13 @@ export default {
       var ctx = this
       this.path = this.$route.path.split('/')[2]
       this.$http.get('/admin/' + this.path + '/order/detail?orderId=' + id).then((res) => {
-        ctx.detail = res.data
-        ctx.time = ctx.format(this.detail.addTime)
-        ctx.time24 = ctx.format2(this.detail.addTime)
+        if (res.code === 0) {
+          ctx.detail = res.data
+          ctx.time = ctx.format(this.detail.addTime)
+          ctx.time24 = ctx.format2(this.detail.addTime)
+        } else {
+          ctx.$parent.$parent.$refs.toast.show(res.msg)
+        }
       })
       this.dialog = true
     },
@@ -136,13 +148,16 @@ export default {
     },
     examine (e) {
       let ctx = this
+      if (e === 'auditNotPass') {
+        this.detail.auditId = 'notPass'
+      }
       this.$http.post('/admin/order/' + e + '?orderId=' + this.detail.orderId).then((res) => {
         if (res.code === 0) {
-          ctx.$parent.$refs.toast.show('操作成功')
-          ctx.$emit('edit', {orderId: this.detail.orderId, auditId: '01'})
+          ctx.$parent.$parent.$refs.toast.show('操作成功')
+          ctx.$emit('edit', {orderId: ctx.detail.orderId, auditId: ctx.detail.auditId})
           this.dialog = false
         } else {
-          ctx.$parent.$refs.toast.show(res.msg)
+          ctx.$parent.$parent.$refs.toast.show(res.msg)
         }
       })
     },
@@ -178,7 +193,7 @@ export default {
           ctx.$parent.$parent.$refs.toast.show('提交成功')
           ctx.$emit('edit', data)
         } else {
-          ctx.$parent.$refs.toast.show(res.msg)
+          ctx.$parent.$parent.$refs.toast.show(res.msg)
         }
       })
     }
