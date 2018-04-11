@@ -10,7 +10,7 @@
           <button type="button" name="button" @click="examine('auditPass')" style="background:#417505;color:#fff">审核通过</button>
           <button type="button" name="button" @click="examine('auditNotPass')" style="background:#d0021b;color:#fff;margin-right: 0;">审核不通过</button>
         </div>
-        <div class="" v-if="path === 'order' && detail.auditId" style="float: right;">
+        <div v-if="path === 'order' && detail.auditId" style="float: right;">
            <span v-if="detail.auditId !== 'notPass'" style="color:#417505">审核已通过</span>
            <span v-else style="color:#d0021b">审核不通过</span>
         </div>
@@ -150,11 +150,14 @@ export default {
       let ctx = this
       if (e === 'auditNotPass') {
         this.detail.auditId = 'notPass'
+      } else {
+        this.detail.auditId = 'pass'
+        this.detail.paymentType = 'PAY'
       }
       this.$http.post('/admin/order/' + e + '?orderId=' + this.detail.orderId).then((res) => {
         if (res.code === 0) {
           ctx.$parent.$parent.$refs.toast.show('操作成功')
-          ctx.$emit('edit', {orderId: ctx.detail.orderId, auditId: ctx.detail.auditId})
+          ctx.$emit('edit', {orderId: ctx.detail.orderId, auditId: ctx.detail.auditId, paymentType: ctx.detail.paymentType})
           this.dialog = false
         } else {
           ctx.$parent.$parent.$refs.toast.show(res.msg)
