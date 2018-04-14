@@ -37,7 +37,7 @@
 
           <mu-td class="red" v-if="item.auditId === 'notPass'">不通过</mu-td>
           <mu-td class="green" v-else-if="item.auditId">通过</mu-td>
-          <mu-td class="green" v-else>
+          <mu-td v-else style="color: #666">
             <span v-if="pageName === 'order'">待审核</span>
             <span v-if="pageName === 'agent'">审核中</span>
           </mu-td>
@@ -132,9 +132,7 @@ export default {
       this.$http.get('/admin/' + this.pageName + '/list?' + qs.stringify(this.searchData)).then((res) => {
         if (res.code === 0) {
           ctx.list = res.data.content
-          if (ctx.searchData.page === 0) {
-            ctx.total = res.data.totalElements
-          }
+          ctx.total = res.data.totalElements
         } else {
           ctx.$parent.$refs.toast.show(res.msg)
         }

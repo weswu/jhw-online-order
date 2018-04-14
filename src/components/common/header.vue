@@ -80,6 +80,9 @@ export default {
     .mu-flat-button:hover{
       color:#fff;
     }
+    .mu-flat-button-label{
+      text-transform: none;
+    }
   }
 }
 

@@ -103,7 +103,9 @@
           <mu-flexbox-item class="flex-demo"> 订单创建者手机号：{{detail.agentCellphone}}</mu-flexbox-item>
         </mu-flexbox>
       </mu-content-block>
-      <button type="button" name="button" class="submit" @click="submit">提交</button>
+
+      <button v-if="detail.auditId === 'notPass'" type="button" name="button" class="submit" @click="submit">提交</button>
+      <button v-if="!detail.auditId" type="button" name="button" class="submit" style="background: #aaa;">提交</button>
     </div>
   </mu-dialog>
 </template>
