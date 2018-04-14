@@ -1,6 +1,9 @@
 const state = {
   homeInfo: {
-    navigateList: []
+    navigateList: [
+      { name: '订单列表', url: 'order' },
+      { name: '经销商补单', url: 'agent' }
+    ]
   }
 }
 

@@ -115,11 +115,13 @@ export default {
       deep: true
     }
   },
-  created () {
-    this.get()
-  },
-  mounted () {
-    this.pageName = this.$route.path.split('/')[2]
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.pageName = vm.$route.path.split('/')[2]
+      vm.list = []
+      vm.searchData.page = 1
+      vm.get()
+    })
   },
   methods: {
     get () {
