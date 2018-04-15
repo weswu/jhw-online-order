@@ -119,7 +119,7 @@ export default {
     next(vm => {
       vm.pageName = vm.$route.path.split('/')[2]
       vm.list = []
-      vm.searchData.page = 1
+      vm.searchData.page = 0
       vm.get()
     })
   },
