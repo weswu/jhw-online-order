@@ -125,8 +125,9 @@
         </mu-flexbox>
       </mu-content-block>
       <button v-if="path === 'order'" type="button" name="button" class="submit" @click="submit">提交</button>
-      <button v-else-if="detail.auditId === 'notPass'" type="button" name="button" class="submit" @click="submit">提交</button>
-      <button v-else-if="!detail.auditId" type="button" name="button" class="submit" style="background: #aaa;">提交</button>
+
+      <button v-else-if="detail.auditId === 'notPass' || !detail.agentId" type="button" name="button" class="submit" @click="submit">提交</button>
+      <button v-else-if="!detail.auditId && detail.agentId" type="button" name="button" class="submit" style="background: #aaa;">提交</button>
     </div>
   </mu-dialog>
 </template>
