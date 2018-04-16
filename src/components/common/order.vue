@@ -18,8 +18,8 @@
       </mu-thead>
       <mu-tbody>
         <mu-tr v-for="(item,index) in list" :key="index">
-          <mu-td>{{item.outTradeNo}}</mu-td>
-          <mu-td>{{item.name}}</mu-td>
+          <mu-td :title="item.outTradeNo">{{item.outTradeNo}}</mu-td>
+          <mu-td :title="item.name">{{item.name}}</mu-td>
           <mu-td class="price">￥{{item.totalPrice || 0}}</mu-td>
           <mu-td class="price"><span v-if="item.paidPrice">￥{{item.paidPrice}}</span><span v-if="!item.paidPrice">-</span></mu-td>
           <mu-td class="price"><span v-if="item.agentPrice">￥{{item.agentPrice}}</span><span v-if="!item.agentPrice">-</span></mu-td>
@@ -31,7 +31,15 @@
           <mu-td>{{item.endTime | time('yyyy-MM-dd hh:mm')}}</mu-td>
 
           <mu-td class="red" v-if="item.paymentType === 'UN_PAY'">未支付</mu-td>
-          <mu-td class="green" v-if="item.paymentType !== 'UN_PAY'">已支付</mu-td>
+          <mu-td class="green" v-else-if="item.paymentType === 'PAID'">已支付</mu-td>
+          <mu-td v-else-if="item.paymentType === 'PART_PAY'">部分支付</mu-td>
+          <mu-td v-else>未支付</mu-td>
+
+          <mu-td v-if="item.payType === 'WX'">微信支付</mu-td>
+          <mu-td v-else-if="item.payType === 'ALI'">支付宝支付</mu-td>
+          <mu-td v-else-if="item.payType === 'BANK'">银行卡支付</mu-td>
+          <mu-td v-else-if="item.payType === 'PFA'">代付</mu-td>
+          <mu-td v-else>-</mu-td>
 
           <mu-td><a href="javascript:;" class="detail" @click="detail(item.orderId)">详情</a></mu-td>
 
@@ -80,6 +88,7 @@ export default {
         { title: '订单创建时间', width: 130 },
         { title: '过期时间', width: 130 },
         { title: '状态', width: 70 },
+        { title: '支付来源', width: 88 },
         { title: '操作', width: 60 },
         { title: '审核', width: 70 }
       ],

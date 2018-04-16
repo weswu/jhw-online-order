@@ -6,20 +6,20 @@
     <div id="A_Order_Detail">
       <mu-sub-header>
         订单编号：{{detail.outTradeNo}}
-        <div class="examine" v-if="path === 'order' && !detail.auditId" style="float: right;">
+        <div class="examine" v-if="path === 'order' && (!detail.auditId || detail.auditId === 'notPass')" style="float: right;">
           <button type="button" name="button" @click="examine('auditPass')" style="background:#417505;color:#fff">审核通过</button>
           <button type="button" name="button" @click="examine('auditNotPass')" style="background:#d0021b;color:#fff;margin-right: 0;">审核不通过</button>
         </div>
         <div v-if="path === 'order' && detail.auditId" style="float: right;">
            <span v-if="detail.auditId !== 'notPass'" style="color:#417505">审核已通过</span>
-           <span v-else style="color:#d0021b">审核不通过</span>
         </div>
       </mu-sub-header>
       <mu-content-block>
         <div class="order-state">
           订单状态：
           <span class="red" v-if="detail.paymentType === 'UN_PAY'">未支付</span>
-          <span class="green" v-if="detail.paymentType !== 'UN_PAY'">已支付</span>
+          <span class="green" v-if="detail.paymentType === 'PAID'">已支付</span>
+          <span v-if="detail.paymentType === 'PART_PAY'">部分支付</span>
         </div>
         <mu-flexbox class="first-flexbox bg">
           <mu-flexbox-item class="flex-demo">订单摘要</mu-flexbox-item>
@@ -39,16 +39,20 @@
 
           </mu-flexbox-item>
           <mu-flexbox-item class="flex-demo"> 标记：
-            <span v-if="!detail.agentId && !update1">线上订单</span>
+            <span v-if="!detail.agentId && !update1">
+              <span v-if="detail.paymentType === 'UN_PAY'">待付款</span>
+              <span v-else>线上订单</span>
+            </span>
             <span v-if="detail.agentId && !update1">线下订单</span>
 
-            <mu-select-field v-model="detail.agentId" :labelFocusClass="['label-foucs']" class="update_select" v-if="update1">
-              <mu-menu-item v-for="v,index in selecctList" :key="index" :value="v.value" :title="v.text" />
-            </mu-select-field>
+            <span v-if="path === 'order'">
+              <mu-select-field v-model="detail.agentId" :labelFocusClass="['label-foucs']" class="update_select" v-if="update1">
+                <mu-menu-item v-for="v,index in selecctList" :key="index" :value="v.value" :title="v.text" />
+              </mu-select-field>
 
-            <span class="update" @click="update1=true" v-if="!update1">修改</span>
-            <span class="update" @click="update1=false" v-if="update1">确定</span>
-
+              <span class="update" @click="update1=true" v-if="!update1">修改</span>
+              <span class="update" @click="update1=false" v-if="update1">确定</span>
+            </span>
           </mu-flexbox-item>
         </mu-flexbox>
         <mu-flexbox>
@@ -58,7 +62,15 @@
         <mu-flexbox>
           <mu-flexbox-item class="flex-demo"> 支付状态：
             <span class="red" v-if="detail.paymentType === 'UN_PAY'">未支付</span>
-            <span class="green" v-if="detail.paymentType !== 'UN_PAY'">已支付</span>
+            <span class="green" v-if="detail.paymentType === 'PAID'">已支付</span>
+            <span v-if="detail.paymentType === 'PART_PAY'">部分支付</span>
+          </mu-flexbox-item>
+          <mu-flexbox-item class="flex-demo"> 支付来源：
+            <span v-if="detail.payType === 'WX'">微信支付</span>
+            <span v-else-if="detail.payType === 'ALI'">支付宝支付</span>
+            <span v-else-if="detail.payType === 'BANK'">银行卡支付</span>
+            <span v-else-if="detail.payType === 'PFA'">代付</span>
+            <span v-else>-</span>
           </mu-flexbox-item>
         </mu-flexbox>
 
@@ -102,10 +114,19 @@
           <mu-flexbox-item class="flex-demo"> 订单创建者姓名：{{detail.agentName}}</mu-flexbox-item>
           <mu-flexbox-item class="flex-demo"> 订单创建者手机号：{{detail.agentCellphone}}</mu-flexbox-item>
         </mu-flexbox>
+        <mu-flexbox>
+          <mu-flexbox-item class="flex-demo" style="height: auto;">
+            <div style="width: 58px;float: left;">备注：</div>
+            <div style="display: inline-block;width: 80%;float: left;text-indent: 0;line-height: 26px;padding: 5px 0;">
+              <textarea v-model="detail.comment" v-if="path === 'agent'">{{detail.comment}}</textarea>
+              <span v-if="path === 'order'">{{detail.comment}}</span>
+            </div>
+          </mu-flexbox-item>
+        </mu-flexbox>
       </mu-content-block>
-
-      <button v-if="detail.auditId === 'notPass'" type="button" name="button" class="submit" @click="submit">提交</button>
-      <button v-if="!detail.auditId" type="button" name="button" class="submit" style="background: #aaa;">提交</button>
+      <button v-if="path === 'order'" type="button" name="button" class="submit" @click="submit">提交</button>
+      <button v-else-if="detail.auditId === 'notPass'" type="button" name="button" class="submit" @click="submit">提交</button>
+      <button v-else-if="!detail.auditId" type="button" name="button" class="submit" style="background: #aaa;">提交</button>
     </div>
   </mu-dialog>
 </template>
@@ -154,7 +175,7 @@ export default {
         this.detail.auditId = 'notPass'
       } else {
         this.detail.auditId = 'pass'
-        this.detail.paymentType = 'PAY'
+        this.detail.paymentType = 'PAID'
       }
       this.$http.post('/admin/order/' + e + '?orderId=' + this.detail.orderId).then((res) => {
         if (res.code === 0) {
@@ -193,6 +214,11 @@ export default {
         paidPrice: this.detail.paidPrice,
         agentPrice: this.detail.agentPrice
       }
+      // 经销商提交后会变成线下订单
+      if (this.path === 'agent') {
+        data.agentId = 'offline'
+        data.comment = this.detail.comment
+      }
       this.$http.post('/admin/' + this.path + '/order/submit?' + qs.stringify(data)).then((res) => {
         if (res.code === 0) {
           ctx.$parent.$parent.$refs.toast.show('提交成功')
@@ -207,9 +233,6 @@ export default {
 </script>
 
 <style lang="less">
-.order_detail{
-
-}
 .close{
   float:right;
 }
@@ -234,6 +257,13 @@ export default {
   }
   .green{
     color: #45780a
+  }
+  textarea{
+    width: 100%;
+    border: 1px solid #e1e6eb;
+    padding: 10px;line-height: 1.5;
+    height: 80px;
+    resize: none;
   }
   button{
     background: #f7f7f7;
