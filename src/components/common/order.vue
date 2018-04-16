@@ -46,8 +46,14 @@
           <mu-td class="red" v-if="item.auditId === 'notPass'">不通过</mu-td>
           <mu-td class="green" v-else-if="item.auditId">通过</mu-td>
           <mu-td v-else>
-            <span v-if="pageName === 'order'">待审核</span>
-            <span v-if="pageName === 'agent'">审核中</span>
+            <span v-if="pageName === 'order'">
+              <span v-if="agentId">待审核</span>
+              <span v-else>-</span>
+            </span>
+            <span v-if="pageName === 'agent'">
+              <span v-if="agentId">审核中</span>
+              <span v-else>-</span>
+            </span>
           </mu-td>
 
         </mu-tr>
