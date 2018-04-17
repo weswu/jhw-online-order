@@ -50,11 +50,11 @@
           <mu-td class="green" v-else-if="item.auditId">通过</mu-td>
           <mu-td v-else>
             <span v-if="pageName === 'order'">
-              <span v-if="agentId">待审核</span>
+              <span v-if="item.agentId">待审核</span>
               <span v-else>-</span>
             </span>
             <span v-if="pageName === 'agent'">
-              <span v-if="agentId">审核中</span>
+              <span v-if="item.agentId">审核中</span>
               <span v-else>-</span>
             </span>
           </mu-td>
