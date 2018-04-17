@@ -34,7 +34,7 @@
             <mu-date-picker v-model="time" v-if="update0"/>
             <mu-time-picker hintText="24小时制" format="24hr" v-model="time24" v-if="update0"/>
 
-            <span class="update" @click="update0=true" v-if="!update0">修改</span>
+            <span class="update" @click="update0=true" v-if="update && !update0">修改</span>
             <span class="update" @click="update" v-if="update0">确定</span>
 
           </mu-flexbox-item>
@@ -50,7 +50,7 @@
                 <mu-menu-item v-for="v,index in selecctList" :key="index" :value="v.value" :title="v.text" />
               </mu-select-field>
 
-              <span class="update" @click="update1=true" v-if="!update1">修改</span>
+              <span class="update" @click="update1=true" v-if="update && !update1">修改</span>
               <span class="update" @click="update1=false" v-if="update1">确定</span>
             </span>
           </mu-flexbox-item>
@@ -85,7 +85,7 @@
           <mu-flexbox-item class="flex-demo"> 客户应付金额：
             <span class="price" v-if="!update2">￥{{detail.paidPrice}}</span>
             <input type="text" class="update_price" v-model="detail.paidPrice" v-if="update2">
-            <span class="update" @click="update2=true" v-if="!update2">修改</span>
+            <span class="update" @click="update2=true" v-if="update && !update2">修改</span>
             <span class="update" @click="update2=false" v-if="update2">确定</span>
           </mu-flexbox-item>
         </mu-flexbox>
@@ -105,7 +105,7 @@
           <mu-flexbox-item class="flex-demo"> 经销商支付金额：
             <span class="price" v-if="!update3">￥{{detail.agentPrice}}</span>
             <input type="text" class="update_price" v-model="detail.agentPrice" v-if="update3">
-            <span class="update" @click="update3=true" v-if="!update3">修改</span>
+            <span class="update" @click="update3=true" v-if="update && !update3">修改</span>
             <span class="update" @click="update3=false" v-if="update3">确定</span>
           </mu-flexbox-item>
           <mu-flexbox-item class="flex-demo"> 订单创建公司：{{detail.agentEntName}}</mu-flexbox-item>
@@ -144,6 +144,7 @@ export default {
       ],
       dialog: false,
       path: '',
+      update: true,
       update0: false,
       update1: false,
       update2: false,
@@ -161,6 +162,11 @@ export default {
           ctx.detail = res.data
           ctx.time = ctx.format(this.detail.addTime)
           ctx.time24 = ctx.format2(this.detail.addTime)
+          if (ctx.path === 'agent') {
+            if (!(ctx.detail.auditId !== 'notPass' || !ctx.detail.agentId)) {
+              ctx.update = false
+            }
+          }
         } else {
           ctx.$parent.$parent.$refs.toast.show(res.msg)
         }

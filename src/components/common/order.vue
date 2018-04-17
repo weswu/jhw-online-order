@@ -138,6 +138,8 @@ export default {
       vm.pageName = vm.$route.path.split('/')[2]
       vm.list = []
       vm.searchData.page = 0
+      vm.searchData.username = ''
+      vm.searchData.outTradeNo = ''
       vm.get()
     })
   },
