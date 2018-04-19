@@ -14,6 +14,9 @@
             <div v-if="group.needCheck" @mouseenter="enter(item, $event)" @mouseleave="leave">
               <mu-radio v-if="group.type === 'radio'" @input="user(index)" @change="chooseRadio({sIndex: sIndex, gIndex: gIndex, index: index, item: item})" :label="item.name" :name="group.name" :nativeValue="item.value" :value="group.value"/>
               <mu-checkbox v-else @input="user(index)" @change="chooseCheck({sIndex: sIndex, gIndex: gIndex, index: index, item: item})" :label="item.name" :nativeValue="item.value" :value="group.value" :disabled="item.disabled"/>
+              <div v-if="group.type === 'check' && item.lan === 'ccc'">
+                <mu-checkbox  @input="user(index)" @change="chooseCheck({sIndex: sIndex, gIndex: gIndex, index: index, item: item})" :label="item.name" :nativeValue="item.value" :value="group.value" :disabled="item.disabled"/>
+              </div>
             </div>
             <span v-else @mouseenter="enter(item, $event)" @mouseleave="leave">{{item.name}}</span>
           </li>

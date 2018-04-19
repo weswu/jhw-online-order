@@ -70,6 +70,7 @@
             <span v-else-if="detail.payType === 'ALI'">支付宝支付</span>
             <span v-else-if="detail.payType === 'BANK'">银行卡支付</span>
             <span v-else-if="detail.payType === 'PFA'">代付</span>
+            <span v-else-if="detail.payType === 'OFFLINE'">线下支付</span>
             <span v-else>-</span>
           </mu-flexbox-item>
         </mu-flexbox>

@@ -9,6 +9,8 @@
       <button type="button" name="button" @click="search">搜索</button>
       <input type="text" name="" value="" v-model="searchData.username" placeholder="客户账号">
       <button type="button" name="button" @click="search">搜索</button>
+      <input type="text" name="" value="" v-model="searchData.agentUsernme" placeholder="经销商账号">
+      <button type="button" name="button" @click="search">搜索</button>
     </mu-content-block>
     <mu-table :showCheckbox="false" ref="table">
       <mu-thead>
@@ -42,6 +44,7 @@
           <mu-td v-else-if="item.payType === 'ALI'">支付宝支付</mu-td>
           <mu-td v-else-if="item.payType === 'BANK'">银行卡支付</mu-td>
           <mu-td v-else-if="item.payType === 'PFA'">代付</mu-td>
+          <mu-td v-else-if="item.payType === 'OFFLINE'">线下支付</mu-td>
           <mu-td v-else>-</mu-td>
 
           <mu-td><a href="javascript:;" class="detail" @click="detail(item.orderId)">详情</a></mu-td>
@@ -108,6 +111,7 @@ export default {
         sort: 'addTime,desc',
         outTradeNo: '',
         username: '',
+        agentUsernme: '',
         state: 'NORMAL' // NORMAL,INIT,DEL
       },
       page: '',
