@@ -9,7 +9,7 @@
       <button type="button" name="button" @click="search">搜索</button>
       <input type="text" name="" value="" v-model="searchData.username" placeholder="客户账号">
       <button type="button" name="button" @click="search">搜索</button>
-      <input type="text" name="" value="" v-model="searchData.agentUsernme" placeholder="经销商账号">
+      <input type="text" name="" value="" v-model="searchData.agentUsername" placeholder="经销商账号">
       <button type="button" name="button" @click="search">搜索</button>
     </mu-content-block>
     <mu-table :showCheckbox="false" ref="table">
@@ -111,7 +111,7 @@ export default {
         sort: 'addTime,desc',
         outTradeNo: '',
         username: '',
-        agentUsernme: '',
+        agentUsername: '',
         state: 'NORMAL' // NORMAL,INIT,DEL
       },
       page: '',
