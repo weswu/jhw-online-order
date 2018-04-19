@@ -4,7 +4,7 @@
     </transition>
 </template>
 <script>
-const DEFAULT_DURATION = 2000
+const DEFAULT_DURATION = 3000
 export default {
   name: 'toast',
   data () {

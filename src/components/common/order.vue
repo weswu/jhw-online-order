@@ -1,8 +1,8 @@
 <template>
   <div id="A_Order">
     <mu-sub-header>
-      <span v-if="pageName === 'order'">订单列表</span>
-      <span v-if="pageName === 'agent'">经销商补单</span>
+      <span v-if="pageName === 'order'">费用审核</span>
+      <span v-if="pageName === 'agent'">订单列表</span>
     </mu-sub-header>
     <mu-content-block class="search">
       <input type="text" name="" value="" v-model="searchData.outTradeNo" placeholder="订单编号">
