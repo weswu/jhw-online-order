@@ -334,7 +334,7 @@ const state = {
           needCheck: true,
           type: 'check',
           price: 0,
-          value: [],
+          value: ['8a9e457e62dd48000162e13bfaa90040'],
           items: [
             {name: '在线交易模块', price: 9000, value: '297e26696001918601600220d52900b9', unit: '元', html: '功能说明：<br/>详见商城系统。'},
             {name: '关键词监测', price: 600, value: '297e26696001918601600220f6e300bc', unit: '元/年', html: '功能说明：<br/>每天、每个搜索平台、每个关键词的时时排名监测，追踪关键词排名，实现按天、按排名付费给优化公司。'},
@@ -343,22 +343,13 @@ const state = {
             {name: '视频库', price: 200, value: '297e26696001918601600222828400c8', unit: '元', html: '功能说明：<br/>视频有产品视频、品牌视频、企业宣传片、微电影等形式<br/>各种视频短片放到网站上，达到一定宣传的营销手段'},
             {name: '众筹', price: 0, value: '297e26696001918601600222a5d700cb', unit: '面谈', html: '功能说明：<br/>团购+预购的形式，向网友募集项目资金的模式<br/>在微信上支付和留言。'},
             {name: '抽奖', price: 200, value: '297e26696001918601600222c87100cd', unit: '元', html: '功能说明：<br/>抽奖转盘，可设置抽奖等级、次数、中奖率，中奖用户数据'},
-            {
-              name: '多语言版本',
-              price: 0,
-              value: '297e26696001918601600220721b00b4',
-              unit: '原版本30%',
-              lan: 'many',
-              html: '功能说明：<br/>多语言支持，包括：简体中文、英语、日语、韩语、德语、法语。',
-              lans: [
-                {name: '中文', price: 0, value: '297e26696001918601600220721b00b4', unit: '原版本30%', lan: 'cn', html: '功能说明：<br/>多语言支持，包括：简体中文、英语、日语、韩语。'},
-                {name: '英语', price: 0, value: '297e26696001918601600220721b00b4', unit: '原版本30%', lan: 'en', html: '功能说明：<br/>多语言支持，包括：简体中文、英语、日语、韩语。'},
-                {name: '日语', price: 0, value: '297e26696001918601600220721b00b4', unit: '原版本30%', lan: 'jp', html: '功能说明：<br/>多语言支持，包括：简体中文、英语、日语、韩语。'},
-                {name: '韩语', price: 0, value: '297e26696001918601600220721b00b4', unit: '原版本30%', lan: 'kr', html: '功能说明：<br/>多语言支持，包括：简体中文、英语、日语、韩语。'},
-                {name: '德语', price: 0, value: '297e26696001918601600220721b00b4', unit: '原版本30%', lan: 'de', html: '功能说明：<br/>多语言支持，包括：简体中文、英语、日语、韩语。'},
-                {name: '法语', price: 0, value: '297e26696001918601600220721b00b4', unit: '原版本30%', lan: 'fr', html: '功能说明：<br/>多语言支持，包括：简体中文、英语、日语、韩语。'}
-              ]
-            }
+            {name: '多语言版本', price: 0, value: '297e26696001918601600220721b00b4', unit: '', html: '功能说明：<br/>多语言支持，包括：简体中文、英语、日语、韩语、德语、法语。<br/>选择以下版本'},
+            {name: '中文', price: 0, value: '8a9e457e62dd48000162e13bfaa90040', unit: '原版本30%', lan: 'cn', html: '功能说明：<br/>中文网站。'},
+            {name: '英语', price: 0, value: '8a9e457e62dd48000162e13c8a920042', unit: '原版本30%', lan: 'en', html: '功能说明：<br/>英语网站。'},
+            {name: '日语', price: 0, value: '8a9e457e62dd48000162e13cdbb50044', unit: '原版本30%', lan: 'jp', html: '功能说明：<br/>日语网站。'},
+            {name: '韩语', price: 0, value: '8a9e457e62dd48000162e13d47b40046', unit: '原版本30%', lan: 'kr', html: '功能说明：<br/>韩语网站。'},
+            {name: '德语', price: 0, value: '8a9e457e62dd48000162e13e4eee0048', unit: '原版本30%', lan: 'de', html: '功能说明：<br/>德语网站。'},
+            {name: '法语', price: 0, value: '8a9e457e62dd48000162e13e8365004a', unit: '原版本30%', lan: 'fr', html: '功能说明：<br/>法语网站。'}
           ]
         }
       ]
@@ -666,7 +657,7 @@ const mutations = {
               item.price += key.price * state.magenif
             } else {
               // 多语言
-              if (key.value === '297e26696001918601600220721b00b4') {
+              if (key.lan && !!item.value.join().match(new RegExp('297e26696001918601600220721b00b4'))) {
                 item.price += state.shopFunction[2].groups[1].price * 0.3
               } else {
                 item.price += key.unit === '元/年' ? key.price * state.year : key.price
@@ -703,6 +694,9 @@ const mutations = {
             if (!key.disabled && !!item.value.join().match(new RegExp(key.value))) {
               value ? value += (',' + key.value) : value = key.value
             }
+            if (key.lan === 'many') {
+              value ? value += (',' + key.value) : value = key.value
+            }
           })
         }
         priceItemIds ? priceItemIds += (value ? ',' + value : '') : priceItemIds = value
@@ -713,7 +707,16 @@ const mutations = {
   },
   // 套餐
   CHOOSE_MEAL_RADIO (state, params) {
-    state.meal[params.idx].value = params.item.value
+    // 套餐添加多语言
+    let value = params.item.value
+    if (params.idx === 1) {
+      if (value === '2c9080ce60f7b2650160f7c40283002d') {
+        value = value + ',8a9e457e62dd48000162e13c8a920042'
+      } else {
+        value = value + ',8a9e457e62dd48000162e13bfaa90040'
+      }
+    }
+    state.meal[params.idx].value = value
     state.meal[params.idx].name = params.item.name
   },
   MEAL_TOTAL (state, params) {
@@ -741,6 +744,7 @@ const mutations = {
     })
     state.totalPrice = totalPrice
     state.priceItemIds = priceItemIds
+    console.log(priceItemIds)
   },
   UPGRADE (state, params) {
     // 升级 已购产品不可用

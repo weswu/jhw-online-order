@@ -2,7 +2,7 @@
   <div id="meal">
     <div class="set-meal" v-for="(item, idx) in meal" :key="item.title">
       <p class="meal-title">{{item.title}}</p>
-      <mu-card v-for="(row, index) in item.items" :key="row.name">
+      <mu-card v-for="(row, index) in item.items" :key="row.name" v-if="!row.isHide">
         <div class="mu-card-title">
           {{row.name}}<span v-if="row.disabled">（续费）</span>
         </div>
@@ -22,10 +22,8 @@
           <img src="/static/star.png">
           <span class="s">5.0分</span>
         </div>
-        <mu-radio class="price" v-if="!row.isHide" @input="user(index)" @change="chooseMeal({idx: idx, index: index, item: row})" :label="'￥'+row.price+(row.unit||'')" :name="item.title" :nativeValue="row.value" :value="item.value"/>
-        <p class="price price2" v-if="row.isHide">
-          ￥<span v-if="row.disabled">{{item.renew}}</span><span v-if="!row.disabled">{{row.price}}{{row.unit||''}}</span> 
-        </p>
+        <mu-radio :class="{renew: row.unit==='元/首年', price: true}" @input="user(index)" @change="chooseMeal({idx: idx, index: index, item: row})"
+         :label="'￥'+row.price+row.unit+(row.unit==='元/首年'?'\n\n￥'+item.renew+'元/续费':'')" :name="item.title" :nativeValue="row.value" :value="item.value"/>
       </mu-card>
     </div>
   </div>
@@ -114,6 +112,11 @@ export default {
       margin-bottom: 14px;
       .mu-radio-label{
         color: #FF6600;
+      }
+    }
+    .renew{
+      .mu-radio-label{
+        font-size: 12px
       }
     }
     .price2{

@@ -20,6 +20,9 @@
             <span v-if="item.permissionType === 'PERMISSION'">权限管理</span>
             <span v-if="item.permissionType === 'AGENT'">经销商补单</span>
           </mu-td>
+          <mu-td>{{item.name}}</mu-td>
+          <mu-td>{{item.entName}}</mu-td>
+          <mu-td>{{item.cellphone}}</mu-td>
           <mu-td>
             <mu-icon value="mode_edit" color="blue" title="修改"  @click="open(item)"/>
             <mu-icon value="delete_forever" color="red" title="删除" @click="open(item, 'del')"/>
@@ -66,6 +69,9 @@ export default {
       columns: [
         { title: '用户名' },
         { title: '权限页面' },
+        { title: '姓名' },
+        { title: '公司' },
+        { title: '手机' },
         { title: '操作', width: 160 }
       ],
       total: 0,

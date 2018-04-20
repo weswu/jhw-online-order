@@ -13,13 +13,18 @@
           <li v-for="(item, index) in group.items" :key="item.name">
             <div v-if="group.needCheck" @mouseenter="enter(item, $event)" @mouseleave="leave">
               <mu-radio v-if="group.type === 'radio'" @input="user(index)" @change="chooseRadio({sIndex: sIndex, gIndex: gIndex, index: index, item: item})" :label="item.name" :name="group.name" :nativeValue="item.value" :value="group.value"/>
-              <mu-checkbox v-else @input="user(index)" @change="chooseCheck({sIndex: sIndex, gIndex: gIndex, index: index, item: item})" :label="item.name" :nativeValue="item.value" :value="group.value" :disabled="item.disabled"/>
-              <div v-if="group.type === 'check' && item.lan === 'ccc'">
-                <mu-checkbox  @input="user(index)" @change="chooseCheck({sIndex: sIndex, gIndex: gIndex, index: index, item: item})" :label="item.name" :nativeValue="item.value" :value="group.value" :disabled="item.disabled"/>
-              </div>
+              <mu-checkbox v-else-if="!item.lan || (item.lan && !!group.value.join().match(new RegExp('297e26696001918601600220721b00b4')))" @input="user(index)" @change="chooseCheck({sIndex: sIndex, gIndex: gIndex, index: index, item: item})"
+               :label="item.name" :nativeValue="item.value" :value="group.value" :disabled="item.disabled"/>
             </div>
             <span v-else @mouseenter="enter(item, $event)" @mouseleave="leave">{{item.name}}</span>
           </li>
+          <div v-for="(item, index) in group.items" :key="item.name" v-if="group.type === 'check' && item.lan === 'many'">
+            <li v-for="(lan, lanIndex) in item.lans" :key="lan.name" v-if="">
+              <div>
+                <mu-checkbox @change="chooseCheck({sIndex: sIndex, gIndex: gIndex, index: index, item: lan, lanIndex: lanIndex})" :label="lan.name" :nativeValue="lan.value" v-model="item.list" :disabled="lan.disabled"/>
+              </div>
+            </li>
+          </div>
           <div class="designer" v-if="group.custom && group.value === '297e2669600191860160021c49970083'">
             <mu-card v-for="k in designers" :key="k.id">
               <mu-card-media :title="k.name" :subTitle="k.sub">
