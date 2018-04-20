@@ -26,18 +26,6 @@
         </mu-flexbox>
         <mu-flexbox>
           <mu-flexbox-item class="flex-demo"> 订单编号：{{detail.outTradeNo}}</mu-flexbox-item>
-          <mu-flexbox-item class="flex-demo overflow"> 产品名称：{{detail.name}}</mu-flexbox-item>
-        </mu-flexbox>
-        <mu-flexbox>
-          <mu-flexbox-item class="flex-demo"> 订单创建时间：
-            <span v-if="!update0">{{detail.addTime | time('yyyy-MM-dd hh:mm')}}</span>
-            <mu-date-picker v-model="time" v-if="update0"/>
-            <mu-time-picker hintText="24小时制" format="24hr" v-model="time24" v-if="update0"/>
-
-            <span class="update" @click="update0=true" v-if="updateD && !update0">修改</span>
-            <span class="update" @click="update" v-if="update0">确定</span>
-
-          </mu-flexbox-item>
           <mu-flexbox-item class="flex-demo"> 标记：
             <span v-if="!detail.agentId && !update1">
               <span v-if="detail.paymentType === 'UN_PAY'">待付款</span>
@@ -56,15 +44,19 @@
           </mu-flexbox-item>
         </mu-flexbox>
         <mu-flexbox>
-          <mu-flexbox-item class="flex-demo"> 使用年限：{{detail.year}}</mu-flexbox-item>
-          <mu-flexbox-item class="flex-demo"> 到期时间：{{detail.endTime | time('yyyy-MM-dd hh:mm')}}</mu-flexbox-item>
+          <mu-flexbox-item class="flex-demo"> 订单创建时间：
+            <span v-if="!update0">{{detail.addTime | time('yyyy-MM-dd hh:mm')}}</span>
+            <mu-date-picker v-model="time" v-if="update0"/>
+            <mu-time-picker hintText="24小时制" format="24hr" v-model="time24" v-if="update0"/>
+
+            <span class="update" @click="update0=true" v-if="updateD && !update0">修改</span>
+            <span class="update" @click="update" v-if="update0">确定</span>
+
+          </mu-flexbox-item>
+          <mu-flexbox-item class="flex-demo"> 使用年限：{{detail.year}}年</mu-flexbox-item>
         </mu-flexbox>
         <mu-flexbox>
-          <mu-flexbox-item class="flex-demo"> 支付状态：
-            <span class="red" v-if="detail.paymentType === 'UN_PAY'">未支付</span>
-            <span class="green" v-if="detail.paymentType === 'PAID'">已支付</span>
-            <span v-if="detail.paymentType === 'PART_PAY'">部分支付</span>
-          </mu-flexbox-item>
+          <mu-flexbox-item class="flex-demo"> 到期时间：{{detail.endTime | time('yyyy-MM-dd hh:mm')}}</mu-flexbox-item>
           <mu-flexbox-item class="flex-demo"> 支付来源：
             <span v-if="detail.payType === 'WX'">微信支付</span>
             <span v-else-if="detail.payType === 'ALI'">支付宝支付</span>
@@ -74,15 +66,8 @@
             <span v-else>-</span>
           </mu-flexbox-item>
         </mu-flexbox>
-
-        <mu-flexbox class="bg">
-          <mu-flexbox-item class="flex-demo" style="height: auto;">
-            <div style="width: 80px;float: left;">产品名称：</div>
-            <div style="display: inline-block;width: 80%;float: left;text-indent: 0;line-height: 26px;padding: 5px 0;">{{detail.name}}</div>
-          </mu-flexbox-item>
-        </mu-flexbox>
-        <mu-flexbox>
-          <mu-flexbox-item class="flex-demo"> 原价：<span class="price">￥{{detail.totalPrice}}</span></mu-flexbox-item>
+        <mu-flexbox class="nobor">
+          <mu-flexbox-item class="flex-demo"> 总计：<span class="price">￥{{detail.totalPrice}}</span></mu-flexbox-item>
           <mu-flexbox-item class="flex-demo"> 客户应付金额：
             <span class="price" v-if="!update2">￥{{detail.paidPrice}}</span>
             <input type="text" class="update_price" v-model="detail.paidPrice" v-if="update2">
@@ -90,16 +75,50 @@
             <span class="update" @click="update2=false" v-if="update2">确定</span>
           </mu-flexbox-item>
         </mu-flexbox>
+
+        <mu-flexbox class="first-flexbox bg">
+          <mu-flexbox-item class="flex-demo">订单明细</mu-flexbox-item>
+        </mu-flexbox>
+        <mu-flexbox>
+          <mu-flexbox-item class="flex-demo overflow"> {{detail.name}} </mu-flexbox-item>
+          <mu-flexbox-item class="flex-demo"> 数量：1个 </mu-flexbox-item>
+        </mu-flexbox>
+        <mu-flexbox>
+          <mu-flexbox-item class="flex-demo"> 使用年限：1年 </mu-flexbox-item>
+          <mu-flexbox-item class="flex-demo"> 原价：￥{{detail.paidPrice}}x1 </mu-flexbox-item>
+        </mu-flexbox>
+        <mu-flexbox :class="{nobor:detail.year===1}">
+          <mu-flexbox-item class="flex-demo"> 小计：{{detail.name}} </mu-flexbox-item>
+          <mu-flexbox-item class="flex-demo"></mu-flexbox-item>
+        </mu-flexbox>
+        <div v-if="detail.year>1">
+          <mu-flexbox>
+            <mu-flexbox-item class="flex-demo"> 网站续费 </mu-flexbox-item>
+            <mu-flexbox-item class="flex-demo"> 数量：1个 </mu-flexbox-item>
+          </mu-flexbox>
+          <mu-flexbox>
+            <mu-flexbox-item class="flex-demo"> 使用年限：{{detail.year-1}}年 </mu-flexbox-item>
+            <mu-flexbox-item class="flex-demo"> 原价：￥{{detail.paidPrice}}x{{detail.year-1}} </mu-flexbox-item>
+          </mu-flexbox>
+          <mu-flexbox class="nobor">
+            <mu-flexbox-item class="flex-demo"> 小计：{{detail.paidPrice}} </mu-flexbox-item>
+            <mu-flexbox-item class="flex-demo"></mu-flexbox-item>
+          </mu-flexbox>
+        </div>
+
+        <mu-flexbox class="first-flexbox bg">
+          <mu-flexbox-item class="flex-demo">客户资料</mu-flexbox-item>
+        </mu-flexbox>
         <mu-flexbox>
           <mu-flexbox-item class="flex-demo"> 客户账号：{{detail.username}}</mu-flexbox-item>
           <mu-flexbox-item class="flex-demo"> 客户公司全称：{{detail.userEntName}}</mu-flexbox-item>
         </mu-flexbox>
-        <mu-flexbox>
+        <mu-flexbox class="nobor">
           <mu-flexbox-item class="flex-demo"> 公司法人：{{detail.userLegalPre}}</mu-flexbox-item>
           <mu-flexbox-item class="flex-demo"> 法人手机号：{{detail.userCellphone}}</mu-flexbox-item>
         </mu-flexbox>
 
-        <mu-flexbox class="bg">
+        <mu-flexbox class="first-flexbox bg">
           <mu-flexbox-item class="flex-demo">经销商详情</mu-flexbox-item>
         </mu-flexbox>
         <mu-flexbox>
@@ -323,6 +342,7 @@ export default {
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
+      color: #4a90e2;
     }
   }
   .first-flexbox{
@@ -332,6 +352,9 @@ export default {
   .bg{
     background: #f4f5f9;
     font-size: 13px;
+  }
+  .nobor{
+    border-bottom: none;
   }
   .order-state{
     background: #f9f9f9;

@@ -16,6 +16,11 @@ import Alipay from '@/components/pay/Alipay'
 import Admin from '@/pages/Admin'
 import AOrder from '@/components/common/order'
 import APermission from '@/components/admin/permission'
+// 订单管理系统
+import Member from '@/pages/Member'
+import MOrder from '@/components/member/order'
+import MPurchased from '@/components/member/purchased'
+import MPayment from '@/components/member/payment'
 
 Vue.use(Router)
 
@@ -43,6 +48,17 @@ export default new Router({
         { path: 'order', component: AOrder, meta: { admin: true, title: '机汇网订单管理系统' } },
         { path: 'permission', component: APermission, meta: { admin: true, title: '机汇网订单管理系统' } },
         { path: 'agent', component: AOrder, meta: { admin: true, title: '机汇网订单管理系统' } }
+      ]
+    },
+    { path: '/alipay', name: 'alipay', component: Alipay },
+    // 会员中心
+    { path: '/member',
+      component: Member,
+      meta: { admin: true, title: '机汇后台' },
+      children: [
+        { path: 'order', component: MOrder, meta: { admin: true, title: '机汇后台' } },
+        { path: 'purchased', component: MPurchased, meta: { admin: true, title: '机汇后台' } },
+        { path: 'payment', component: MPayment, meta: { admin: true, title: '机汇后台' } }
       ]
     }
   ]

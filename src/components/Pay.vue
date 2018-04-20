@@ -3,22 +3,21 @@
     <mu-dialog :open="dialog" @close="close" :title="title" dialogClass="dialogPay">
       <div id="O_Pay">
         <mu-row gutter class="pay-total">
-          <mu-col width="50" tablet="50" desktop="50" class="fl" v-if="!another">
+          <mu-col width="100" tablet="66" desktop="66" class="fl" v-if="!another">
             <span v-if="order.outTradeNo" style="margin-right:10px;">订单号：{{order.outTradeNo}}</span> 支付金额：<span class="total">{{money}} </span>
             <span class="discount" v-if="isOutPoint"><span style="text-decoration: line-through;">{{totalPriceSingle || totalPrice}}</span> (积分- {{points/10}})</span>
             <span class="discount" v-if="isOutDiscount">原价<span style="text-decoration: line-through;">{{totalPriceSingle || totalPrice}}</span> (优惠-99)元</span>
             <span class="discount" v-if="homeInfo.isDiscount && !isOutDiscount">(亲，还差{{1000 - money}}元即可享受99优惠哦)</span>
           </mu-col>
-          <mu-col width="50" tablet="50" desktop="50" class="fl" v-if="another">
+          <mu-col width="100" tablet="66" desktop="66" class="fl" v-if="another">
             支付金额：<span class="total">{{order.totalPrice}} 元</span>
           </mu-col>
-          <mu-col width="50" tablet="50" desktop="50" class="fr" v-if="!another">
+          <mu-col width="100" tablet="34" desktop="34" class="fr" v-if="!another">
             积分抵扣:
             <mu-text-field :hintText="'可用积分 '+$store.state.points" hintTextClass="hintTextClass" type="number" class="points"
                @change="poi" @input="checkPoint" :errorText="errorText" v-model.number="points" min="0" :max="$store.state.points"/>
           </mu-col>
         </mu-row>
-
         <mu-flexbox class="mt8">
           <mu-flexbox-item>
             <div class="pay-code">
