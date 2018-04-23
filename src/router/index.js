@@ -20,7 +20,7 @@ import APermission from '@/components/admin/permission'
 import Member from '@/pages/Member'
 import MOrder from '@/components/member/order'
 import MPurchased from '@/components/member/purchased'
-import MPayment from '@/components/member/payment'
+import MDetail from '@/components/member/detail'
 
 Vue.use(Router)
 
@@ -56,9 +56,9 @@ export default new Router({
       component: Member,
       meta: { admin: true, title: '机汇后台' },
       children: [
-        { path: 'order', component: MOrder, meta: { admin: true, title: '机汇后台' } },
-        { path: 'purchased', component: MPurchased, meta: { admin: true, title: '机汇后台' } },
-        { path: 'payment', component: MPayment, meta: { admin: true, title: '机汇后台' } }
+        { path: 'order', component: MOrder, meta: { admin: true, title: '机汇网后台' } },
+        { path: 'purchased', component: MPurchased, meta: { admin: true, title: '机汇网后台' } },
+        { path: 'detail/:id', component: MDetail, meta: { admin: true, title: '机汇网后台' } }
       ]
     }
   ]

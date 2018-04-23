@@ -12,44 +12,8 @@
           <mu-td :title="item.name">{{item.name}}</mu-td>
           <mu-td class="price">￥{{item.totalPrice || 0}}</mu-td>
           <mu-td class="price"><span v-if="item.paidPrice">￥{{item.paidPrice}}</span><span v-if="!item.paidPrice">-</span></mu-td>
-          <mu-td class="price"><span v-if="item.agentPrice">￥{{item.agentPrice}}</span><span v-if="!item.agentPrice">-</span></mu-td>
-
-          <mu-td v-if="item.agentId">线下订单</mu-td>
-          <mu-td v-if="!item.agentId">
-            <span v-if="item.paymentType === 'UN_PAY'">待付款</span>
-            <span v-else>线上订单</span>
-          </mu-td>
-
           <mu-td>{{item.addTime | time('yyyy-MM-dd hh:mm')}}</mu-td>
-          <mu-td>{{item.endTime | time('yyyy-MM-dd hh:mm')}}</mu-td>
-
-          <mu-td class="red" v-if="item.paymentType === 'UN_PAY'">未支付</mu-td>
-          <mu-td class="green" v-else-if="item.paymentType === 'PAID'">已支付</mu-td>
-          <mu-td v-else-if="item.paymentType === 'PART_PAY'">部分支付</mu-td>
-          <mu-td v-else>未支付</mu-td>
-
-          <mu-td v-if="item.payType === 'WX'">微信支付</mu-td>
-          <mu-td v-else-if="item.payType === 'ALI'">支付宝支付</mu-td>
-          <mu-td v-else-if="item.payType === 'BANK'">银行卡支付</mu-td>
-          <mu-td v-else-if="item.payType === 'PFA'">代付</mu-td>
-          <mu-td v-else-if="item.payType === 'OFFLINE'">线下支付</mu-td>
-          <mu-td v-else>-</mu-td>
-
           <mu-td><a href="javascript:;" class="detail" @click="detail(item.orderId)">详情</a></mu-td>
-
-          <mu-td class="red" v-if="item.auditId === 'notPass'">不通过</mu-td>
-          <mu-td class="green" v-else-if="item.auditId">通过</mu-td>
-          <mu-td v-else>
-            <span v-if="pageName === 'order'">
-              <span v-if="item.agentId">待审核</span>
-              <span v-else>-</span>
-            </span>
-            <span v-if="pageName === 'agent'">
-              <span v-if="item.agentId">审核中</span>
-              <span v-else>-</span>
-            </span>
-          </mu-td>
-
         </mu-tr>
       </mu-tbody>
     </mu-table>
@@ -60,7 +24,7 @@
       </div>
       <mu-pagination :total="total" :current="searchData.page + 1" :pageSize="searchData.size" @pageChange="handleClick"></mu-pagination>
       <div class="info">
-        共有{{total}}条，每页显示：10条
+        共有{{total}}条，每页显示：{{searchData.size}}条
       </div>
     </div>
   </div>
@@ -74,18 +38,12 @@ export default {
     return {
       list: [],
       columns: [
-        { title: '订单编号' },
-        { title: '产品名称' },
+        { title: '订单编号', width: 150 },
+        { title: '订单摘要' },
         { title: '原价', width: 70 },
-        { title: '客户应付金额', width: 110 },
-        { title: '经销商支付金额' },
-        { title: '标记', width: 90 },
+        { title: '应付金额', width: 110 },
         { title: '订单创建时间', width: 130 },
-        { title: '过期时间', width: 130 },
-        { title: '状态', width: 70 },
-        { title: '支付来源', width: 88 },
-        { title: '操作', width: 60 },
-        { title: '审核', width: 70 }
+        { title: '操作', width: 60 }
       ],
       total: 0,
       searchData: {
@@ -97,6 +55,7 @@ export default {
     }
   },
   created () {
+    this.searchData.size = parseInt(this.$route.query.size)
     this.get()
   },
   methods: {
@@ -115,10 +74,6 @@ export default {
       this.searchData.page = index - 1
       this.get()
     },
-    search () {
-      this.searchData.page = 0
-      this.get()
-    },
     searchPage () {
       if (this.page < 1) {
         this.searchData.page = 0
@@ -127,6 +82,9 @@ export default {
       }
       this.page = ''
       this.get()
+    },
+    detail (id) {
+      window.parent.postMessage({ page: 'order', id: id }, '*')
     }
   }
 }

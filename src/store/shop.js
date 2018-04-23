@@ -707,23 +707,14 @@ const mutations = {
   },
   // 套餐
   CHOOSE_MEAL_RADIO (state, params) {
-    // 套餐添加多语言
-    let value = params.item.value
-    if (params.idx === 1) {
-      if (value === '2c9080ce60f7b2650160f7c40283002d') {
-        value = value + ',8a9e457e62dd48000162e13c8a920042'
-      } else {
-        value = value + ',8a9e457e62dd48000162e13bfaa90040'
-      }
-    }
-    state.meal[params.idx].value = value
+    state.meal[params.idx].value = params.item.value
     state.meal[params.idx].name = params.item.name
   },
   MEAL_TOTAL (state, params) {
     let totalPrice = 0
     let priceItemIds = ''
     // 计算各项单个金额
-    state.meal.map(row => {
+    state.meal.map((row, idx) => {
       row.items.map(item => {
         if (item.value === row.value) {
           if (!item.disabled) row.price = item.price
@@ -741,6 +732,14 @@ const mutations = {
       })
       totalPrice += row.price
       priceItemIds ? priceItemIds += (row.value ? ',' + row.value : '') : priceItemIds = row.value
+      // 套餐添加多语言
+      if (idx === 1 && row.value) {
+        if (row.value === '2c9080ce60f7b2650160f7c40283002d') {
+          priceItemIds = priceItemIds + ',8a9e457e62dd48000162e13c8a920042'
+        } else {
+          priceItemIds = priceItemIds + ',8a9e457e62dd48000162e13bfaa90040'
+        }
+      }
     })
     state.totalPrice = totalPrice
     state.priceItemIds = priceItemIds
