@@ -55,7 +55,8 @@ export default {
     }
   },
   created () {
-    this.searchData.size = parseInt(this.$route.query.size)
+    window.parent.postMessage({ loading: '1' }, '*')
+    this.searchData.size = parseInt(this.$route.query.size || 10)
     this.get()
   },
   methods: {

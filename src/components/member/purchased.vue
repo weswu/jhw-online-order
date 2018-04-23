@@ -63,6 +63,7 @@ export default {
     }
   },
   created () {
+    window.parent.postMessage({ loading: '1' }, '*')
     this.searchData.size = parseInt(this.$route.query.size)
     this.get()
   },

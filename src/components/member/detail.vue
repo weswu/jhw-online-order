@@ -1,5 +1,5 @@
 <template>
-  <div id="A_Order_Detail">
+  <div id="A_Order_Detail" ref="order">
     <mu-sub-header>
       <span v-if="buy">产品续费</span>
       <span v-else>订单编号：{{detail.outTradeNo}}</span>
@@ -96,36 +96,32 @@ export default {
     }
   },
   created () {
+    window.parent.postMessage({ loading: '1' }, '*')
     this.detail.orderId = this.$route.params.id || '297e266962d19eed0162d1a391fd0003'
     if (this.$route.query.buy === '1') this.buy = true
     this.get()
   },
   watch: {
-    homeInfo: {
-      handler () {
-        console.log('watch')
-      },
-      deep: true
+    '$route' () {
+      this.detail.orderId = this.$route.params.id
+      this.get()
     }
-  },
-  beforeRouteEnter (to, from, next) {
-    next(vm => {
-      console.log('before')
-    })
   },
   methods: {
     get () {
       var ctx = this
-      this.$http.get('/admin/order/order/detail?orderId=' + this.detail.orderId).then((res) => {
+      this.detail.orderId && this.$http.get('/admin/order/order/detail?orderId=' + this.detail.orderId).then((res) => {
         if (res.code === 0) {
           ctx.detail = res.data
+          ctx.loading = false
+          window.parent.postMessage({ height: ctx.$refs.order.offsetHeight }, '*')
         } else {
-          ctx.$parent.$parent.$refs.toast.show(res.msg)
+          window.parent.postMessage({ error: res.msg }, '*')
         }
       })
     },
     submit () {
-
+      window.parent.postMessage({ success: '支付成功' }, '*')
     }
   }
 }

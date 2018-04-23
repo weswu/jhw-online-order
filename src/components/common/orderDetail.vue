@@ -79,29 +79,17 @@
         <mu-flexbox class="first-flexbox bg">
           <mu-flexbox-item class="flex-demo">订单明细</mu-flexbox-item>
         </mu-flexbox>
-        <mu-flexbox>
-          <mu-flexbox-item class="flex-demo overflow"> {{detail.name}} </mu-flexbox-item>
-          <mu-flexbox-item class="flex-demo"> 数量：1个 </mu-flexbox-item>
-        </mu-flexbox>
-        <mu-flexbox>
-          <mu-flexbox-item class="flex-demo"> 使用年限：1年 </mu-flexbox-item>
-          <mu-flexbox-item class="flex-demo"> 原价：￥{{detail.paidPrice}}x1 </mu-flexbox-item>
-        </mu-flexbox>
-        <mu-flexbox :class="{nobor:detail.year===1}">
-          <mu-flexbox-item class="flex-demo"> 小计：{{detail.name}} </mu-flexbox-item>
-          <mu-flexbox-item class="flex-demo"></mu-flexbox-item>
-        </mu-flexbox>
-        <div v-if="detail.year>1">
-          <mu-flexbox>
-            <mu-flexbox-item class="flex-demo"> 网站续费 </mu-flexbox-item>
+        <div class="" v-for="(item, index) in detail.orderItemList" :key="item.name">
+          <mu-flexbox :style="{ 'border-top': index > 0 ? '1px solid #e1e6eb' : '' }">
+            <mu-flexbox-item class="flex-demo overflow"> {{item.name}} </mu-flexbox-item>
             <mu-flexbox-item class="flex-demo"> 数量：1个 </mu-flexbox-item>
           </mu-flexbox>
           <mu-flexbox>
-            <mu-flexbox-item class="flex-demo"> 使用年限：{{detail.year-1}}年 </mu-flexbox-item>
-            <mu-flexbox-item class="flex-demo"> 原价：￥{{detail.paidPrice}}x{{detail.year-1}} </mu-flexbox-item>
+            <mu-flexbox-item class="flex-demo"> 使用年限：{{item.year}}年 </mu-flexbox-item>
+            <mu-flexbox-item class="flex-demo"> 原价：￥{{item.price}}x{{item.year}}</mu-flexbox-item>
           </mu-flexbox>
-          <mu-flexbox class="nobor">
-            <mu-flexbox-item class="flex-demo"> 小计：{{detail.paidPrice}} </mu-flexbox-item>
+          <mu-flexbox :class="{nobor:detail.orderItemList.length===(index+1)}">
+            <mu-flexbox-item class="flex-demo"> 小计：￥{{item.totalPrice}} </mu-flexbox-item>
             <mu-flexbox-item class="flex-demo"></mu-flexbox-item>
           </mu-flexbox>
         </div>

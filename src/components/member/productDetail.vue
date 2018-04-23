@@ -65,13 +65,20 @@ export default {
     }
   },
   created () {
+    window.parent.postMessage({ loading: '1' }, '*')
     this.detail.orderId = this.$route.params.id || '297e266962d19eed0162d1a391fd0003'
     this.get()
+  },
+  watch: {
+    '$route' () {
+      this.detail.orderId = this.$route.params.id
+      this.get()
+    }
   },
   methods: {
     get () {
       var ctx = this
-      this.$http.get('/admin/order/order/detail?orderId=' + this.detail.orderId).then((res) => {
+      this.detail.orderId && this.$http.get('/admin/order/order/detail?orderId=' + this.detail.orderId).then((res) => {
         if (res.code === 0) {
           ctx.detail = res.data
         } else {

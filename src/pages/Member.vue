@@ -28,7 +28,7 @@ export default {}
 
       }
       .mu-pagination-item.active{
-        color: #14a4ff;
+        background-color: #14a4ff;
       }
     }
   }
@@ -50,6 +50,7 @@ export default {}
     }
     button{
       width: auto;
+      margin-bottom: 0;
     }
   }
 }
