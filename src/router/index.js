@@ -21,6 +21,7 @@ import Member from '@/pages/Member'
 import MOrder from '@/components/member/order'
 import MPurchased from '@/components/member/purchased'
 import MDetail from '@/components/member/detail'
+import MProductDetail from '@/components/member/productDetail'
 
 Vue.use(Router)
 
@@ -58,7 +59,8 @@ export default new Router({
       children: [
         { path: 'order', component: MOrder, meta: { admin: true, title: '机汇网后台' } },
         { path: 'purchased', component: MPurchased, meta: { admin: true, title: '机汇网后台' } },
-        { path: 'detail/:id', component: MDetail, meta: { admin: true, title: '机汇网后台' } }
+        { path: 'detail/:id', component: MDetail, meta: { admin: true, title: '机汇网后台' } },
+        { path: 'product/:id', component: MProductDetail, meta: { admin: true, title: '机汇网后台' } }
       ]
     }
   ]

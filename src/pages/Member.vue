@@ -10,6 +10,9 @@ export default {}
 
 <style lang="less">
 #A_Page.j_member{
+  .mu-sub-header{
+    border-bottom: none;
+  }
   .mu-table{
     .detail{
       color: #2549a6;
@@ -38,12 +41,16 @@ export default {}
       padding: 0 3px;
     }
   }
-}
-.j_close{
-   height:20px;
-   position: relative;
-   button{
-     
-   }
+  .buy-total{
+    .buy-fr{
+      margin-top: 18px;
+      .price{
+        font-size: 22px;
+      }
+    }
+    button{
+      width: auto;
+    }
+  }
 }
 </style>
