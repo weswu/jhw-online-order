@@ -1,5 +1,5 @@
 <template>
-  <mu-dialog :open="dialog" @close="close">
+  <mu-dialog :open="dialog" @close="close" scrollable>
     <div class="" style="height:48px;">
       <mu-icon-button icon="clear" @click="close" class="close_right"/>
     </div>
@@ -252,4 +252,8 @@ export default {
 </script>
 
 <style lang="less">
+.mu-dialog-body::-webkit-scrollbar-track{background-color: transparent;}
+.mu-dialog-body::-webkit-scrollbar{width: 6px;height: 6px;}
+.mu-dialog-body::-webkit-scrollbar-thumb{background-color: #dedee4;}
+.mu-dialog-body::-webkit-scrollbar-corner {background-color: transparent;}
 </style>

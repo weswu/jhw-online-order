@@ -9,8 +9,8 @@
       <button type="button" name="button" @click="search">搜索</button>
       <input type="text" name="" value="" v-model="searchData.username" placeholder="客户账号">
       <button type="button" name="button" @click="search">搜索</button>
-      <input type="text" name="" value="" v-model="searchData.agentUsername" placeholder="经销商账号">
-      <button type="button" name="button" @click="search">搜索</button>
+      <input type="text" name="" value="" v-model="searchData.agentUsername" placeholder="经销商账号" v-if="pageName === 'order'">
+      <button type="button" name="button" @click="search" v-if="pageName === 'order'">搜索</button>
     </mu-content-block>
     <mu-table :showCheckbox="false" ref="table">
       <mu-thead>
