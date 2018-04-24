@@ -48,11 +48,11 @@
       </div>
       <div class="shop">
         <mu-tabs :value="activeTab" @change="chooseTab">
-          <mu-tab value="tab1" title="套餐" class="shop-tab tab2"/>
-          <mu-tab value="tab2" title="功能模板" class="shop-tab tab1"/>
+          <mu-tab value="tab1" title="功能模板" class="shop-tab tab1"/>
+          <mu-tab value="tab2" title="套餐" class="shop-tab tab2"/>
         </mu-tabs>
-        <SetMeal v-if="activeTab === 'tab1'"/>
-        <shop-group v-if="activeTab === 'tab2'"/>
+        <shop-group v-if="activeTab === 'tab1'"/>
+        <SetMeal v-if="activeTab === 'tab2'"/>
         <FAQ v-if="activeTab === 'tab1'"></FAQ>
       </div>
     </div>
