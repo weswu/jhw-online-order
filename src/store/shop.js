@@ -13,6 +13,7 @@ const meal = [
         desc2: '【卖点】我们的精选优质模板/集展示、互动、交易为一体，微信营销最强工具',
         pic: 'http://dfwjjingtai.b0.upaiyun.com/upload//j//j6//jz//picture//2018//01//10/830e3c58-ef21-40da-885a-70adf52fb5da.jpg',
         number: 53,
+        disabled: false,
         price: 5800
       },
       {
@@ -23,6 +24,7 @@ const meal = [
         desc2: '【卖点】包含展示型小程序所有功能，额外新增支付功能',
         pic: 'http://dfwjjingtai.b0.upaiyun.com/upload//j//j6//jz//picture//2018//01//10/e8acc853-c25a-4890-b73e-6ec757fc9af0.jpg',
         number: 34,
+        disabled: false,
         price: 8800
       },
       {
@@ -33,6 +35,7 @@ const meal = [
         desc2: '【卖点】特有个人推广/组织推广功能，数据分析，让员工、经销商、企业、上下游等一起推广',
         pic: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/03/2c3179c1-d249-495d-8cae-1dd580bebc8a.jpg',
         number: 20,
+        disabled: false,
         price: 3000
       },
       {
@@ -43,6 +46,7 @@ const meal = [
         desc2: '【卖点】在微信中形成病毒式传播，发起单位，众筹者轻松推广你的品牌/产品/活动',
         pic: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/03/82b8bd94-f360-4808-bdb9-f8153c4a5f6a.jpg',
         number: 5,
+        disabled: false,
         price: 10000
       },
       {
@@ -53,18 +57,8 @@ const meal = [
         desc2: '【卖点】让消费者成为你的业务员（分销商）',
         pic: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/03/0ff41011-35d1-471c-a270-60c99afb892a.jpg',
         number: 8,
+        disabled: false,
         price: 15800
-      },
-      {
-        value: '8a9e457e610db01c01610e099245000a',
-        name: '续费',
-        unit: '元/年',
-        desc: '【适合】展示型小程序/电商型小程序',
-        desc2: ' ',
-        pic: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/03/82b8bd94-f360-4808-bdb9-f8153c4a5f6a.jpg',
-        number: 90,
-        price: 1500,
-        isHide: true
       }
     ]
   },
@@ -83,6 +77,7 @@ const meal = [
         desc2: '【卖点】设计师一对一定制设计；特有SEO模块，网站上线最快次日收录',
         pic: 'https://oss.aliyuncs.com/photogallery/photo/1678560599049721/17047/23a11d91-0a91-474f-98c2-2745e90b31a3.jpg',
         number: 49,
+        disabled: false,
         price: 6800
       },
       {
@@ -93,6 +88,7 @@ const meal = [
         desc2: '【卖点】众多外贸网站制作经验，高级设计师一对一定制设计',
         pic: 'https://oss.aliyuncs.com/photogallery/photo/1678560599049721/17558/4b0d8722-a2c1-4aa1-9239-8eefb37e1461.jpg',
         number: 19,
+        disabled: false,
         price: 12800
       },
       {
@@ -103,6 +99,7 @@ const meal = [
         desc2: '【卖点】策划师一对一梳理网站卖点，高级设计师一对一定制设计，网站做到满意为止',
         pic: 'https://oss.aliyuncs.com/photogallery/photo/1678560599049721/17052/a953743e-824f-4a3c-9d52-caa120bf53ef.jpg',
         number: 21,
+        disabled: false,
         price: 16800
       },
       {
@@ -113,6 +110,7 @@ const meal = [
         desc2: '【卖点】功能丰富-积分换购、会员等级、限时秒杀、在线交易、多种支付方式等',
         pic: 'https://oss.aliyuncs.com/photogallery/photo/1678560599049721/18264/35077858-8695-4074-b997-669a44fdf09b.jpg',
         number: 5,
+        disabled: false,
         price: 16800
       },
       {
@@ -123,18 +121,8 @@ const meal = [
         desc2: '【卖点】首席设计师一对一定制设计，网站做到满意为止',
         pic: 'https://oss.aliyuncs.com/photogallery/photo/1678560599049721/18264/35077858-8695-4074-b997-669a44fdf09b.jpg',
         number: 6,
+        disabled: false,
         price: 25800
-      },
-      {
-        value: '8a9e457e610db01c01610e099245000a',
-        name: '续费',
-        unit: '元/年',
-        desc: '【适合】展示型网站/外贸型网站/营销型网站/电商型网站/品牌型网站',
-        desc2: ' ',
-        pic: 'https://oss.aliyuncs.com/photogallery/photo/1678560599049721/18264/35077858-8695-4074-b997-669a44fdf09b.jpg',
-        number: 94,
-        price: 2580,
-        isHide: true
       }
     ]
   },
@@ -152,6 +140,7 @@ const meal = [
         desc2: '【卖点】可被手机搜索引擎收录、拥有排名。与微信完美兼容，可转化为微网站',
         pic: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/03/82b8bd94-f360-4808-bdb9-f8153c4a5f6a.jpg',
         number: 68,
+        disabled: false,
         price: 5800
       },
       {
@@ -162,26 +151,16 @@ const meal = [
         desc2: '【卖点】包含手机网站所有功能，额外新增支付功能',
         pic: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/03/dec4cd61-c635-4b75-891c-f741d80f3c89.jpg',
         number: 32,
+        disabled: false,
         price: 8800
-      },
-      {
-        value: '8a9e457e610db01c01610e099245000a',
-        name: '续费',
-        unit: '元/年',
-        desc: '【适合】手机网站/手机商城',
-        desc2: ' ',
-        pic: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/03/82b8bd94-f360-4808-bdb9-f8153c4a5f6a.jpg',
-        number: 97,
-        price: 1500,
-        isHide: true
       }
     ]
   }
 ]
 
 const state = {
-  totalPrice: 600,
-  priceItemIds: '297e2669600191860160021b8fcc007f',
+  totalPrice: 0,
+  priceItemIds: '',
   magenif: 1,
   year: 1,
   yearList: [1, 2, 3, 5, 10],
@@ -761,6 +740,13 @@ const mutations = {
                 }
               }
             })
+          })
+        })
+        state.meal.map(row => {
+          row.items.map(item => {
+            if (ids === item.value) {
+              item.disabled = true
+            }
           })
         })
       })

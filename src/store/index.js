@@ -69,7 +69,7 @@ const actions = {
       if (res.data) {
         ctx.commit('setHomeInfo', res.data)
         ctx.commit('shop/UPGRADE', res.data.priceItemIds)
-        ctx.commit('shop/TOTAL')
+        ctx.commit('shop/MEAL_TOTAL')
       }
     })
   }

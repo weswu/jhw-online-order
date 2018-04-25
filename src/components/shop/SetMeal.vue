@@ -4,7 +4,9 @@
       <p class="meal-title">{{item.title}}</p>
       <mu-card v-for="(row, index) in item.items" :key="row.name" v-if="!row.isHide">
         <div class="mu-card-title">
-          {{row.name}}<span v-if="row.disabled">（续费）</span>
+          {{row.name}}
+          <span v-if="row.disabled && row.unit!=='元/首年'">（已购买）</span>
+          <span v-else-if="row.disabled">（续费）</span>
         </div>
         <mu-card-text :title="row.desc" v-if="row.desc">
           {{row.desc}}
