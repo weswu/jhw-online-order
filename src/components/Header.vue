@@ -34,7 +34,7 @@
           <a href="javascript:;" class="btn-register">{{user.nickname || user.username}}</a>
         </div>
         <mu-icon-menu icon="person" :anchorOrigin="anchorOrigin" :targetOrigin="targetOrigin" :open="open" @close="handleClose" :style="'position: absolute;height:0;right:0;opacity: ' + opacity" v-if="user.username">
-          <mu-menu-item title="会员中心" @click="toUc" />
+          <mu-menu-item title="机汇网后台" @click="toUc" />
           <a href="http://www.jihui88.com/member/index.html#/account"><mu-menu-item title="账号设置"/></a>
           <mu-menu-item title="退出" @click="toLogout" />
         </mu-icon-menu>
