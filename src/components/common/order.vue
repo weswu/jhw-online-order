@@ -23,8 +23,8 @@
           <mu-td :title="item.outTradeNo">{{item.outTradeNo}}</mu-td>
           <mu-td :title="item.name">{{item.name}}</mu-td>
           <mu-td class="price">￥{{item.totalPrice || 0}}</mu-td>
-          <mu-td class="price"><span v-if="item.paidPrice">￥{{item.paidPrice}}</span><span v-if="!item.paidPrice">-</span></mu-td>
-          <mu-td class="price"><span v-if="item.agentPrice">￥{{item.agentPrice}}</span><span v-if="!item.agentPrice">-</span></mu-td>
+          <mu-td class="price"><span v-if="item.paidPrice || item.paidPrice === 0">￥{{item.paidPrice}}</span><span v-else>-</span></mu-td>
+          <mu-td class="price"><span v-if="item.agentPrice || item.agentPrice === 0">￥{{item.agentPrice}}</span><span v-else>-</span></mu-td>
 
           <mu-td>{{item.agentName}}</mu-td>
           <mu-td v-if="item.agentId">线下订单</mu-td>
