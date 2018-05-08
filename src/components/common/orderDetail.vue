@@ -89,8 +89,9 @@
             <mu-flexbox-item class="flex-demo"> 原价：￥{{item.price}}x{{item.year}}</mu-flexbox-item>
           </mu-flexbox>
           <mu-flexbox :class="{nobor:detail.orderItemList.length===(index+1)}">
-            <mu-flexbox-item class="flex-demo"> 小计：￥{{item.totalPrice}} </mu-flexbox-item>
-            <mu-flexbox-item class="flex-demo"></mu-flexbox-item>
+          <mu-flexbox-item class="flex-demo" v-if="index === 0">网站编号：{{detail.layoutId || '-'}}</mu-flexbox-item>
+            <mu-flexbox-item class="flex-demo">小计：￥{{item.totalPrice}} </mu-flexbox-item>
+            <mu-flexbox-item class="flex-demo" v-if="index > 0"></mu-flexbox-item>
           </mu-flexbox>
         </div>
 
