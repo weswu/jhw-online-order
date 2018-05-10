@@ -108,6 +108,9 @@ export default {
       }
     }
   },
+  created () {
+    this.$store.commit('setLayoutId', this.$route.query.layoutId || '')
+  },
   methods: {
     ...mapActions('shop', ['chooseYear', 'chooseTab']),
     toMain () {

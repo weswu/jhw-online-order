@@ -178,7 +178,8 @@ export default {
         year: this.year || this.$store.state.shop.year,
         integral: this.points,
         orderType: this.homeInfo.priceItemIds ? 'UPDATE' : 'CUSTOM',
-        designerId: this.$store.state.shop.designerId
+        designerId: this.$store.state.shop.designerId,
+        layoutId: this.$store.state.layoutId
       }
       if (order.priceItemIds === '') {
         return this.$refs.toast.show('请选择商品')

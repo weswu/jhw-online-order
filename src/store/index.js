@@ -31,7 +31,8 @@ const state = {
   },
   points: 0,
   loading: false,
-  loginUrl: ''
+  loginUrl: '',
+  layoutId: ''
 }
 
 const getters = {
@@ -39,7 +40,8 @@ const getters = {
   homeInfo: state => state.homeInfo,
   points: state => state.points,
   loading: state => state.loading,
-  loginUrl: state => state.loginUrl
+  loginUrl: state => state.loginUrl,
+  layoutId: state => state.layoutId
 }
 
 const actions = {
@@ -63,9 +65,9 @@ const actions = {
       })
     }
   },
-  getHomeInfo ({commit}) {
+  getHomeInfo ({commit, state}) {
     var ctx = this
-    this._vm.$http.get('/api/user/homeInfo').then((res) => {
+    this._vm.$http.get('/api/user/homeInfo' + (state.layoutId ? '?layoutId=' + state.layoutId : '')).then((res) => {
       if (res.data) {
         ctx.commit('setHomeInfo', res.data)
         ctx.commit('shop/UPGRADE', res.data.priceItemIds)
@@ -93,6 +95,9 @@ const mutations = {
   },
   setLoginUrl (state, loginUrl) {
     state.loginUrl = loginUrl
+  },
+  setLayoutId (state, layoutId) {
+    state.layoutId = layoutId
   }
 }
 
