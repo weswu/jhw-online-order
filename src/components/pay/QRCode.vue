@@ -79,7 +79,12 @@ export default {
     var ctx = this
     this.year = this.$route.query.year || 1
     this.layoutId = this.$route.query.layoutId || ''
-    this.ids = this.$route.query.ids || '297e2669600191860160021b8fcc007f'
+    if (!this.$route.query.ids && this.layoutId) {
+      this.$store.commit('setLayoutId', this.layoutId)
+      this.$store.dispatch('getHomeInfo')
+    } else {
+      this.ids = this.$route.query.ids || '297e2669600191860160021b8fcc007f'
+    }
     this.designerId = this.$route.query.designerId || ''
     this.height = this.$route.query.height || '428'
     if (!this.$store.state.user.nickname) {
@@ -97,7 +102,7 @@ export default {
     pay (e) {
       var ctx = this
       let order = {
-        priceItemIds: this.ids,
+        priceItemIds: this.ids || this.$store.state.shop.priceItemIds,
         payType: 'WX',
         year: this.year,
         integral: 0,

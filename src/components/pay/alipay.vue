@@ -1,6 +1,6 @@
 <template>
   <div class="main-content">
-    <Pay ref="pay" :title="'代付'"></Pay>
+    <Pay ref="pay" :title="title"></Pay>
   </div>
 </template>
 
@@ -12,10 +12,12 @@ export default {
   },
   data () {
     return {
-      no: ''
+      no: '',
+      title: ''
     }
   },
   mounted () {
+    this.title = this.$route.query.orderId || '代付'
     this.$refs.pay.openDialog('another', this.$route.query.orderId)
   }
 }
