@@ -17,7 +17,7 @@ export default {
     }
   },
   mounted () {
-    this.title = this.$route.query.orderId || '代付'
+    this.title = this.$route.query.title || '代付'
     this.$refs.pay.openDialog('another', this.$route.query.orderId)
   }
 }
