@@ -10,7 +10,7 @@
             <span class="discount" v-if="homeInfo.isDiscount && !isOutDiscount">(亲，还差{{1000 - money}}元即可享受99优惠哦)</span>
           </mu-col>
           <mu-col width="100" tablet="66" desktop="66" class="fl" v-if="another">
-            支付金额：<span class="total">{{order.totalPrice}} 元</span>
+            <span v-if="order.outTradeNo" style="margin-right:10px;">订单号：{{order.outTradeNo}}</span> 支付金额：<span class="total">{{order.totalPrice}} 元</span>
           </mu-col>
           <mu-col width="100" tablet="34" desktop="34" class="fr" v-if="!another">
             积分抵扣:
