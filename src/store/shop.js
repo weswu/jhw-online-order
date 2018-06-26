@@ -686,8 +686,15 @@ const mutations = {
   },
   // 套餐
   CHOOSE_MEAL_RADIO (state, params) {
-    state.meal[params.idx].value = params.item.value
-    state.meal[params.idx].name = params.item.name
+    if (state.meal[params.idx].value === params.item.value) {
+      state.meal[params.idx].value = ''
+      state.meal[params.idx].name = ''
+      state.meal[params.idx].price = 0
+      params.e.target.checked = false
+    } else {
+      state.meal[params.idx].value = params.item.value
+      state.meal[params.idx].name = params.item.name
+    }
   },
   MEAL_TOTAL (state, params) {
     let totalPrice = 0
@@ -746,6 +753,21 @@ const mutations = {
           row.items.map(item => {
             if (ids === item.value) {
               item.disabled = true
+            }
+          })
+        })
+      })
+    }
+  },
+  BUY_GOODS (state, params) {
+    // 升级 已购产品不可用
+    if (params) {
+      params.split(',').map((ids, index) => {
+        state.meal.map(row => {
+          row.items.map(item => {
+            if (ids === item.value) {
+              row.name = item.name
+              row.value = item.value
             }
           })
         })

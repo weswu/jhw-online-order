@@ -67,7 +67,7 @@
           </mu-flexbox-item>
         </mu-flexbox>
       </div>
-      <mu-flat-button label="返回" @click="close" slot="actions"/>
+      <mu-flat-button label="关闭" @click="close" slot="actions"/>
     </mu-dialog>
     <!--消息...-->
     <Toast ref="toast"/>
@@ -161,6 +161,9 @@ export default {
         qrcode: ''
       }
       clearInterval(this.timer)
+      if (window.opener) {
+        window.close()
+      }
     },
     // 获取积分
     getPoints () {

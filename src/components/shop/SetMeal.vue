@@ -24,8 +24,21 @@
           <img src="/static/star.png">
           <span class="s">5.0分</span>
         </div>
-        <mu-radio :class="{renew: row.unit==='元/首年', price: true}" @input="user(index)" @change="chooseMeal({idx: idx, index: index, item: row})"
-         :label="'￥'+row.price+row.unit+(row.unit==='元/首年'?'\n\n￥'+item.renew+'元/续费':'')" :name="item.title" :nativeValue="row.value" :value="item.value"/>
+        <label :class="{'mu-radio': true, renew: row.unit==='元/首年', price: true}">
+          <input type="radio" :name="item.title" :value="item.value" @input="user(index)" @click.stop="chooseMeal({idx: idx, index: index, item: row, e: $event})">
+          <div class="mu-radio-wrapper">
+            <div class="mu-ripple-wrapper mu-radio-ripple-wrapper"></div>
+            <div class="mu-radio-icon">
+              <svg viewBox="0 0 24 24" class="mu-radio-icon-uncheck mu-radio-svg-icon">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
+              </svg>
+              <svg viewBox="0 0 24 24" class="mu-radio-icon-checked mu-radio-svg-icon">
+                <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
+              </svg>
+            </div>
+            <div class="mu-radio-label">￥{{row.price+row.unit}}{{row.unit==='元/首年'?'\n\n￥'+item.renew+'元/续费':''}}</div>
+          </div>
+        </label>
       </mu-card>
     </div>
   </div>
@@ -45,9 +58,7 @@ export default {
   methods: {
     ...mapActions('shop', ['chooseMeal']),
     user (index) {
-      if (index === 0) {
-        this.$store.dispatch('getUser', this.$parent.$parent.$refs.iframe)
-      }
+      this.$store.dispatch('getUser', this.$parent.$parent.$refs.iframe)
     }
   }
 }

@@ -32,7 +32,9 @@ const state = {
   points: 0,
   loading: false,
   loginUrl: '',
-  layoutId: ''
+  layoutId: '',
+  // 用于购买产品
+  ids: ''
 }
 
 const getters = {
@@ -41,7 +43,8 @@ const getters = {
   points: state => state.points,
   loading: state => state.loading,
   loginUrl: state => state.loginUrl,
-  layoutId: state => state.layoutId
+  layoutId: state => state.layoutId,
+  ids: state => state.ids
 }
 
 const actions = {
@@ -71,7 +74,11 @@ const actions = {
       if (res.data) {
         ctx.commit('setHomeInfo', res.data)
         ctx.commit('shop/UPGRADE', res.data.priceItemIds)
-        ctx.commit('shop/MEAL_TOTAL')
+        if (state.ids) {
+          ctx.commit('shop/BUY_GOODS', state.ids)
+        }
+        if (state.shop.activeTab === 'tab1') { ctx.commit('shop/TOTAL') }
+        if (state.shop.activeTab === 'tab2') { ctx.commit('shop/MEAL_TOTAL') }
       }
     })
   }
@@ -98,6 +105,9 @@ const mutations = {
   },
   setLayoutId (state, layoutId) {
     state.layoutId = layoutId
+  },
+  setIds (state, ids) {
+    state.ids = ids
   }
 }
 
