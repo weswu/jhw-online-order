@@ -235,7 +235,7 @@ export default {
     anotherPay () {
       var ctx = this
       this.$store.commit('setLoading', true)
-      this.$http.post('/api/order/getPayInfo?orderId=' + this.order.orderId).then((res) => {
+      this.$http.post('/api/pay/getPayInfo?orderId=' + this.order.orderId).then((res) => {
         ctx.$store.commit('setLoading', false)
         ctx.url = 'http://buy.jihui88.com/#/alipay?orderId=' + ctx.order.orderId
         ctx.order = res.data
