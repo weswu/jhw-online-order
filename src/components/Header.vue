@@ -34,8 +34,8 @@
           <a href="javascript:;" class="btn-register">{{user.nickname || user.username}}</a>
         </div>
         <mu-icon-menu icon="person" :anchorOrigin="anchorOrigin" :targetOrigin="targetOrigin" :open="open" @close="handleClose" :width="112" :style="'position: absolute;height:0;right:0;opacity: ' + opacity" v-if="user.username">
-          <a href="http://www.jihui88.com/manage_v4/index.html"><mu-menu-item title="新版后台"/></a>
-          <a href="http://www.jihui88.com/manage_v3/index.html"><mu-menu-item title="老版后台"/></a>
+          <a href="http://www.jihui88.com/manage_v4/index.html" target="_blank"><mu-menu-item title="新版后台"/></a>
+          <a href="http://www.jihui88.com/manage_v3/index.html" target="_blank"><mu-menu-item title="老版后台"/></a>
           <mu-menu-item title="退出" @click="toLogout" />
         </mu-icon-menu>
       </div>
