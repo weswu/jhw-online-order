@@ -25,7 +25,7 @@
           <span class="s">5.0分</span>
         </div>
         <label :class="{'mu-radio': true, renew: row.unit==='元/首年', price: true}">
-          <input type="radio" :name="item.title" :value="item.value" @input="user(index)" @click.stop="chooseMeal({idx: idx, index: index, item: row, e: $event})">
+          <input type="radio" :name="item.title" :value="item.value" @input="user(index)" @click.stop="chooseMeal({idx: idx, index: index, item: row, e: $event})" :checked="item.value===row.value">
           <div class="mu-radio-wrapper">
             <div class="mu-ripple-wrapper mu-radio-ripple-wrapper"></div>
             <div class="mu-radio-icon">
