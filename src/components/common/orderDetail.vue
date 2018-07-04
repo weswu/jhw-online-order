@@ -68,7 +68,7 @@
         </mu-flexbox>
         <mu-flexbox class="nobor">
           <mu-flexbox-item class="flex-demo"> 总计：<span class="price">￥{{detail.totalPrice}}</span>
-            <span v-if="isOutDiscount > 0" style="padding-left: 10px;color: #999;">(已优惠{{isOutDiscount}}元)</span>
+            <span v-if="detail.isDiscount" style="padding-left: 10px;color: #999;">(已优惠99元)</span>
           </mu-flexbox-item>
           <mu-flexbox-item class="flex-demo"> 客户应付金额：
             <span class="price" v-if="!update2">￥{{detail.paidPrice}}</span>
@@ -161,8 +161,7 @@ export default {
       update2: false,
       update3: false,
       time: '',
-      time24: '',
-      isOutDiscount: 0
+      time24: ''
     }
   },
   methods: {
@@ -183,11 +182,6 @@ export default {
           } else {
             ctx.updateD = true
           }
-          let price = 0
-          res.data.orderItemList.forEach(item => {
-            price = price + item.totalPrice
-          })
-          ctx.isOutDiscount = price - res.data.totalPrice
         } else {
           ctx.$parent.$parent.$refs.toast.show(res.msg)
         }
