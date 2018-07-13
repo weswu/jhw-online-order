@@ -28,6 +28,17 @@ const meal = [
         price: 8800
       },
       {
+        value: '8a9e457e647f4260016492ed6c1c003a',
+        name: '小程序高级功能版',
+        unit: '元/首年',
+        desc: '【适合】独立后台，数据与电脑网站机汇网不同步',
+        desc2: '【卖点】功能清单：优惠券、分销中心、整点秒杀、拼团、线下预约核销、裂变拆"红包"、积分商城',
+        pic: 'http://dfwjjingtai.b0.upaiyun.com/upload//j//j6//jz//picture//2018//01//10/e8acc853-c25a-4890-b73e-6ec757fc9af0.jpg',
+        number: 13,
+        disabled: false,
+        price: 15800
+      },
+      {
         value: '297e2669613f7026016140f8ed260020',
         name: '微传单',
         unit: '元',
