@@ -10,7 +10,7 @@ const meal = [
         name: '展示型小程序',
         unit: '元/首年',
         desc: '【适合】微信引流、形象展示、产品展示、O2O',
-        desc2: '【卖点】我们的精选优质模板/集展示、互动、交易为一体，微信营销最强工具',
+        desc2: '【卖点】我们的精选优质模板/集展示、互动为一体，微信营销最强工具',
         pic: 'http://dfwjjingtai.b0.upaiyun.com/upload//j//j6//jz//picture//2018//01//10/830e3c58-ef21-40da-885a-70adf52fb5da.jpg',
         number: 53,
         disabled: false,
