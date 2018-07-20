@@ -174,7 +174,7 @@ const state = {
   priceItemIds: '',
   magenif: 1,
   year: 1,
-  yearList: [1, 2, 3, 5, 10],
+  yearList: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
   shopFunction: [
     {
       title: '常规功能',
