@@ -273,10 +273,10 @@ const state = {
           ],
           cardId: '',
           card: [
-            {name: '代建套餐A', sub: '≤5个页面', price: 200, value: '297e26696052b232016054283ea20173', unit: '元', html: '服务说明：<br/><span style="color:red">≤5</span> 个页面'},
-            {name: '代建套餐B', sub: '≤10个页面', price: 400, value: '297e26696052b23201605428a1e10177', unit: '元', html: '服务说明：<br/><span style="color:red">≤10</span> 个页面'},
-            {name: '代建套餐C', sub: '≤20个页面', price: 800, value: '297e26696052b23201605428de870179', unit: '元', html: '服务说明：<br/><span style="color:red">≤30</span> 个页面'},
-            {name: '代建套餐D', sub: '≤50个页面', price: 1980, value: '297e2669612bb12f01612c81e85f03ea', unit: '元', html: '服务说明：<br/><span style="color:red">≤50</span> 个页面'}
+            {name: '代建套餐A', sub: '≤5个页面', price: 800, value: '297e26696052b232016054283ea20173', unit: '元', html: '服务说明：<br/><span style="color:red">≤5</span> 个页面'},
+            {name: '代建套餐B', sub: '≤10个页面', price: 1000, value: '297e26696052b23201605428a1e10177', unit: '元', html: '服务说明：<br/><span style="color:red">≤10</span> 个页面'},
+            {name: '代建套餐C', sub: '≤20个页面', price: 1400, value: '297e26696052b23201605428de870179', unit: '元', html: '服务说明：<br/><span style="color:red">≤30</span> 个页面'},
+            {name: '代建套餐D', sub: '≤50个页面', price: 2580, value: '297e2669612bb12f01612c81e85f03ea', unit: '元', html: '服务说明：<br/><span style="color:red">≤50</span> 个页面'}
           ]
         },
         {
