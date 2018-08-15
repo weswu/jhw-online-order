@@ -116,7 +116,7 @@ export default {
   methods: {
     ...mapActions('shop', ['chooseYear', 'chooseTab']),
     toMain () {
-      this.$refs.pay.openDialog()
+      this.$refs.pay.open()
     },
     handleTabChange (v) {
       this.$store.commit('setUser', v)

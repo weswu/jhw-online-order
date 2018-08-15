@@ -28,6 +28,7 @@
 - 还有页面右侧结算部分也有个全局的折扣需要设置
 - 订单的管理后台还是得有的，但是界面没要求，因为是我们内部查看和处理用的
 
+## 启动service
 java -Xms256m -jar jhw-online-order-java-0.0.1-SNAPSHOT.jar --spring.profiles.active=wxw
 
 

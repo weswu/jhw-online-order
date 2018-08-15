@@ -9,7 +9,7 @@
         </div>
       </mu-col>
     </mu-row>
-    <Pay ref="pay" :title="'购买'" :totalPriceSingle="totalPrice" :year="'1'"></Pay>
+    <Pay ref="pay" :title="'购买'"></Pay>
   </div>
 </template>
 
@@ -40,8 +40,10 @@ export default {
   methods: {
     openPaid (item) {
       if (this.homeInfo.priceItemIds && this.homeInfo.priceItemIds.match(new RegExp(item.id))) { return '' }
-      this.totalPrice = item.price
-      this.$refs.pay.openDialog(item.id)
+      this.$store.state.shop.year = 1
+      this.$store.state.shop.totalPrice = item.price
+      this.$store.state.shop.priceItemIds = item.id
+      this.$refs.pay.open()
     },
     state (v) {
       if (this.homeInfo.priceItemIds && this.homeInfo.priceItemIds.match(new RegExp(v))) { return '已购买' }

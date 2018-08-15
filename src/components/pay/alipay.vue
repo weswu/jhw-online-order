@@ -12,13 +12,12 @@ export default {
   },
   data () {
     return {
-      no: '',
       title: ''
     }
   },
   mounted () {
     this.title = this.$route.query.title || '代付'
-    this.$refs.pay.openDialog('another', this.$route.query.orderId)
+    this.$refs.pay.open('another')
   }
 }
 </script>
