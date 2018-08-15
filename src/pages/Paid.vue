@@ -53,7 +53,7 @@ export default {
       this.activeTab = val
     },
     toUc () {
-      this.$router.push({ name: 'uc' })
+      location.href = 'http://www.jihui88.com/manage_v4/index.html'
     }
   }
 }
