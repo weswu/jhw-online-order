@@ -89,7 +89,7 @@ export default {
         this.$store.commit('setLayoutId', this.layoutId)
         this.$store.dispatch('getHomeInfo')
       } else {
-        this.priceItemIds = this.$route.query.ids || '297e2669600191860160021b8fcc007f'
+        this.priceItemIds = this.$route.query.ids || ''
       }
       if (!this.$store.state.user.nickname) {
         setTimeout(function () {
