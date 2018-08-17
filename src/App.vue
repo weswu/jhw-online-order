@@ -26,6 +26,11 @@ export default {
     Tooltip,
     IframeLogin
   },
-  name: 'app'
+  name: 'app',
+  created () {
+    this.$store.commit('setIds', this.$route.query.ids || '')
+    this.$store.commit('setLayoutId', this.$route.query.layoutId || '')
+    this.$store.commit('shop/setActiveTab', this.$route.query.tab || 'tab2')
+  }
 }
 </script>

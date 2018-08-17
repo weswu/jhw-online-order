@@ -1,6 +1,14 @@
 <template>
-  <div style="background: #fff;">
-    <mu-flexbox class="mt8" :style="'height:' + height + 'px'">
+  <div style="background: #fff;" :style="'height:' + height + 'px'">
+    <mu-row gutter class="order-done-info" v-if="iframe">
+      <mu-col span="10">
+        <span @click="backMessage" class="backMessage" v-if="back">返回</span>
+      </mu-col>
+      <mu-col span="10" v-if="order.outTradeNo">
+        <span class="outTradeNo">订单号：{{order.outTradeNo}}</span> <span class="total">{{order.totalPrice}}</span>元
+      </mu-col>
+    </mu-row>
+    <mu-flexbox class="mt8">
       <mu-flexbox-item>
         <div class="pay-code">
           <p>
@@ -71,22 +79,28 @@ export default {
         qrcode: ''
       },
       url: '',
-      toast: false
+      toast: false,
+      back: false,
+      iframe: false
     }
   },
   created () {
     var ctx = this
     this.year = this.$route.query.year || 1
-    this.layoutId = this.$route.query.layoutId || ''
     this.designerId = this.$route.query.designerId || ''
+    if (this.$route.query.back === '1') {
+      this.back = true
+    }
+    if (ctx.$route.path === '/qrcode') {
+      this.iframe = true
+    }
     // 1.订单号
     if (this.$route.query.orderId) {
       this.order.orderId = this.$route.query.orderId
       this.orderPay()
     } else {
       // 2. 参数
-      if (!this.$route.query.ids && this.layoutId) {
-        this.$store.commit('setLayoutId', this.layoutId)
+      if (!this.$route.query.ids) {
         this.$store.dispatch('getHomeInfo')
       } else {
         this.priceItemIds = this.$route.query.ids || ''
@@ -103,6 +117,15 @@ export default {
     }
   },
   methods: {
+    backMessage () {
+      let dataJson = {
+        success: true,
+        data: {
+          back: true
+        }
+      }
+      window.parent.postMessage(dataJson, '*')
+    },
     // 已知orderId
     orderPay () {
       var ctx = this
@@ -124,7 +147,7 @@ export default {
         integral: this.points || 0,
         orderType: this.$store.state.homeInfo.priceItemIds ? 'UPDATE' : 'CUSTOM',
         designerId: this.designerId || this.$store.state.shop.designerId,
-        channel: this.layoutId, // 来源站点
+        channel: this.$store.state.layoutId, // 来源站点
         chnnelType: 'pc', // 来源类型
         layoutId: this.$store.state.layoutId
       }
@@ -209,3 +232,25 @@ export default {
   }
 }
 </script>
+
+<style lang="less">
+  .order-done-info{
+    padding: 25px 10px;
+    color: #666;
+    .backMessage{
+      width: 40px;
+      height: 23px;
+      display: inline-block;
+      color: #777;
+      text-align: center;
+      cursor: pointer;
+    }
+    .total{
+      color: #ff6700;
+      font-size: 16px;
+      font-weight: bold;
+      margin-right: 5px;
+      margin-left: 20px
+    }
+  }
+</style>

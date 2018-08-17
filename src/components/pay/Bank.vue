@@ -156,7 +156,7 @@ export default {
     }
     .mu-text-field{width: 120px;margin-right: 30px}
     p{
-      padding: 20px 0;
+      padding: 10px 0;
     }
     .tip{
       color:#999
