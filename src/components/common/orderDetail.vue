@@ -128,7 +128,7 @@
         <mu-flexbox>
           <mu-flexbox-item class="flex-demo" style="height: auto;">
             <div style="width: 58px;float: left;">备注：</div>
-            <div style="display: inline-block;width: 80%;float: left;text-indent: 0;line-height: 26px;padding: 5px 0;">
+            <div style="display: inline-block;width: 80%;float: left;text-indent: 0;line-height: 26px;">
               <textarea v-model="detail.comment" v-if="path === 'agent'">{{detail.comment}}</textarea>
               <span v-if="path === 'order'">{{detail.comment}}</span>
             </div>
