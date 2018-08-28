@@ -554,6 +554,9 @@ const actions = {
 }
 
 const mutations = {
+  setYear (state, year) {
+    state.year = year
+  },
   setActiveTab (state, activeTab) {
     state.activeTab = activeTab
   },

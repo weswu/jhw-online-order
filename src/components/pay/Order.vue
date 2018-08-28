@@ -86,7 +86,6 @@ export default {
   },
   created () {
     var ctx = this
-    this.year = this.$route.query.year || 1
     this.designerId = this.$route.query.designerId || ''
     if (this.$route.query.back === '1') {
       this.back = true
