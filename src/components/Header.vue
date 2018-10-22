@@ -8,6 +8,7 @@
         <ul>
           <li><a href="http://www.jihui88.com/">首页</a></li>
           <li><a href="http://www.jihui88.com/product_1.html">全网营销云平台</a></li>
+          <li><a href="http://www.jihui88.com/applets.html">小程序</a></li>
           <li :class="{ 'active': $route.name === 'shop' || $route.name === 'paid' }"><router-link to="/">购买</router-link></li>
           <li><a href="http://anli.jihui88.com/case.html">案例</a></li>
           <li><a href="http://www.jihui88.com/join.html">加盟</a></li>
