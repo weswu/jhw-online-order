@@ -466,7 +466,7 @@ const state = {
   ],
   designerId: '',
   meal: meal,
-  activeTab: 'tab2'
+  activeTab: 'tab1'
 }
 
 const getters = {

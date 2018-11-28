@@ -175,7 +175,7 @@
               </div>
               <ul class="hidden-xs hidden-sm">
                   <li>
-                      <a traget="_blank" href="sitemap.xml">Sitemap</a>
+                      <a traget="_blank" href="http://www.jihui88.com/sitemap.xml">Sitemap</a>
                   </li>
                   <li>
                       <a traget="_blank" href="http://www.jihui88.com/manage_v4/login.html">后台登录</a>

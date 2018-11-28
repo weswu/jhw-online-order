@@ -31,7 +31,7 @@ export default {
     this.$store.commit('setIds', this.$route.query.ids || '')
     this.$store.commit('setLayoutId', this.$route.query.layoutId || '')
     this.$store.commit('shop/setYear', this.$route.query.year || 1)
-    this.$store.commit('shop/setActiveTab', this.$route.query.tab || 'tab2')
+    this.$store.commit('shop/setActiveTab', this.$route.query.tab || 'tab1')
   }
 }
 </script>

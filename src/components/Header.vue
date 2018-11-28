@@ -38,7 +38,7 @@
                             </p>
                         </li>
                         <li id="nav_buy">
-                            <p>
+                            <p class="active">
                                 <a href="http://buy.jihui88.com/">购买</a>
                             </p>
                         </li>
@@ -67,7 +67,7 @@
                         </li>
                         <li id="nav_join">
                             <p>
-                                <a href="http://www.ykcs.cn/">加盟</a>
+                                <a href="http://www.ykcs.cn/" target="_blank">加盟</a>
                             </p>
                         </li>
                         <li id="nav_college">
