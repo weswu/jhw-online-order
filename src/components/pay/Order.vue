@@ -1,4 +1,4 @@
-<template>
+8template>
   <div style="background: #fff;" :style="'height:' + height + 'px'">
     <mu-row gutter class="order-done-info" v-if="iframe">
       <mu-col span="10">
@@ -234,7 +234,8 @@ export default {
 
 <style lang="less">
   .order-done-info{
-    padding: 25px 10px;
+    padding: 25px 0;
+    margin: 0 3%;
     color: #666;
     .backMessage{
       width: 40px;
