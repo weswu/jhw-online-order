@@ -137,7 +137,7 @@
                   <div class="info_block block_6">
                       <div class="block_title hidden-xs">
                           <div class="block_title_txt">
-                              关注机汇
+                              手机访问
                           </div>
                       </div>
                       <div class="block_list">
