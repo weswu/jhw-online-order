@@ -47,7 +47,7 @@
                                 <a href="http://www.jihui88.com/demo.html">模板</a>
                             </p>
                         </li>
-                        <li id="nav_case" class="hasChild" data-slide="0" ref="button" @click="toggle">
+                        <li id="nav_case" class="hasChild" data-slide="0" ref="button" @click="toggle" style="cursor: pointer;">
                             <p>
                                 <a href="javascript:;">案例</a>
                                 <i class="material-icons iconfont">
