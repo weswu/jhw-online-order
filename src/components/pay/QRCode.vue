@@ -1,5 +1,5 @@
 <template>
-  <Order :height="height"/>
+  <Order class="qrcode_order" :height="height"/>
 </template>
 
 <script>
@@ -15,8 +15,6 @@ export default {
   },
   created () {
     this.height = this.$route.query.height || '428'
-    // 选项
-  },
-  methods: {}
+  }
 }
 </script>

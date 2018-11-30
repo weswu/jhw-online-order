@@ -1,6 +1,6 @@
 <template>
   <transition name="toast-fade">
-    <div class="tooltip-wrap" ref="tooltip" v-show="showing" :style="'left: ' + left + 'px; top: ' + top + 'px;'"  @mouseenter="enter" @mouseleave="hide">
+    <div class="tooltip-wrap" ref="tooltip" v-show="showing" :style="'left: ' + left + 'px; top: ' + top + 'px;'" @mouseenter="enter" @mouseleave="hide">
       <div v-html='item.html' class="tooltip-cont"></div>
       <div class="tooltip-unit" v-if="item.unit"><span v-if="item.unit.match(/元/)">{{item.price}}</span>{{item.unit}}</div>
     </div>

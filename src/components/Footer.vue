@@ -13,16 +13,16 @@
                       <div class="block_list" :style="icon1 === 'remove' ? 'display: block;' : ''">
                           <ul>
                               <li>
-                                  <a target="_blank" href="http://about.jihui88.com">公司简介</a>
+                                  <a target="_blank" href="http://about.jihui88.com?profile">公司简介</a>
                               </li>
                               <li>
-                                  <a target="_blank" href="http://about.jihui88.com">机汇动态</a>
+                                  <a target="_blank" href="http://xueyuan.jihui88.com/news-344331-1.html">机汇动态</a>
                               </li>
                               <li>
-                                  <a target="_blank" href="http://about.jihui88.com">发展历程</a>
+                                  <a target="_blank" href="http://about.jihui88.com?process">发展历程</a>
                               </li>
                               <li>
-                                  <a target="_blank" href="http://about.jihui88.com">企业文化</a>
+                                  <a target="_blank" href="http://about.jihui88.com?culture">企业文化</a>
                               </li>
                           </ul>
                       </div>
@@ -40,7 +40,7 @@
                                   <a href="mailto:2932555181@qq.com">意见反馈</a>
                               </li>
                               <li>
-                                  <a target="_blank" href="http://www.ykyh.com/news-detail-122448.html">机汇网协议</a>
+                                  <a target="_blank" href="http://www.jihui88.com/protocol.html">机汇网协议</a>
                               </li>
                               <li>
                                   <a target="_blank" href="http://www.jihui88.com/agent_v4/index.html">经销商资格</a>
@@ -96,7 +96,7 @@
                       <div class="block_list" :style="icon4 === 'remove' ? 'display: block;' : ''">
                           <ul>
                               <li>
-                                  <a target="_blank" href="http://about.jihui88.com">联系我们</a>
+                                  <a target="_blank" href="http://about.jihui88.com?contact">联系我们</a>
                               </li>
                               <li>
                                   <a target="_blank" href="http://www.ykcs.cn">加盟机汇</a>
@@ -114,22 +114,22 @@
                       <div class="block_list">
                           <ul>
                               <li>
-                                  <a target="_blank" href="http://about.jihui88.com">营业执照</a>
+                                  <a target="_blank" href="http://about.jihui88.com?honor">营业执照</a>
                               </li>
                               <li>
-                                  <a target="_blank" href="http://about.jihui88.com">高新技术企业</a>
+                                  <a target="_blank" href="http://about.jihui88.com?honor">高新技术企业</a>
                               </li>
                               <li>
-                                  <a target="_blank" href="http://about.jihui88.com">优秀服务机构</a>
+                                  <a target="_blank" href="http://about.jihui88.com?honor">优秀服务机构</a>
                               </li>
                               <li>
-                                  <a target="_blank" href="http://about.jihui88.com">重点文化企业</a>
+                                  <a target="_blank" href="http://about.jihui88.com?honor">重点文化企业</a>
                               </li>
                               <li>
-                                  <a target="_blank" href="http://about.jihui88.com">实践基地</a>
+                                  <a target="_blank" href="http://about.jihui88.com?honor">实践基地</a>
                               </li>
                               <li>
-                                  <a target="_blank" href="http://about.jihui88.com">战略合作伙伴</a>
+                                  <a target="_blank" href="http://about.jihui88.com?honor">战略合作伙伴</a>
                               </li>
                           </ul>
                       </div>

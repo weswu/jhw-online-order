@@ -47,23 +47,23 @@
                                 <a href="http://www.jihui88.com/demo.html">模板</a>
                             </p>
                         </li>
-                        <li id="nav_case" class="hasChild" data-slide="0" ref="button" @click="toggle" style="cursor: pointer;">
+                        <li id="nav_case" class="hasChild" data-slide="0" ref="button" @mouseenter="enter" @mouseleave="hide">
                             <p>
                                 <a href="javascript:;">案例</a>
                                 <i class="material-icons iconfont">
                                   keyboard_arrow_down
                                 </i>
                             </p>
-                            <mu-popover :trigger="trigger" :open="open" @close="handleClose">
-                              <ol class="header_nav_ol">
+                            <transition name="fade">
+                              <ol class="header_nav_ol" v-show="showing" @mouseenter="enter" @mouseleave="hide">
                                 <li>
-                                  <a href="http://case.jihui88.com/case_website.html">网站案例</a>
+                                  <a href="http://case.pc.jihui88.com/case_website.html">网站案例</a>
                                 </li>
                                 <li>
-                                  <a href="http://case.jihui88.com/case_applet.html">小程序案例</a>
+                                  <a href="http://case.pc.jihui88.com/case_applet.html">小程序案例</a>
                                 </li>
                               </ol>
-                            </mu-popover>
+                            </transition>
                         </li>
                         <li id="nav_join">
                             <p>
@@ -118,7 +118,9 @@ export default {
       targetOrigin2: {horizontal: 'left', vertical: 'top'},
       open: false,
       opacity: 0,
-      trigger: null
+      trigger: null,
+      showing: false,
+      timer: null
     }
   },
   computed: {
@@ -207,12 +209,38 @@ export default {
     },
     setErrorImg () {
       this.opacity = 1
+    },
+    enter () {
+      if (this.timer) {
+        window.clearInterval(this.timer)
+      } else {
+        this.showing = true
+      }
+    },
+    hide () {
+      this.timer = setTimeout(() => {
+        this.showing = false
+        this.timer = null
+      }, 300)
     }
   }
 }
 </script>
 
 <style lang="less">
+.fade-leave-active,.fade-enter-active{
+  transition:  all 0.5s ease;
+}
+.fade-leave-active,.fade-enter{
+  height:0px !important;
+  margin-top:0 !important;
+  opacity: 0;
+}
+.fade-leave,.fade-enter-active{
+  height: 102px;
+  margin-top: 18px;
+  opacity: 1;
+}
 #jh_header {
     z-index:4;
     width:100%;
@@ -251,12 +279,6 @@ export default {
     *display:inline;
     *zoom:1;
     vertical-align:middle;
-}
-#jh_header .header_content .header_nav .main_nav {
-
-}
-#jh_header .header_content .header_nav .main_nav ul {
-
 }
 #jh_header .header_content .header_nav .main_nav ul>li {
     display:inline-block;
@@ -314,9 +336,12 @@ export default {
     box-shadow:0 0 20px 0 rgba(0,0,0,0.15);
     padding:10px;
     min-width:120px;
-    margin-top:18px;
+    height: 102px;
+    margin-top: 18px;
     -webkit-transform:translateX(-50%);
     transform:translateX(-50%);
+    z-index: 9;
+    overflow: hidden;
 }
 .header_nav_ol:before {
     content:'';
@@ -327,9 +352,6 @@ export default {
     margin-left:-8px;
     border:8px solid transparent;
     border-bottom-color:#fff;
-}
-.header_nav_ol li {
-
 }
 .header_nav_ol li a {
     display:block;

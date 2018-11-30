@@ -1,4 +1,4 @@
-8template>
+<template>
   <div style="background: #fff;" :style="'height:' + height + 'px'">
     <mu-row gutter class="order-done-info" v-if="iframe">
       <mu-col span="10">
@@ -8,7 +8,7 @@
         <span class="outTradeNo">订单号：{{order.outTradeNo}}</span> <span class="total">{{order.totalPrice}}</span>元
       </mu-col>
     </mu-row>
-    <mu-flexbox class="mt8">
+    <mu-flexbox class="order-done-flexbox" justify="flex-start">
       <mu-flexbox-item>
         <div class="pay-code">
           <p>
@@ -252,5 +252,8 @@ export default {
       margin-right: 5px;
       margin-left: 20px
     }
+  }
+  .qrcode_order .order-done-flexbox{
+    margin: 0 3%;width: 94%;
   }
 </style>
