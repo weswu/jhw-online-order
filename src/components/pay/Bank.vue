@@ -3,10 +3,10 @@
     <mu-dialog :open="dialog" @close="close">
       <div class="bank">
         <mu-row gutter class="bank-info">
-          <mu-col width="20" tablet="20" desktop="20">
+          <mu-col width="0" tablet="20" desktop="20" v-if="!mobile">
             <img src="https://ss0.bdstatic.com/-0U0bnSm1A5BphGlnYG/tam-ogel/7bee21f41bd87aea35af25f084488a35_121_121.jpg" alt="">
           </mu-col>
-          <mu-col width="80" tablet="80" desktop="80">
+          <mu-col width="100" tablet="80" desktop="80">
             开户行： <span>工商银行杭州开元支行</span><br/>
             账号： <span>1202021509900658919</span><br/>
             户名： <span>浙江机汇网络科技有限公司</span><br/>
@@ -22,7 +22,7 @@
              提示：您可以将账号信息拍照保存在手机中，以便转账时查看！
            </div>
         </div>
-        <mu-raised-button @click="submit" label="确认订单" primary />
+        <mu-raised-button @click="submit" label="确认订单" primary style="margin-bottom:10px;"/>
         <mu-raised-button @click="notify" label="已经转账，提交转账回执单" primary />
       </div>
       <mu-flat-button label="关闭" @click="close" slot="actions"/>
@@ -42,9 +42,9 @@
           账号信息：
         </mu-flexbox-item>
         <mu-flexbox-item class="flex-demo flex-r">
-            开户行： <span>工商银行杭州开元支行</span><br/>
-            账号： <span>1202021509900658919</span><br/>
-            户名： <span>浙江机汇网络科技有限公司</span>
+          开户行： <span>工商银行杭州开元支行</span><br/>
+          账号： <span>1202021509900658919</span><br/>
+          户名： <span>浙江机汇网络科技有限公司</span>
         </mu-flexbox-item>
       </mu-flexbox>
       <mu-flexbox :gutter="0" class="flex3">
@@ -61,7 +61,7 @@
     </mu-dialog>
     <mu-dialog :open="dialog3" @close="close3">
       <mu-text-field hintText="请输入订单号" v-model="no"/><br/>
-      <mu-raised-button @click="notifySubmit" label="确认" primary />
+      <mu-raised-button @click="notifySubmit" label="确认" primary/>
     </mu-dialog>
   </div>
 </template>
@@ -69,7 +69,7 @@
 <script>
 import qs from 'qs'
 export default {
-  props: ['outTradeNo', 'orderId'],
+  props: ['outTradeNo', 'orderId', 'mobile'],
   data () {
     return {
       dialog: false,
@@ -151,6 +151,7 @@ export default {
   }
   .content{
     padding: 20px 0;
+    font-size: 12px;
     .red{
       color: red
     }

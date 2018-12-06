@@ -1,6 +1,6 @@
 <template>
-  <div style="background: #fff;" :style="'height:' + height + 'px'">
-    <mu-row gutter class="order-done-info" v-if="iframe">
+  <div :class="mobile ? 'order-mobile' : ''" style="background: #fff;" :style="'height:' + height + 'px'">
+    <mu-row gutter class="order-done-info" v-if="iframe && !mobile">
       <mu-col span="10">
         <span @click="backMessage" class="backMessage" v-if="back">返回</span>
       </mu-col>
@@ -8,32 +8,52 @@
         <span class="outTradeNo">订单号：{{order.outTradeNo}}</span> <span class="total">{{order.totalPrice}}</span>元
       </mu-col>
     </mu-row>
-    <mu-flexbox class="order-done-flexbox" justify="flex-start">
+    <div v-if="mobile" class="order-mobile-info">
+      <mu-flexbox>
+        <mu-flexbox-item>
+          订单号：
+        </mu-flexbox-item>
+        <mu-flexbox-item style="text-align:right">
+          {{order.outTradeNo}}
+        </mu-flexbox-item>
+      </mu-flexbox>
+      <mu-flexbox>
+        <mu-flexbox-item>
+          待支付：
+        </mu-flexbox-item>
+        <mu-flexbox-item style="text-align:right">
+          <span class="total">{{order.totalPrice}}</span>元
+        </mu-flexbox-item>
+      </mu-flexbox>
+    </div>
+    <mu-flexbox class="order-done-flexbox" :orient="mobile ? 'vertical' : 'horizontal'" justify="flex-start">
       <mu-flexbox-item>
         <div class="pay-code">
-          <p>
+          <p :style="'display:' + (toggle && mobile ? 'block' : '')">
             <img v-lazy="'http://buy.jihui88.com/api/order/qrcode?url=' + order.qrcode" alt="微信支付">
           </p>
-          <div class="pay-code-cont">
+          <div class="pay-code-cont" @click="toggle = !toggle">
             <i class="material-icons">fullscreen</i>
             <div class="text">微信支付</div>
           </div>
         </div>
       </mu-flexbox-item>
       <mu-flexbox-item>
-        <div class="pay-code alipay">
-          <p>
-            <a :href="'http://buy.jihui88.com/alipay.html?orderId=' + order.orderId" target="_blank"><img src="/static/pay.png" alt=""></a>
-          </p>
-          <div class="pay-code-cont">
-            <i class="material-icons">done</i>
-            <div class="text">支付宝支付</div>
+        <a :href="'http://buy.jihui88.com/alipay.html?orderId=' + order.orderId" target="_blank">
+          <div class="pay-code alipay">
+            <p>
+              <img src="/static/pay.png" alt="">
+            </p>
+            <div class="pay-code-cont">
+              <i class="material-icons">done</i>
+              <div class="text">支付宝支付</div>
+            </div>
           </div>
-        </div>
+        </a>
       </mu-flexbox-item>
-      <mu-flexbox-item>
+      <mu-flexbox-item v-clipboard:copy="url" v-clipboard:success="onCopy">
         <div class="pay-code people">
-          <p v-clipboard:copy="url" v-clipboard:success="onCopy" slot="actions">
+          <p>
             <span class="bank-icon">
               <a href="javascript:;"><img src="/static/people.png" alt=""></a>
             </span>
@@ -45,8 +65,8 @@
         </div>
       </mu-flexbox-item>
       <mu-flexbox-item>
-        <div class="pay-code bank">
-          <p @click="bankDialog">
+        <div class="pay-code bank" @click="bankDialog">
+          <p>
             <a href="javascript:;"><img src="/static/bank.png" alt=""></a>
           </p>
           <div class="pay-code-cont">
@@ -59,7 +79,7 @@
     <!--消息...-->
     <Toast ref="toast"/>
     <mu-toast v-if="toast" message="链接复制成功"/>
-    <Bank ref="bank" :outTradeNo="order.outTradeNo" :orderId="order.orderId"/>
+    <Bank ref="bank" :outTradeNo="order.outTradeNo" :orderId="order.orderId" :mobile="mobile"/>
   </div>
 </template>
 
@@ -80,8 +100,10 @@ export default {
       },
       url: '',
       toast: false,
-      back: false,
-      iframe: false
+      back: false, // 返回
+      iframe: false, // 弹框
+      mobile: false, // 手机版本
+      toggle: false
     }
   },
   created () {
@@ -114,8 +136,26 @@ export default {
         }, 100)
       }
     }
+    // web版本
+    if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+      this.mobile = true
+    } else {
+      this.initMobile()
+      window.onresize = () => {
+        return (() => {
+          this.initMobile()
+        })()
+      }
+    }
   },
   methods: {
+    initMobile () {
+      if (document.body.clientWidth < 420) {
+        this.mobile = true
+      } else {
+        this.mobile = false
+      }
+    },
     backMessage () {
       let dataJson = {
         success: true,
@@ -233,27 +273,60 @@ export default {
 </script>
 
 <style lang="less">
-  .order-done-info{
-    padding: 25px 0;
-    margin: 0 3%;
-    color: #666;
-    .backMessage{
-      width: 40px;
-      height: 23px;
-      display: inline-block;
-      color: #777;
-      text-align: center;
-      cursor: pointer;
+.order-done-info{
+  padding: 25px 0;
+  margin: 0 3%;
+  color: #666;
+  .backMessage{
+    width: 40px;
+    height: 23px;
+    display: inline-block;
+    color: #777;
+    text-align: center;
+    cursor: pointer;
+  }
+  .total{
+    color: #ff6700;
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 5px;
+    margin-left: 20px
+  }
+}
+.qrcode_order .order-done-flexbox{
+  margin: 0 3%;width: 94%;
+}
+
+.order-mobile {
+  height: 100% !important;
+  .order-done-flexbox .mu-flexbox-item{
+    padding-bottom: 10px;
+  }
+  .pay-code {
+    margin: 0 auto;
+    float: none;
+    &::before{
+      background: none;
     }
-    .total{
-      color: #ff6700;
-      font-size: 16px;
-      font-weight: bold;
-      margin-right: 5px;
-      margin-left: 20px
+    &::after{
+      background: none;
+    }
+    p{
+      display: none;
     }
   }
-  .qrcode_order .order-done-flexbox{
-    margin: 0 3%;width: 94%;
+}
+.order-mobile-info{
+  width: 180px;
+  margin: 0 auto;
+  padding: 10px 0;
+  color: #666;
+  .total{
+    color: #ff6700;
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 5px;
+    margin-left: 20px
   }
+}
 </style>
