@@ -304,7 +304,7 @@ export default {
   }
   .pay-code {
     margin: 0 auto;
-    float: none;
+    float: none !important;
     &::before{
       background: none;
     }
