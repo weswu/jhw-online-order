@@ -47,7 +47,7 @@
                                 <a href="http://www.jihui88.com/demo.html">模板</a>
                             </p>
                         </li>
-                        <li id="nav_case" class="hasChild" data-slide="0" ref="button" @mouseenter="enter" @mouseleave="hide">
+                        <li id="nav_case" class="hasChild" @mouseenter="enter" @mouseleave="hide">
                             <p>
                                 <a href="javascript:;">案例</a>
                                 <i class="material-icons iconfont">
@@ -75,10 +75,32 @@
                                 <a href="http://xueyuan.jihui88.com/news.html">学院</a>
                             </p>
                         </li>
-                        <li id="nav_about">
+                        <li id="nav_about" @mouseenter="enter2" @mouseleave="hide2">
                             <p>
                                 <a href="http://about.jihui88.com/">关于</a>
+                                <i class="material-icons iconfont">
+                                  keyboard_arrow_down
+                                </i>
                             </p>
+                            <transition name="fade">
+                              <ol class="header_nav_ol" v-show="showing2" @mouseenter="enter2" @mouseleave="hide2">
+                                  <li>
+                                      <a href="http://about.pc.jihui88.com/company.html">公司简介</a>
+                                  </li>
+                                  <li>
+                                      <a href="http://about.pc.jihui88.com/culture.html">企业文化</a>
+                                  </li>
+                                  <li>
+                                      <a href="http://about.pc.jihui88.com/cert.html">荣誉资质</a>
+                                  </li>
+                                  <li>
+                                      <a href="http://about.pc.jihui88.com/develop.html">发展历程</a>
+                                  </li>
+                                  <li>
+                                      <a href="http://about.pc.jihui88.com/contact.html">联系我们</a>
+                                  </li>
+                              </ol>
+                            </transition>
                         </li>
                     </ul>
                 </div>
@@ -118,9 +140,10 @@ export default {
       targetOrigin2: {horizontal: 'left', vertical: 'top'},
       open: false,
       opacity: 0,
-      trigger: null,
       showing: false,
-      timer: null
+      timer: null,
+      showing2: false,
+      timer2: null
     }
   },
   computed: {
@@ -130,9 +153,6 @@ export default {
   },
   created () {
     this.get()
-  },
-  mounted () {
-    this.trigger = this.$refs.button
   },
   methods: {
     get () {
@@ -222,6 +242,19 @@ export default {
         this.showing = false
         this.timer = null
       }, 300)
+    },
+    enter2 () {
+      if (this.timer2) {
+        window.clearInterval(this.timer2)
+      } else {
+        this.showing2 = true
+      }
+    },
+    hide2 () {
+      this.timer2 = setTimeout(() => {
+        this.showing2 = false
+        this.timer2 = null
+      }, 300)
     }
   }
 }
@@ -235,11 +268,12 @@ export default {
   height:0px !important;
   margin-top:0 !important;
   opacity: 0;
+  overflow: hidden;
 }
 .fade-leave,.fade-enter-active{
-  height: 102px;
   margin-top: 18px;
   opacity: 1;
+  overflow: hidden;
 }
 #jh_header {
     z-index:4;
@@ -260,7 +294,7 @@ export default {
 #jh_header .header_logo img {
     height:100%;
     vertical-align:top;
-    padding-right:15px;
+    padding-right:18.13px;
 }
 #jh_header .header_logo span {
     vertical-align:middle;
@@ -307,6 +341,7 @@ export default {
     color:#999;
     -webkit-transition:all 0.3s;
     transition:all 0.3s;
+    cursor: pointer;
 }
 #jh_header .header_content .header_nav .main_nav ul>li p:hover .iconfont {
     -webkit-transform:rotate(180deg);
@@ -336,16 +371,13 @@ export default {
     box-shadow:0 0 20px 0 rgba(0,0,0,0.15);
     padding:10px;
     min-width:120px;
-    height: 102px;
     margin-top: 18px;
     -webkit-transform:translateX(-50%);
     transform:translateX(-50%);
     z-index: 9;
-    overflow: hidden;
 }
 .header_nav_ol:before {
     content:'';
-    display:none;
     position:absolute;
     top:-16px;
     left:50%;
