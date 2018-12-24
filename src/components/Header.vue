@@ -72,7 +72,7 @@
                         </li>
                         <li id="nav_college">
                             <p>
-                                <a href="http://xueyuan.jihui88.com/news.html">学院</a>
+                                <a href="http://college.pc.jihui88.com/">学院</a>
                             </p>
                         </li>
                         <li id="nav_about" @mouseenter="enter2" @mouseleave="hide2">
