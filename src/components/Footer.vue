@@ -13,16 +13,16 @@
                       <div class="block_list" :style="icon1 === 'remove' ? 'display: block;' : ''">
                           <ul>
                               <li>
-                                  <a target="_blank" href="http://about.jihui88.com?profile">公司简介</a>
+                                  <a target="_blank" href="http://about.pc.jihui88.com/company.html">公司简介</a>
                               </li>
                               <li>
-                                  <a target="_blank" href="http://xueyuan.jihui88.com/news-344331-1.html">机汇动态</a>
+                                  <a target="_blank" href="http://college.pc.jihui88.com/news-344331-1.html">机汇动态</a>
                               </li>
                               <li>
-                                  <a target="_blank" href="http://about.jihui88.com?process">发展历程</a>
+                                  <a target="_blank" href="http://about.pc.jihui88.com/develop.html">发展历程</a>
                               </li>
                               <li>
-                                  <a target="_blank" href="http://about.jihui88.com?culture">企业文化</a>
+                                  <a target="_blank" href="http://about.pc.jihui88.com/culture.html">企业文化</a>
                               </li>
                           </ul>
                       </div>
@@ -96,7 +96,7 @@
                       <div class="block_list" :style="icon4 === 'remove' ? 'display: block;' : ''">
                           <ul>
                               <li>
-                                  <a target="_blank" href="http://about.jihui88.com?contact">联系我们</a>
+                                  <a target="_blank" href="http://about.pc.jihui88.com/contact.html">联系我们</a>
                               </li>
                               <li>
                                   <a target="_blank" href="http://www.ykcs.cn">加盟机汇</a>
@@ -114,22 +114,22 @@
                       <div class="block_list">
                           <ul>
                               <li>
-                                  <a target="_blank" href="http://about.jihui88.com?honor">营业执照</a>
+                                  <a target="_blank" href="http://about.pc.jihui88.com/cert.html">营业执照</a>
                               </li>
                               <li>
-                                  <a target="_blank" href="http://about.jihui88.com?honor">高新技术企业</a>
+                                  <a target="_blank" href="http://about.pc.jihui88.com/cert.html">高新技术企业</a>
                               </li>
                               <li>
-                                  <a target="_blank" href="http://about.jihui88.com?honor">优秀服务机构</a>
+                                  <a target="_blank" href="http://about.pc.jihui88.com/cert.html">优秀服务机构</a>
                               </li>
                               <li>
-                                  <a target="_blank" href="http://about.jihui88.com?honor">重点文化企业</a>
+                                  <a target="_blank" href="http://about.pc.jihui88.com/cert.html">重点文化企业</a>
                               </li>
                               <li>
-                                  <a target="_blank" href="http://about.jihui88.com?honor">实践基地</a>
+                                  <a target="_blank" href="http://about.pc.jihui88.com/cert.html">实践基地</a>
                               </li>
                               <li>
-                                  <a target="_blank" href="http://about.jihui88.com?honor">战略合作伙伴</a>
+                                  <a target="_blank" href="http://about.pc.jihui88.com/cert.html">战略合作伙伴</a>
                               </li>
                           </ul>
                       </div>

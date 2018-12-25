@@ -77,7 +77,7 @@
                         </li>
                         <li id="nav_about" @mouseenter="enter2" @mouseleave="hide2">
                             <p>
-                                <a href="http://about.jihui88.com/">关于</a>
+                                <a href="javascript:;">关于</a>
                                 <i class="material-icons iconfont">
                                   keyboard_arrow_down
                                 </i>
