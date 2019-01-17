@@ -188,7 +188,9 @@ export default {
         designerId: this.designerId || this.$store.state.shop.designerId,
         channel: this.$store.state.layoutId, // 来源站点
         chnnelType: 'pc', // 来源类型
-        layoutId: this.$store.state.layoutId
+        layoutId: this.$store.state.layoutId,
+        domain: this.$store.state.domain,
+        agentId: this.$store.state.agentId
       }
       if (order.priceItemIds === '') {
         return this.$refs.toast.show('请选择商品')

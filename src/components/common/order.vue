@@ -27,6 +27,7 @@
           <mu-td class="price"><span v-if="item.agentPrice || item.agentPrice === 0">￥{{item.agentPrice}}</span><span v-else>-</span></mu-td>
 
           <mu-td>{{item.agentName}}</mu-td>
+          <mu-td>{{item.domain || ''}}</mu-td>
           <mu-td v-if="item.agentId">线下订单</mu-td>
           <mu-td v-if="!item.agentId">
             <span v-if="item.paymentType === 'UN_PAY'">待付款</span>
@@ -97,6 +98,7 @@ export default {
         { title: '客户应付金额', width: 110 },
         { title: '经销商支付金额' },
         { title: '订单创建者', width: 130 },
+        { title: '来源网址' },
         { title: '标记', width: 90 },
         { title: '订单创建时间', width: 130 },
         { title: '状态', width: 70 },

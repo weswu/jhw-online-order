@@ -33,6 +33,8 @@ const state = {
   loading: false,
   loginUrl: '',
   layoutId: '',
+  domain: '',
+  agentId: '',
   // 用于购买产品
   ids: ''
 }
@@ -44,6 +46,8 @@ const getters = {
   loading: state => state.loading,
   loginUrl: state => state.loginUrl,
   layoutId: state => state.layoutId,
+  domain: state => state.domain,
+  agentId: state => state.agentId,
   ids: state => state.ids
 }
 
@@ -105,6 +109,12 @@ const mutations = {
   },
   setLayoutId (state, layoutId) {
     state.layoutId = layoutId
+  },
+  setDomain (state, domain) {
+    state.domain = domain
+  },
+  setAgentId (state, agentId) {
+    state.agentId = agentId
   },
   setIds (state, ids) {
     state.ids = ids

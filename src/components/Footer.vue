@@ -141,7 +141,7 @@
                           </div>
                       </div>
                       <div class="block_list">
-                          <img src="http://img.jihui88.com/upload/a/a1/about/picture/2018/11/28/14686729-9745-474c-bce1-2f671009b691.jpg"/>
+                          <img src="http://www.jihui88.com/resource_j/b2d41839-a6b0-4502-bbba-9dd406d6066e.jpg"/>
                       </div>
                   </div>
               </div>
