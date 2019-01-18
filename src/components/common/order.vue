@@ -28,11 +28,8 @@
 
           <mu-td>{{item.agentName}}</mu-td>
           <mu-td>{{item.domain || ''}}</mu-td>
-          <mu-td v-if="item.agentId">线下订单</mu-td>
-          <mu-td v-if="!item.agentId">
-            <span v-if="item.paymentType === 'UN_PAY'">待付款</span>
-            <span v-else>线上订单</span>
-          </mu-td>
+          <mu-td v-if="item.payType === 'OFFLINE'">线下订单</mu-td>
+          <mu-td v-else>线上订单</mu-td>
 
           <mu-td>{{item.addTime | time('yyyy-MM-dd hh:mm')}}</mu-td>
 

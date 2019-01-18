@@ -27,14 +27,11 @@
         <mu-flexbox>
           <mu-flexbox-item class="flex-demo"> 订单编号：{{detail.outTradeNo}}</mu-flexbox-item>
           <mu-flexbox-item class="flex-demo"> 标记：
-            <span v-if="!detail.agentId && !update1">
-              <span v-if="detail.paymentType === 'UN_PAY'">待付款</span>
-              <span v-else>线上订单</span>
-            </span>
-            <span v-if="detail.agentId && !update1">线下订单</span>
+            <span v-if="detail.payType === 'OFFLINE' && !update1">线下订单</span>
+            <span v-if="detail.payType !== 'OFFLINE' && !update1">线上订单</span>
 
             <span v-if="path === 'order'">
-              <mu-select-field v-model="detail.agentId" :labelFocusClass="['label-foucs']" class="update_select" v-if="update1">
+              <mu-select-field v-model="detail.payType" :labelFocusClass="['label-foucs']" class="update_select" v-if="update1">
                 <mu-menu-item v-for="v,index in selecctList" :key="index" :value="v.value" :title="v.text" />
               </mu-select-field>
 
@@ -150,8 +147,11 @@ export default {
     return {
       detail: {},
       selecctList: [
-        {text: '线上订单', value: ''},
-        {text: '线下订单', value: 'offline'}
+        {text: '微信支付', value: 'WX'},
+        {text: '支付宝支付', value: 'ALI'},
+        {text: '银行卡支付', value: 'BANK'},
+        {text: '代付', value: 'PFA'},
+        {text: '线下订单', value: 'OFFLINE'}
       ],
       dialog: false,
       path: '',
@@ -238,7 +238,7 @@ export default {
       }
       // 经销商提交后会变成线下订单
       if (this.path === 'agent') {
-        data.agentId = 'offline'
+        data.payType = 'OFFLINE'
         data.comment = this.detail.comment
       }
       this.$http.post('/admin/' + this.path + '/order/submit?' + qs.stringify(data)).then((res) => {
