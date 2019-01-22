@@ -1,5 +1,5 @@
 # jhw-online-order
-机汇网官方网站产品订购
+>[机汇网官方网站产品订购](http://buy.jihui88.com/#/)
 
 说明
 
@@ -34,3 +34,64 @@ java -Xms256m -jar jhw-online-order-java-0.0.1-SNAPSHOT.jar --spring.profiles.ac
 
 ### 部署
 把dist内的所有文件复制到jhw-online-order-java项目里的resource/static文件夹下
+
+
+## 软件架构
+- VUE2全家桶(vue vue-router vuex)
+- [muse-ui] (https://muse-ui.org/2.1.0/#/layout)
+
+## Install
+
+下载
+
+```shell
+npm install
+```
+
+## Run
+
+启动服务器
+
+```shell
+npm run dev
+```
+
+打包
+
+```shell
+npm run build
+```
+
+## 文件结构
+```shell
+.
+├── build  项目构建配置
+├── config  开发相关配置
+└── src
+    ├── api  AJAX请求
+    └── assets  项目静态资源
+        ├── app  全局样式
+        └── filter  全局过滤
+    └── components  业务组件
+        ├── admin 订单管理系统
+        ├── common 订单管理系统（通用模块）
+        ├── pay 支付（通用模块）
+        ├── shop 常见问题、在线咨询、个必化定制和优惠套餐的通用模块
+        ├── uc 用户中心
+        └── 其它共用页面
+    └── pages  页面文件
+        ├── ActiveMessage  消息（不使用）
+        ├── Admin  管理员（订单管理系统）
+        ├── Log  更新日志（不使用）
+        ├── Order  消费记录（不使用）
+        ├── Paid  支付成功成功页面（不使用）
+        ├── Shop  首页右侧浮动
+        ├── spread  推广（不使用）
+        └── UserCenter 用户中心（不使用）
+    ├── router  路由配置
+    └── store  Vuex配置
+```
+
+
+## 技术支持
+- [接口文档](https://jihui88.oschina.io/jhw-api/?file=home-%E9%A6%96%E9%A1%B5)
